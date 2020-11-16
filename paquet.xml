@@ -1,0 +1,14 @@
+<paquet
+	prefix="ata_squelettes"
+	categorie="squelette"
+	version="1.0.0"
+	etat="dev"
+	compatibilite="[3.3.0-dev;3.3.*]"
+	logo="prive/themes/spip/images/ata_squelettes-64.png"
+	documentation=""
+>
+	<nom>ATA Squelettes</nom>
+	<auteur lien='https://rouge-rose.net'>christophe le drean</auteur>
+	<licence>GNU/GPL v3</licence>
+	<necessite nom="zcore" compatibilite="[2.8.7;]" />
+</paquet>
