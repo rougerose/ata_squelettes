@@ -11,6 +11,7 @@
 	<auteur lien='https://rouge-rose.net'>christophe le drean</auteur>
 	<licence>GNU/GPL v3</licence>
 	<necessite nom="zcore" compatibilite="[2.8.7;]" />
+	<necessite nom="ata_associations" compatibilite="[1.0.0;]" />
 	<spip compatibilite="[3.3.0-dev;3.3.*]">
 		<style type="public" source="dist/css/ata.min.css" />
 	</spip>
