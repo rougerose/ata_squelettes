@@ -12,5 +12,6 @@ if (!isset($GLOBALS['z_blocs'])) {
 		'head',
 		'header',
 		'footer',
+		'overlay'
 	);
 }
