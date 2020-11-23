@@ -1,0 +1,89 @@
+// ========================================
+// Navigation principale
+// ========================================
+
+// Variables Hamburger //
+$hamburger-layer-width: 20px;
+$hamburger-layer-height: 3px;
+$hamburger-layer-spacing: 3px;
+
+.st-Nav {
+	display: flex;
+	padding-top: $spacing-unit-tiny;
+	padding-bottom: $spacing-unit-tiny;
+}
+
+	// Lien logo et slogan
+	// ========================================
+
+	.st-Nav_SiteLink {
+		&-logo {
+			display: flex;
+			justify-content: center;
+			@include mq($until: l) {
+				flex: 2; // Centrer le logo
+				padding-left: $hamburger-layer-width;
+			}
+		}
+	}
+
+	// Logo
+	// ========================================
+	.st-Nav_Logo {
+		width: $logo-width-mobile;
+	}
+
+	// Slogan
+	// ========================================
+	.st-Nav_Slogan {
+		@include mq($until: l) {
+			display: none;
+		}
+
+		@include mq(l) {
+			flex: 1; // Permet au logo d'être centrer*
+			align-self: center;
+			@include font-size(16px);
+			font-weight: 600;
+
+			@include mq(xl) {
+				@include font-size(18px);
+			}
+		}
+	}
+
+	// Menu principal
+	// ========================================
+	.st-Nav_List {
+		display: flex;
+		justify-content: flex-end;
+		flex: 1; // Permet au logo d'être centrer*
+		align-self: center;
+		margin: 0;
+		list-style: none;
+		@include font-size(16px);
+
+		@include mq($until: l) {
+			display: none;
+		}
+
+		@include mq(xl) {
+			@include font-size(18px);
+		}
+	}
+
+	.st-Nav_Item {
+		margin-left: $spacing-unit-small;
+	}
+
+	// Nav Trigger
+	// ========================================
+	.st-Nav_Trigger {
+		display: flex;
+		align-self: center;
+		@include mq(l) {
+			display: none;
+		}
+	}
+
+// *https://stackoverflow.com/questions/32378953/keep-the-middle-item-centered-when-side-items-have-different-widths

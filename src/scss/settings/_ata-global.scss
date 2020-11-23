@@ -2,9 +2,20 @@
 
 
 // ATA
+	// Mediaqueries
+	$mq-breakpoints: (s: 320px, m: 768px, l: 1024px, xl: 1200px);
 
 	// fonts
+	$font-ata: "Euclid Triangle", sans-serif;
 	$font-monospace: monospace;
+
+	// logo sizes
+	$logo-width-mobile: 117px;
+
+	// nav
+	$nav-line-height: 49px;
 
 	// z-index
 	$zindex-spip-admin-float: 20;
+	$zindex-header: 10;
+	$zindex-map: 5;

@@ -1,0 +1,33 @@
+// st-Header
+// ========================================
+
+.st-Header {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: $zindex-header;
+	background-color: $color-white;
+	box-shadow: 0 0.125rem 0.3125rem rgba($color-black, 0.26);
+	transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+
+	.js & {
+		transform: translateY(-100%);
+		opacity: 0;
+
+		&.is-visible {
+			opacity: 1;
+			transform: none;
+		}
+	}
+}
+// .st-Header_Nav {}
+
+.st-Header_NavOverlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: $color-gray-500;
+}
