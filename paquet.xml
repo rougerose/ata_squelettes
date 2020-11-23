@@ -12,7 +12,13 @@
 	<licence>GNU/GPL v3</licence>
 	<necessite nom="zcore" compatibilite="[2.8.7;]" />
 	<necessite nom="ata_associations" compatibilite="[1.0.0;]" />
+	<necessite nom="compositions" compatibilite="[3.8.1;]" />
+
+	<utilise nom="sociaux" compatibilite="[2.2.0;]" />
+	<utilise nom="gis" compatibilite="[4.49.2;]" />
+
 	<spip compatibilite="[3.3.0-dev;3.3.*]">
+		<script type="public" source="dist/js/ata.js" />
 		<style type="public" source="dist/css/ata.min.css" />
 	</spip>
 </paquet>
