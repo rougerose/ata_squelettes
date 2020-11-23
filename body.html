@@ -1,0 +1,12 @@
+<body>
+	<header class="st-Header" data-section role="banner">
+		<INCLURE{fond=header/#ENV{type-page}, env} />
+	</header>
+	<main class="st-Main" data-section>
+		<div class="st-SiteContent_Inner">
+			<INCLURE{fond=content/#ENV{type-page}, env} />
+		</div>
+	</main>
+	<INCLURE{fond=footer/#ENV{type-page}, env} />
+	<INCLURE{fond=overlay/#ENV{type-page}, env} />
+</body>
