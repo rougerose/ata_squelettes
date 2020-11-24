@@ -17,6 +17,7 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
+    "OverlappingMarkerSpiderfier-Leaflet": "https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet.git",
     "autoprefixer": "^10.0.2",
     "babel-loader": "^8.2.1",
     "browser-sync": "^2.26.13",
