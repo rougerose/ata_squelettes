@@ -1,8 +1,8 @@
+import $ from "jquery";
 import { config } from "./ataConfig";
 import { navState } from "./components/navState";
 
 document.addEventListener("DOMContentLoaded", function () {
-
 	// Nav_Trigger : handle click event
 	// ==================================
 	let navTriggers = document.querySelectorAll(config.header.navTriggerHook);
@@ -42,5 +42,4 @@ document.addEventListener("DOMContentLoaded", function () {
 			section.classList.add(sectionClass);
 		}
 	}, 800);
-
 });

@@ -1,5 +1,5 @@
 <BOUCLE_compteur_associations(ASSOCIATIONS){gis}> </BOUCLE_compteur_associations>#SET{total, #TOTAL_BOUCLE}</B_compteur_associations>
-[(#SET{mapID, _atlas})]
+[(#SET{mapID, 1})]
 [<div class="mp-Map">
 	(#INCLURE{fond=modeles/carte_gis, id_map=#GET{mapID}, style=non, cluster=oui, zoom=6, limite=#GET{total, 500}})
 	<!-- <script type="text/javascript">callback_map[(#GET{mapID})] = function(map){ console.log(window, map); }</script> -->
