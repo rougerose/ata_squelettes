@@ -1,35 +1,13 @@
 import { config } from "./ataConfig";
-import { navState } from "./components/navState";
+import { navTriggerHandlerEvent } from "./components/nav";
 
 document.addEventListener("DOMContentLoaded", function () {
-
-	// Nav_Trigger : handle click event
+	// Nav_Trigger : click event
 	// ==================================
-	let navTriggers = document.querySelectorAll(config.header.navTriggerHook);
-	let total = navTriggers.length;
-	for (let i = 0; i < total; i++) {
-		const navTrigger = navTriggers[i];
-		const navTriggerStateClass = config.header.navTriggerStateClass;
-		// Identifier l'autre bouton (sur un total de 2)
-		// afin de gérer son état également lors du clic
-		let i_alt = (i + 1) % total;
-		navTrigger.addEventListener(
-			"click",
-			() => {
-				let open = navState();
-				if (open) {
-					navTrigger.classList.add(navTriggerStateClass);
-					navTriggers[i_alt].classList.add(navTriggerStateClass);
-				} else {
-					navTrigger.classList.remove(navTriggerStateClass);
-					navTriggers[i_alt].classList.remove(navTriggerStateClass);
-				}
-			},
-			false
-		);
-	}
+	const navTriggers = document.querySelectorAll(config.header.navTriggerHook);
+	navTriggerHandlerEvent(navTriggers);
 
-	// Animation sections (header, main and footer)
+	// Animation des sections (header, main and footer)
 	// ================================================
 	const pageSections = document.querySelectorAll(
 		config.sections.sectionsHook
@@ -44,3 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}, 800);
 
 });
+
+function ataMap(selector) {
+	let el = document.querySelector(selector);
+	console.log(el);
+	// return el;
+}
+
+export default ataMap

@@ -16,7 +16,7 @@ const options = {
 			watch: 'src/scss/**/*.scss'
 		},
 		js: {
-			src: 'src/js/ata.js',
+			src: 'src/js/index.js',
 			dest: 'dist/js/',
 			watch: 'src/js/**/*.js'
 		}
