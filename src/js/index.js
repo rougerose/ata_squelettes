@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		config.sections.sectionsHook
 	);
 	const sectionClass = config.sections.sectionsStateClass;
-
 	setTimeout(() => {
 		for (let i = 0; i < pageSections.length; i++) {
 			const section = pageSections[i];
@@ -21,12 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	}, 800);
 
+
 });
 
-function ataMap(selector) {
-	let el = document.querySelector(selector);
-	console.log(el);
-	// return el;
+function ata(mapObj) {
+	let map = mapObj;
+	console.log(map);
 }
 
-export default ataMap
+export default ata

@@ -7,7 +7,7 @@ let config = {
 					loader: "babel-loader",
 					options: {
 						presets: ["@babel/preset-env"],
-						plugins: ["@babel/plugin-proposal-class-properties"],
+						// plugins: ["@babel/plugin-proposal-class-properties"],
 					},
 				},
 			},
@@ -15,7 +15,7 @@ let config = {
 	},
 	output: {
 		filename: "ata.js",
-		library: "ataMap",
+		library: "ata",
 		libraryTarget: "var",
 		libraryExport: "default",
 	},
