@@ -17,7 +17,7 @@
 	<utilise nom="sociaux" compatibilite="[2.2.0;]" />
 	<utilise nom="gis" compatibilite="[4.49.2;]" />
 
-	<!-- <pipeline nom="recuperer_fond" inclure="ata_squelettes_pipelines" /> -->
+	<pipeline nom="recuperer_fond" inclure="ata_squelettes_pipelines" />
 
 	<spip compatibilite="[3.3.0-dev;3.3.*]">
 		<script type="public" source="dist/js/ata.js" />
