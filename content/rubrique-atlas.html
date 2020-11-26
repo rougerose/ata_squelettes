@@ -1,6 +1,10 @@
+<div class="ajax">
+	#FORMULAIRE_ATLAS_FULLTEXT
+</div>
+
 <BOUCLE_compteur_associations(ASSOCIATIONS){gis}> </BOUCLE_compteur_associations>#SET{total, #TOTAL_BOUCLE}</B_compteur_associations>
 [(#SET{mapID, _atlas})]
 [<div class="mp-Map">
 	(#INCLURE{fond=modeles/carte_gis, objets=associations, id_map=#GET{mapID}, style=non, zoom=6, cluster=oui, clusterSpiderfyOnMaxZoom=oui, limite=#GET{total, 500}})
-	[<script type="text/javascript">callback_map(#GET{mapID}) = function(map){ console.log(map); }</script>]
+	[<script type="text/javascript">callback_map(#GET{mapID}) = function(map){ ata(map); }</script>]
 </div>]

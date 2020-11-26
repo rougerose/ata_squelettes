@@ -1,0 +1,24 @@
+<div class='formulaire_spip formulaire_#FORM'>
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable})
+	<form method='post' action='#ENV{action}'>
+		<div>
+			#ACTION_FORMULAIRE{#ENV{action}}
+			[(#SET{params, #ARRAY{limite, 5}|json_encode|attribut_html})]
+			[(#SET{attributs, data-selecteur="atlas_fulltext" data-select-php="oui" data-select-params="[(#GET{params})]"})]
+			<div class="editer-groupe">
+				[(#SAISIE{input, url,
+					label=<:selections_contenu:champ_url_label:>,
+					attributs=#GET{attributs}}
+				)]
+			</div>
+			<!--extra-->
+			<!-- <p class="boutons">
+				<a class="ajax" href="[(#SELF|parametre_url{editer_contenu,non})]"><:bouton_annuler:></a>
+				<input type='submit' class='submit' value='<:bouton_valider:>' />
+			</p> -->
+		</div>
+	</form>]
+</div>
