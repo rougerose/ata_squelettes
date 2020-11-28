@@ -16,5 +16,6 @@ function formulaires_atlas_fulltext_verifier() {
 
 function formulaires_atlas_fulltext_traiter() {
 	$retour = array();
+
 	return $retour;
 }

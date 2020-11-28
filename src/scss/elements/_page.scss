@@ -3,3 +3,7 @@ html {
 	color: $color-black;
 	background-color: $color-white;
 }
+
+body {
+	padding-top: $headerHeight;
+}

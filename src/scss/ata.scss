@@ -119,6 +119,7 @@
 // @import "node_modules/inuitcss/objects/objects.table";
 // @import "node_modules/inuitcss/objects/objects.pack";
 @import "objects/wrapper";
+@import "objects/btn";
 
 
 // COMPONENTS
@@ -131,6 +132,7 @@
 
 	// mp : map
 	@import "components/mp-Map";
+	@import "components/mp-SearchBox";
 
 	// libs
 	@import "node_modules/hamburgers/_sass/hamburgers/hamburgers";

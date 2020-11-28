@@ -1,5 +1,6 @@
 import { config } from "./ataConfig";
 import { navTriggerHandlerEvent } from "./components/nav";
+import { setupMap } from "./components/map";
 
 document.addEventListener("DOMContentLoaded", function () {
 	// Nav_Trigger : click event
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function ata(mapObj) {
 	let map = mapObj;
-	console.log(map);
+	setupMap(map);
 }
 
 export default ata

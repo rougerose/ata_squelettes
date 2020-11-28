@@ -1,0 +1,131 @@
+// ========================================
+// mp-SearchBox (map search box)
+// ========================================
+
+$btn-size: 24px;
+$btn-options-size: 30px;
+
+.mp-SearchBox {
+	position: absolute;
+	z-index: $zindex-map + 1;
+	width: calc(100% - #{$spacing-unit});
+	left: $spacing-unit-small;
+	top: 0;
+	margin-top: $spacing-unit-tiny;
+	@include font-size(15px, $modifier: -1);
+	background-color: $color-form-searchBox-bg;
+	box-shadow: 0 4px 4px rgba($color-black, 0.25);
+}
+
+.mp-SearchBox_Fulltext {
+	padding: $spacing-unit-tiny;
+	padding-left: $spacing-unit-tiny + $btn-options-size + $spacing-unit-tiny;
+}
+
+// Form
+// ========================================
+
+.mp-SearchBox_Form {
+	position: relative;
+
+}
+
+// Options
+// ========================================
+
+// Bouton //
+.mp-SearchBox_OptionsBtn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+  	left: $spacing-unit-tiny;
+  	z-index: $zindex-map + 1;
+  	height: $btn-options-size;
+  	width: $btn-options-size;
+  	background-color: $color-form-searchBox-bg;
+	transition: background-color 0.3s ease;
+}
+
+// Icone //
+.mp-SearchBox_IconOptionsBtn {
+	stroke: $color-form-label-text;
+}
+
+
+// Groupe de champs
+// ========================================
+.mp-SearchBox_GroupFullText {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	border: 1px solid $color-form;
+	padding: 0 $spacing-unit-tiny;
+	transition: border-color 0.3s ease;
+
+	&.is-focused {
+		border-color: $color-ternary;
+	}
+
+	// .editer_fulltext {}
+
+	label {
+		position: absolute;
+		top: 50%;
+		z-index: $zindex-map + 1;
+		color: $color-form-label-text;
+		transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
+		transform: translateY(-50%);
+		@include font-size(15px, 1);
+
+		&.is-focused {
+			color: $color-secondary;
+			transform: translateY(-120%);
+			@include font-size(12px, false);
+		}
+	}
+}
+
+// Input Fulltext //
+.mp-SearchBox_InputFulltext {
+	padding-top: $spacing-unit-small + $spacing-unit-tiny;
+	border: none;
+	outline: currentColor none medium;
+	@include font-size(15px, 1);
+}
+
+// Boutons et icones Rechercher Annuler
+// ========================================
+
+// Boutons Rechercher et Annuler
+// Remarque: le "bouton" Rechercher est en réalité un div
+.mp-SearchBox_SearchBtn,
+.mp-SearchBox_CancelBtn {
+	display: block;
+	position: absolute;
+	z-index: $zindex-map + 1;
+	right: $spacing-unit-tiny;
+	top: 50%;
+	transform: translateY(-50%);
+	height: $btn-size;
+	width: $btn-size;
+}
+
+// Icones Rechercher et Annuler //
+.mp-SearchBox_IconSearch,
+.mp-SearchBox_IconCancel {
+	stroke: $color-form;
+}
+
+.mp-SearchBox_IconSearch {
+	.is-focused & {
+		display: none;
+	}
+}
+
+.mp-SearchBox_CancelBtn {
+	display: none;
+
+	.is-focused & {
+		display: block;
+	}
+}
