@@ -8,6 +8,7 @@ import size from "gulp-size";
 import del from "del";
 import browserSync from "browser-sync";
 import webpackStream from "webpack-stream";
+import terser from "gulp-terser-js";
 
 const options = {
 	paths: {
@@ -20,10 +21,14 @@ const options = {
 			src: "dist/css/*.css",
 			dest: "dist/css/",
 		},
-		js: {
+		jsAta: {
 			src: "src/js/index.js",
 			dest: "dist/js/",
 			watch: "src/js/**/*.js",
+		},
+		jsComp: {
+			src: ["src/js/ata_autocomplete_widget.js"],
+			dest: "dist/js/"
 		},
 		jsLib: {
 			all: {
@@ -74,12 +79,26 @@ export const cssMinify = () => {
 };
 
 // JS Task
-export const js = () => {
-	return src(options.paths.js.src)
+const jsAta = () => {
+	return src(options.paths.jsAta.src)
 		.pipe(webpackStream(config))
+		.pipe(rename({ suffix: ".min" }))
 		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
-		.pipe(dest(options.paths.js.dest));
+		.pipe(dest(options.paths.jsAta.dest));
 };
+
+const jsComp = () => {
+	return src(options.paths.jsComp.src)
+		.pipe(terser())
+		.on("error", function (error) {
+			this.emit("end");
+		})
+		.pipe(rename({ suffix: ".min" }))
+		.pipe(size({ title: "JSsup", gzip: true, showFiles: true }))
+		.pipe(dest(options.paths.jsAta.dest));
+};
+
+export const js = series(jsAta, jsComp);
 
 // JS Leaflet Lib/Plugins
 // chaque plugin est copié séparément
@@ -106,7 +125,7 @@ export const reload = (done) => {
 // Watch Task
 export const watchFiles = () => {
 	watch(options.paths.scss.watch, scss);
-	watch(options.paths.js.watch, series(js, reload));
+	watch(options.paths.jsAta.watch, series(js, reload));
 };
 
 // dev, build and default Tasks
