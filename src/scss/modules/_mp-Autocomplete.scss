@@ -1,0 +1,53 @@
+// .mp-Autocomplete {}
+
+.mp-Autocomplete_List {
+	&.ui-widget.ui-widget-content {
+		z-index: $zindex-searchbox;
+		padding: $spacing-unit-small 0 $spacing-unit-tiny;
+		font-family: inherit;
+		// @include font-size(14px, $modifier: -1.5);
+		@include font-size(15px, $modifier: -1);
+		border: 0;
+		box-shadow: 0 4px 4px rgba($color-black, 0.25);
+	}
+}
+
+.mp-Autocomplete_Item {
+	position: relative;
+  	padding: ($spacing-unit-tiny / 2) 0 ($spacing-unit-tiny) $spacing-unit;
+
+	&::before {
+		position: absolute;
+		left: $spacing-unit-tiny /2;
+		top: $spacing-unit-tiny / 2;
+		content: "";
+		width: 18px;
+		height: 18px;
+		background-image: url("../../images/icons/autocomplete-marker@2x.png");
+		background-repeat: no-repeat;
+	}
+
+	&-city {
+		&::before {
+			background-position: -18px 0;
+		}
+	}
+
+	&-activity {
+		&::before {
+		  background-position: -36px 0;
+		}
+	}
+
+	&-org {
+		&::before {
+			background-position: 0 0;
+		}
+	}
+}
+
+.mp-Autocomplete_Link {
+  .ui-menu &.ui-menu-item-wrapper {
+    padding: 0;
+  }
+}

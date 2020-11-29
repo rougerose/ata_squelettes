@@ -3,36 +3,34 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 		delay: 500,
 		prefix: "",
 		classes: {
-			"ui-autocomplete": "mp-Form_AutocompleteMenu",
+			"ui-autocomplete": "mp-Autocomplete_List",
 		},
+		appendTo: "#SearchBox",
+		position: {
+			of: "#SearchBox"
+		}
 	},
 
 	_renderItem: function (ul, item) {
 		var label = item.label;
 		var value = item.value.split(":");
-		var li_class = "mp-Form_AutocompleteMenuItem";
+		var li_class = "mp-Autocomplete_Item";
 
-		if (value[0] === "ville") {
-			li_class += " mp-Form_AutocompleteMenuItem-Geo";
+		if (value[0] === "id_adresse") {
+			li_class += " mp-Autocomplete_Item-city";
 		} else if (value[0] === "id_mot") {
-			li_class += " mp-Form_AutocompleteMenuItem-Activity";
+			li_class += " mp-Autocomplete_Item-activity";
 		} else if (value[0] === "id_association") {
-			li_class += " mp-Form_AutocompleteMenuItem-Org";
+			li_class += " mp-Autocomplete_Item-org";
 		}
-
-		// if (this.options.prefix) {
-		//   label = this.options.prefix + " " + label;
-		// }
 		return $("<li>")
 			.addClass(li_class)
-			.append(
-				$("<a>").addClass("mp-Form_AutocompleteMenuLink").text(label)
-			)
+			.append($("<a>").addClass("mp-Autocomplete_Link").text(label))
 			.appendTo(ul);
 	},
 
 	_resizeMenu: function () {
-		var ul = this.menu.element;
-		ul.outerWidth(this.element.outerWidth());
+		// this.menu.element = ul
+		this.menu.element.outerWidth("100%");
 	},
 });

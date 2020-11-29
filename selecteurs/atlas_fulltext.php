@@ -125,7 +125,7 @@ function selecteurs_atlas_fulltext() {
 				}
 				$resultats[] = array(
 					'label' => $label,
-					'value' => $cle . ':' . $res[$desc['cle_objet']]
+					'value' => $desc['cle_objet'] . ':' . $res[$desc['cle_objet']]
 				);
 			}
 		}

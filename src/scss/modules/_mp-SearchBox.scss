@@ -3,10 +3,18 @@
 // ========================================
 .mp-SearchBox {
 	position: absolute;
-	z-index: $zindex-map + 1;
 	width: calc(100% - #{$spacing-unit});
-	left: $spacing-unit-small;
+	z-index: $zindex-searchbox;
 	top: 0;
+	left: $spacing-unit-small;
+}
+
+.mp-SearchBox_Module {
+	position: relative;
+	z-index: $zindex-searchbox + 1;
+	// width: 100%;
+	// left: $spacing-unit-small;
+	// top: 0;
 	margin-top: $spacing-unit-tiny;
 	@include font-size(15px, $modifier: -1);
 	background-color: $color-form-searchBox-bg;
