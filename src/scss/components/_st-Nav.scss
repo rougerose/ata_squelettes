@@ -54,10 +54,12 @@ $hamburger-layer-spacing: 3px;
 
 	// Menu principal
 	// ========================================
+	// [1] Permet au logo d'être centrer, voir
+	// https://stackoverflow.com/questions/32378953/keep-the-middle-item-centered-when-side-items-have-different-widths
 	.st-Nav_List {
 		display: flex;
 		justify-content: flex-end;
-		flex: 1; // Permet au logo d'être centrer*
+		flex: 1; // [1]
 		align-self: center;
 		margin: 0;
 		list-style: none;
@@ -85,5 +87,3 @@ $hamburger-layer-spacing: 3px;
 			display: none;
 		}
 	}
-
-// *https://stackoverflow.com/questions/32378953/keep-the-middle-item-centered-when-side-items-have-different-widths
