@@ -15,7 +15,6 @@ const options = {
 		scss: {
 			src: "src/scss/*.scss",
 			dest: "dist/css/",
-			watch: "src/scss/**/*.scss",
 		},
 		css: {
 			src: "dist/css/*.css",
@@ -24,7 +23,6 @@ const options = {
 		jsAta: {
 			src: "src/js/index.js",
 			dest: "dist/js/",
-			watch: "src/js/**/*.js",
 		},
 		jsComp: {
 			src: ["src/js/ata_autocomplete_widget.js"],
@@ -82,7 +80,6 @@ export const cssMinify = () => {
 const jsAta = () => {
 	return src(options.paths.jsAta.src)
 		.pipe(webpackStream(config))
-		.pipe(rename({ suffix: ".min" }))
 		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
 		.pipe(dest(options.paths.jsAta.dest));
 };
@@ -124,8 +121,8 @@ export const reload = (done) => {
 
 // Watch Task
 export const watchFiles = () => {
-	watch(options.paths.scss.watch, scss);
-	watch(options.paths.jsAta.watch, series(js, reload));
+	watch('src/scss/**/*.scss', scss);
+	watch('src/js/**/*.js', series(js, reload));
 };
 
 // dev, build and default Tasks

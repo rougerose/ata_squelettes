@@ -1,3 +1,4 @@
+const path = require('path');
 let config = {
 	module: {
 		rules: [
@@ -14,6 +15,7 @@ let config = {
 		],
 	},
 	output: {
+		path: path.resolve(__dirname, 'dist/js'),
 		filename: "ata.js",
 		library: "ata",
 		libraryTarget: "var",
