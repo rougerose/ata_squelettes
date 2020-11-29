@@ -1,0 +1,30 @@
+.mp-SearchBox_GroupFulltext {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	border: 1px solid $color-form;
+	padding: 0 $spacing-unit-tiny;
+	transition: border-color 0.3s ease;
+
+	&.is-focused {
+		border-color: $color-ternary;
+	}
+
+	// .editer_fulltext {}
+
+	label {
+		position: absolute;
+		top: 50%;
+		z-index: $zindex-map + 1;
+		color: $color-form-label-text;
+		transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
+		transform: translateY(-50%);
+		@include font-size(15px, 1);
+
+		&.is-focused {
+			color: $color-secondary;
+			transform: translateY(-120%);
+			@include font-size(12px, false);
+		}
+	}
+}

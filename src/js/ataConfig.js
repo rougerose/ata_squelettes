@@ -10,7 +10,7 @@ export const config = {
 	},
 	mapSearchBox: {
 		containerClass: ".mp-SearchBox",
-		searchBtnClass: ".mp-SearchBox_SearchBtn",
-		cancelBtnClass: ".mp-SearchBox_CancelBtn",
+		searchBtnClass: ".mp-SearchBox_BtnSearch",
+		cancelBtnClass: ".mp-SearchBox_BtnCancel",
 	},
 };

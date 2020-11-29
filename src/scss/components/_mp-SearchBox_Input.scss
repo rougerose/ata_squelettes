@@ -1,0 +1,7 @@
+// Fulltext //
+.mp-SearchBox_InputFulltext {
+	padding-top: $spacing-unit-small + $spacing-unit-tiny;
+	border: none;
+	outline: currentColor none medium;
+	@include font-size(15px, 1);
+}

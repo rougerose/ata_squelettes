@@ -1,0 +1,16 @@
+// Options //
+.mp-SearchBox_IconOptions {
+	stroke: $color-form-label-text;
+}
+
+// Rechercher et Annuler //
+.mp-SearchBox_IconSearch,
+.mp-SearchBox_IconCancel {
+	stroke: $color-form;
+}
+
+.mp-SearchBox_IconSearch {
+	.is-focused & {
+		display: none;
+	}
+}
