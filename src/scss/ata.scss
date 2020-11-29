@@ -121,24 +121,26 @@
 @import "objects/wrapper";
 @import "objects/btn";
 
+// MODULES
+// st : structure des pages
+@import "modules/st-Header";
+@import "modules/st-Main";
+@import "modules/st-Overlay";
+@import "modules/st-Nav";
+@import "modules/st-NavOverlay";
+
+// mp : map
+@import "modules/mp-Map";
+@import "modules/mp-SearchBox";
+
+// libs
+@import "node_modules/hamburgers/_sass/hamburgers/hamburgers";
+
+// CMS : styles spécifiques à SPIP
+@import "modules/cms_spip-admin";
 
 // COMPONENTS
-	// st : structure des pages
-	@import "components/st-Header";
-	@import "components/st-Main";
-	@import "components/st-Overlay";
-	@import "components/st-Nav";
-	@import "components/st-NavOverlay";
 
-	// mp : map
-	@import "components/mp-Map";
-	@import "components/mp-SearchBox";
-
-	// libs
-	@import "node_modules/hamburgers/_sass/hamburgers/hamburgers";
-
-	// CMS : styles spécifiques à SPIP
-	@import "components/cms_spip-admin";
 
 
 // UTILITIES
