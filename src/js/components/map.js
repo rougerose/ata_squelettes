@@ -1,10 +1,12 @@
-import { setupSearchBox } from "./map-searchbox";
+import { setupSearchBox, autocomplete_callback } from "./map-searchbox";
 
 
-export let setupMap = (map) => {
+export const setupMap = (map) => {
 	setupControlZoom(map);
 	setupSearchBox(map);
 }
+
+export { autocomplete_callback }
 
 
 function setupControlZoom(mapObj) {

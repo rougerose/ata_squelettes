@@ -1,6 +1,6 @@
 import { config } from "./ataConfig";
 import { navTriggerHandlerEvent } from "./components/nav";
-import { setupMap } from "./components/map";
+import { setupMap, autocomplete_callback } from "./components/map";
 
 document.addEventListener("DOMContentLoaded", function () {
 	// Nav_Trigger : click event
@@ -24,9 +24,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-function ata(mapObj) {
-	let map = mapObj;
-	setupMap(map);
+// function ata(mapObj) {
+// 	let map = mapObj;
+// 	setupMap(map);
+// 	autocomplete_callback;
+// }
+
+const ata = (mapObj) => {
+	setupMap(mapObj);
 }
 
-export default ata
+export { ata };

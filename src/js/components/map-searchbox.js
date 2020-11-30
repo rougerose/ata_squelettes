@@ -39,7 +39,17 @@ export const setupSearchBox = (map) => {
 	// 	// console.log(input);
 	// 	// cancelBtn.addEventListener("click", handleCancelEvent.bind(input), false);
 	// }
-}
+};
+
+export const autocomplete_callback = (event, ui) => {
+	let keyword = {
+		label: ui.item.label,
+		value: ui.item.value
+	};
+
+	this.value = "";
+	return false;
+};
 
 // function handleCancelEvent() {
 // 	console.log(this);

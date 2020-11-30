@@ -19,7 +19,7 @@ let config = {
 		filename: "ata.js",
 		library: "ata",
 		libraryTarget: "var",
-		libraryExport: "default",
+		libraryExport: "ata",
 	},
 };
 
