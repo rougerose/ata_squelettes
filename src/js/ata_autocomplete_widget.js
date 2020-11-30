@@ -1,11 +1,11 @@
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 	options: {
 		delay: 500,
-		prefix: "",
+		// prefix: "",
+		// appendTo: "#SearchBox",
 		classes: {
 			"ui-autocomplete": "mp-Autocomplete_List",
 		},
-		appendTo: "#SearchBox",
 		position: {
 			of: "#SearchBox"
 		}
