@@ -9,7 +9,7 @@
 
 			[(#SET{params, #ARRAY{limite, 5}|json_encode|attribut_html})]
 			[(#SET{dataid, #VAL{1}|uniqid})]
-			[(#SET{attributs, data-id="[(#GET{dataid})]" data-selecteur="atlas_fulltext" data-select-php="oui" data-select-params="[(#GET{params})]"})]
+			[(#SET{attributs, value="" data-id="[(#GET{dataid})]" data-selecteur="atlas_fulltext" data-select-php="oui" data-select-callback="autocomplete_callback" data-select-params="[(#GET{params})]"})]
 			<div class="editer-groupe mp-SearchBox_GroupFulltext">
 				[(#SAISIE{input, fulltext,
 					label=<:ata_squelettes:label_fulltext:>,

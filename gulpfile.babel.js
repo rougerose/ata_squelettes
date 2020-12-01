@@ -7,8 +7,11 @@ import rename from "gulp-rename";
 import size from "gulp-size";
 import del from "del";
 import browserSync from "browser-sync";
-import webpackStream from "webpack-stream";
-import terser from "gulp-terser-js";
+import babel from "@rollup/plugin-babel";
+import { rollup } from "rollup";
+import { terser } from "rollup-plugin-terser";
+import gulpterser from "gulp-terser-js";
+import gulpTerser from "gulp-terser-js";
 
 const options = {
 	paths: {
@@ -20,12 +23,11 @@ const options = {
 			src: "dist/css/*.css",
 			dest: "dist/css/",
 		},
-		jsAta: {
-			src: "src/js/index.js",
-			dest: "dist/js/",
-		},
-		jsComp: {
-			src: ["src/js/ata_autocomplete_widget.js"],
+		js: {
+			src: [
+				"src/js/ataInit.js",
+				"src/js/ata_autocomplete_widget.js",
+			],
 			dest: "dist/js/"
 		},
 		jsLib: {
@@ -45,11 +47,6 @@ const options = {
 		outputStyle: "expanded",
 	},
 };
-
-// Webpack-stream config
-// https://gist.github.com/prplmark/cdb1ac061670c7df18b928deae2dcf5c
-let config = require("./webpack.config.js");
-config.mode = process.env.NODE_ENV;
 
 // Clean Task
 export const clean = (cb) => {
@@ -77,25 +74,57 @@ export const cssMinify = () => {
 };
 
 // JS Task
-const jsAta = () => {
-	return src(options.paths.jsAta.src)
-		.pipe(webpackStream(config))
-		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
-		.pipe(dest(options.paths.jsAta.dest));
-};
+// const jsAta = () => {
+// 	return src(options.paths.jsAta.src)
+// 		.pipe(webpackStream(config))
+// 		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
+// 		.pipe(dest(options.paths.jsAta.dest));
+// };
 
-const jsComp = () => {
-	return src(options.paths.jsComp.src)
-		.pipe(terser())
-		.on("error", function (error) {
-			this.emit("end");
-		})
+// const jsComp = () => {
+// 	return src(options.paths.jsComp.src)
+// 		.pipe(terser())
+// 		.on("error", function (error) {
+// 			this.emit("end");
+// 		})
+// 		.pipe(rename({ suffix: ".min" }))
+// 		.pipe(size({ title: "JSsup", gzip: true, showFiles: true }))
+// 		.pipe(dest(options.paths.jsAta.dest));
+// };
+
+
+const ata = () => {
+	return rollup({
+		input: "src/js/index.js",
+		plugins: [
+			babel({ babelHelpers: "bundled" }),
+			(process.env.NODE_ENV === "production" && terser()),
+		],
+		external: ['jquery'],
+	}).then((bundle) => {
+		return bundle.write({
+			file: "dist/js/ata.min.js",
+			name: "Ata",
+			exports: "named",
+			format: "iife",
+			globals: {jquery: "$"},
+			esModule: false,
+			sourcemap: false,
+		});
+	});
+}
+
+const js = () => {
+	return src(options.paths.js.src)
+		.pipe(gulpTerser())
+		.on("error", function (error) { this.emit("end") })
 		.pipe(rename({ suffix: ".min" }))
-		.pipe(size({ title: "JSsup", gzip: true, showFiles: true }))
-		.pipe(dest(options.paths.jsAta.dest));
+		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
+		.pipe(dest(options.paths.js.dest));
 };
 
-export const js = series(jsAta, jsComp);
+export const jsTask = series(ata, js);
+// export const js = series(jsAta);
 
 // JS Leaflet Lib/Plugins
 // chaque plugin est copié séparément
@@ -122,10 +151,10 @@ export const reload = (done) => {
 // Watch Task
 export const watchFiles = () => {
 	watch('src/scss/**/*.scss', scss);
-	watch('src/js/**/*.js', series(js, reload));
+	watch('src/js/**/*.js', series(jsTask, reload));
 };
 
 // dev, build and default Tasks
-export const dev = series(parallel(scss, js), serve, watchFiles);
-export const build = series(clean, parallel(scss, jsLeafletLib, js), cssMinify);
+export const dev = series(parallel(scss, jsTask), serve, watchFiles);
+export const build = series(clean, parallel(scss, jsLeafletLib, jsTask), cssMinify);
 export default dev;

@@ -34,3 +34,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 		this.menu.element.outerWidth("100%");
 	},
 });
+
+function autocomplete_callback(event, ui) {
+	this.value = "";
+	return false;
+}

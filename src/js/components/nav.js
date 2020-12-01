@@ -1,7 +1,8 @@
 import { config } from "../ataConfig";
 
-
-const handleClickEvent = (nodeList) => {
+// Nav_Trigger : click event
+// ==================================
+let handleClickEvent = (nodeList) => {
 	let total = nodeList.length;
 	for (let i = 0; i < total; i++) {
 		const trigger = nodeList[i];
@@ -42,4 +43,7 @@ let navState = () => {
 	return state;
 };
 
-export { handleClickEvent as navTriggerHandlerEvent };
+export let navInit = () => {
+	let navTriggers = document.querySelectorAll(config.header.navTriggerHook);
+	handleClickEvent(navTriggers);
+}
