@@ -18,6 +18,12 @@
 	// nav
 	$nav-line-height: 49px;
 
+	// searchbox
+	$searchbox-btn-size: 24px;
+	$searchbox-btn-size-mobile: 20px;
+	$searchbox-btn-options-size: 24px;
+	$searchbox-padding-left: $inuit-global-spacing-unit-tiny + $searchbox-btn-options-size + $inuit-global-spacing-unit-tiny;
+
 	// z-index
 	$zindex-spip-admin-float: 20;
 	$zindex-header: 10;

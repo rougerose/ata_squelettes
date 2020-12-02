@@ -22,7 +22,15 @@ $color-gray-500: hsla(274, 10%, 80%, 1);
 $color-gray-600: hsla(274, 6%, 68%, 1);
 
 // Jaune
+$color-yellow-900: hsl(46, 90%, 18%);
+$color-yellow-800: hsl(46, 90%, 26%);
+$color-yellow-700: hsl(46, 90%, 35%);
+$color-yellow-600: hsl(46, 90%, 44%);
 $color-yellow-500: hsl(46, 100%, 53%);
+$color-yellow-400: hsl(46, 100%, 60%);
+$color-yellow-300: hsl(46, 100%, 68%);
+$color-yellow-200: hsl(46, 100%, 76%);
+$color-yellow-100: hsl(46, 100%, 84%);
 
 // Orange
 $color-orange-500: hsl(21, 89%, 55%);
@@ -44,5 +52,7 @@ $color-secondary: $color-orange-500;
 $color-ternary: $color-yellow-500;
 
 $color-form-searchBox-bg: $color-white;
-$color-form-label-text: $color-gray-600;
+$color-form-label: $color-gray-600;
 $color-form: $color-gray-500;
+$color-keyword-bg: $color-ternary;
+$color-keyword-delete-bg: $color-yellow-200;

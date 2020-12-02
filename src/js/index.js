@@ -1,7 +1,7 @@
 import { navInit } from "./components/nav";
 import { pageInit } from "./components/page";
 import { mapInit } from "./map/index";
-import { autocomplete_callback } from "./map/searchBox";
+import { addKeyword } from "./map/keywords";
 
 // Initialiser les scripts relatifs au site
 export const init = () => {
@@ -14,6 +14,4 @@ export const map = (mapObj) => {
 	mapInit(mapObj);
 }
 
-export const ac_callback = (event, ui) => {
-	autocomplete_callback(event, ui);
-}
+export { addKeyword };

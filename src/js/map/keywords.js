@@ -1,0 +1,92 @@
+import { config } from "../ataConfig";
+import { chargerGeoPoints } from "./index";
+
+let keywordsLabel = [];
+let keywordsValue = [];
+
+// Ajouter le mot-clé à la liste des critères de recherche
+// Fonction appelée par autocomplete_callback
+export function addKeyword(keyword) {
+	let label = keyword.label;
+	let value = keyword.value;
+	// Le mot-clé existe déjà dans le tableau principal
+	let alreadyExists = keywordsValue.indexOf(value);
+	if (alreadyExists == -1) {
+		keywordsLabel.push(label);
+		keywordsValue.push(value);
+		// index du mot dans le tableau principal
+		// let index = keywordsLabel.indexOf(label);
+		let item = keywordToItem(label, value);
+		let list = itemToList(item);
+		// recharger la carte en fonction de la recherche
+		if (list) {
+			chargerGeoPoints(keywordsValue);
+		}
+	}
+}
+
+function deleteKeyword() {
+	console.log(this);
+}
+
+// A partir des données du mot-clé, créer l'élement html
+// <li><span></span><button></li>
+function keywordToItem(label, value) {
+	// li element
+	let listItem = document.createElement("li");
+	listItem.className = config.keywords.itemClassName;
+
+	// span element
+	let span = document.createElement("span");
+	// identifier la clé pour afficher l'icone de la catégorie
+	let key = value.split(":");
+	let category = keywordCategory(key[0]);
+	let className = config.keywords.labelClassName;
+	span.className = className + " " + className + category;
+	span.appendChild(document.createTextNode(label));
+
+	// button element
+	let btn = document.createElement("button");
+	btn.className = config.keywords.btnClassName;
+	btn.dataset.value = value;
+	btn.addEventListener("click", deleteKeyword, false);
+
+	// append
+	listItem.appendChild(span);
+	listItem.appendChild(btn);
+	return listItem;
+}
+
+// L'élement <li> est ajouté à <ul> et afficher.
+function itemToList(item) {
+	// identifier le conteneur
+	let listContainer = document.querySelector(config.keywords.containerId);
+
+	// une liste de mots-clés est déjà présente ?
+	let list = listContainer.firstChild;
+	if (!list) {
+		list = document.createElement("ul");
+		list.className = config.keywords.listClassName;
+	} else {
+		// Todo : vérifier si message "Aucun résultat" est présent pour le retirer de la liste
+		// Fix : stocker dans un tableau la présence du message ?
+	}
+	list.appendChild(item);
+	listContainer.appendChild(list);
+	return true;
+}
+
+function keywordCategory(str) {
+	let res = "";
+	switch (str) {
+		case "id_association":
+			res = "-org";
+			break;
+		case "id_adresse":
+			res = "-city";
+			break;
+		case "id_mot":
+			res = "-activity";
+	}
+	return res;
+}

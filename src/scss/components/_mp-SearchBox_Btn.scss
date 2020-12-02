@@ -1,12 +1,11 @@
 // Options
 .mp-SearchBox_BtnOptions {
 	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+	top: 16px;
   	left: $spacing-unit-tiny;
   	z-index: $zindex-map + 1;
-  	height: $btn-options-size;
-  	width: $btn-options-size;
+  	height: $searchbox-btn-options-size;
+  	width: $searchbox-btn-options-size;
   	background-color: $color-form-searchBox-bg;
 	transition: background-color 0.3s ease;
 }
@@ -24,8 +23,8 @@
 	right: $spacing-unit-tiny;
 	top: 50%;
 	transform: translateY(-50%);
-	height: $btn-size;
-	width: $btn-size;
+	height: $searchbox-btn-size-mobile;
+	width: $searchbox-btn-size-mobile;
 }
 
 .mp-SearchBox_BtnCancel {

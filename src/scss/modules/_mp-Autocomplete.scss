@@ -3,10 +3,9 @@
 .mp-Autocomplete_List {
 	&.ui-widget.ui-widget-content {
 		z-index: $zindex-searchbox;
-		padding: $spacing-unit-small 0 $spacing-unit-tiny;
+		padding: $spacing-unit-small $spacing-unit-tiny $spacing-unit-tiny 0;
 		font-family: inherit;
-		// @include font-size(14px, $modifier: -1.5);
-		@include font-size(15px, $modifier: -1);
+		@include font-size(14px, $modifier: -1);
 		border: 0;
 		box-shadow: 0 4px 4px rgba($color-black, 0.25);
 	}
@@ -47,7 +46,13 @@
 }
 
 .mp-Autocomplete_Link {
-  .ui-menu &.ui-menu-item-wrapper {
-    padding: 0;
-  }
+	.ui-menu &.ui-menu-item-wrapper {
+		display: flex;
+		padding-top: 0;
+
+		&.ui-state-active {
+			background-color: $color-ternary;
+			border-color: $color-ternary;
+		}
+	}
 }

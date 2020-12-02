@@ -1,0 +1,12 @@
+<BOUCLE_asso_recherche(ASSOCIATIONS){gis}{id_association IN #ENV{id}}{0, #ENV{limit}}{","}>
+{"type": "Feature",
+["geometry": (#GEOMETRY|appliquer_filtre{wkt_to_json}|sinon{{"type": "Point", "coordinates": \[#LON, #LAT\]}}),]
+"id":"#ID_GIS",
+"properties": {
+"title":[(#NOM*|json_encode)],
+"fraapmember":[(#MEMBRE_FRAAP|json_encode)],
+"url_site":[(#URL_SITE|json_encode)][
+(#LOGO_GIS|gis_icon_properties)][,
+"styles": (#GEOMETRY_STYLES|appliquer_filtre{geometry_styles_to_json})]
+}}</BOUCLE_asso_recherche>
+#FILTRE{trim}

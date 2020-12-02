@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { config } from "../ataConfig";
 
 let keywordsLabel = [];
@@ -45,18 +44,18 @@ export const setupSearchBox = () => {
 	// }
 };
 
-export let autocomplete_callback = (event, ui) => {
-	// console.log(event, ui, $);
-	let input = event.target;
-	let keyword = {
-		label: ui.item.label,
-		value: ui.item.value,
-	};
-	console.log(input, input.value);
-	input.value = "";
-	// this.value = "";
-	return false;
-};
+// export let autocomplete_callback = (event, ui) => {
+// 	// console.log(event, ui, $);
+// 	let input = event.target;
+// 	let keyword = {
+// 		label: ui.item.label,
+// 		value: ui.item.value,
+// 	};
+// 	console.log(input, input.value);
+// 	input.value = "";
+// 	// this.value = "";
+// 	return false;
+// };
 
 // function handleCancelEvent() {
 // 	console.log(this);
@@ -81,24 +80,6 @@ function handleInputEvent(event) {
 	}
 }
 
-function handleKeywords(keyword) {
-	let label = keyword.label;
-	let value = keyword.value;
-	// Le mot-clé existe déjà dans le tableau principal
-	let alreadyExists = keywordsValue.indexOf(value);
-	if (alreadyExists == -1) {
-		keywordsLabel.push(label);
-		keywordsValue.push(value);
-		// index du mot dans le tableau principal
-		let index = keywordsLabel.indexOf(label);
-		let keywordhtml = setKeywordHtml(label, value);
-	}
-}
-
-function setKeywordHtml(label, value) {
-	let listItem = document.createElement("li");
-	// listItem.className =
-}
 
 
 /*

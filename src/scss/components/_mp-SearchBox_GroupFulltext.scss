@@ -16,7 +16,7 @@
 		position: absolute;
 		top: 50%;
 		z-index: $zindex-map + 1;
-		color: $color-form-label-text;
+		color: $color-form-label;
 		transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
 		transform: translateY(-50%);
 		@include font-size(15px, 1);
