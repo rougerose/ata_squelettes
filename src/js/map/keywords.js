@@ -26,7 +26,20 @@ export function addKeyword(keyword) {
 }
 
 function deleteKeyword() {
-	console.log(this);
+	let btn = this;
+	let value = btn.dataset.value;
+	let index = keywordsValue.indexOf(value);
+
+	if (index !== -1) {
+		keywordsValue.splice(index, 1);
+		if (keywordsValue.length == 0) {
+			btn.parentElement.parentElement.remove();
+		} else {
+			btn.parentElement.remove();
+		}
+		// Recharger la carte
+		chargerGeoPoints(keywordsValue);
+	}
 }
 
 // A partir des données du mot-clé, créer l'élement html
