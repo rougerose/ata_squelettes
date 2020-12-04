@@ -1,5 +1,5 @@
 import { config } from "../ataConfig";
-import { chargerGeoPoints } from "./index";
+import { ata_recherche_parseGeoJson } from "./index";
 
 let keywordsLabel = [];
 let keywordsValue = [];
@@ -7,21 +7,25 @@ let keywordsValue = [];
 // Ajouter le mot-clé à la liste des critères de recherche
 // Fonction appelée par autocomplete_callback
 export function addKeyword(keyword) {
-	let label = keyword.label;
-	let value = keyword.value;
-	// Le mot-clé existe déjà dans le tableau principal
-	let alreadyExists = keywordsValue.indexOf(value);
-	if (alreadyExists == -1) {
-		keywordsLabel.push(label);
-		keywordsValue.push(value);
-		// index du mot dans le tableau principal
-		// let index = keywordsLabel.indexOf(label);
-		let item = keywordToItem(label, value);
-		let list = itemToList(item);
-		// recharger la carte en fonction de la recherche
-		if (list) {
-			chargerGeoPoints(keywordsValue);
+	if (keyword.label && keyword.value) {
+		let label = keyword.label;
+		let value = keyword.value;
+		// Le mot-clé existe déjà dans le tableau principal
+		let alreadyExists = keywordsValue.indexOf(value);
+		if (alreadyExists == -1) {
+			keywordsLabel.push(label);
+			keywordsValue.push(value);
+			// index du mot dans le tableau principal
+			// let index = keywordsLabel.indexOf(label);
+			let item = keywordToItem(label, value);
+			let list = itemToList(item);
+			// recharger la carte en fonction de la recherche
+			if (list) {
+				ata_recherche_parseGeoJson(keywordsValue);
+			}
 		}
+	} else {
+		return false;
 	}
 }
 
@@ -38,7 +42,7 @@ function deleteKeyword() {
 			btn.parentElement.remove();
 		}
 		// Recharger la carte
-		chargerGeoPoints(keywordsValue);
+		ata_recherche_parseGeoJson(keywordsValue);
 	}
 }
 
