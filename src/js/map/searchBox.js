@@ -1,8 +1,5 @@
 import { config } from "../ataConfig";
 
-let keywordsLabel = [];
-let keywordsValue = [];
-
 export const setupSearchBox = () => {
 	// Conteneur principal
 	let searchBox = document.querySelector(config.mapSearchBox.containerClass);
