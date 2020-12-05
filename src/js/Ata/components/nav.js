@@ -1,4 +1,4 @@
-import { config } from "../ataConfig";
+import { config } from "../ata_config";
 
 // Nav_Trigger : click event
 // ==================================

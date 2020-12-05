@@ -25,8 +25,8 @@ const options = {
 		},
 		js: {
 			src: [
-				"src/js/ataInit.js",
-				"src/js/ata_autocomplete_widget.js",
+				"src/js/Ata/ata_init.js",
+				"src/js/Ata/ata_autocomplete_widget.js",
 			],
 			dest: "dist/js/"
 		},
@@ -95,7 +95,7 @@ export const cssMinify = () => {
 
 const ata = () => {
 	return rollup({
-		input: "src/js/index.js",
+		input: "src/js/Ata/index.js",
 		plugins: [
 			babel({ babelHelpers: "bundled" }),
 			(process.env.NODE_ENV === "production" && terser()),

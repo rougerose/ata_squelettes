@@ -1,4 +1,4 @@
-import { config } from "../ataConfig";
+import { config } from "../ata_config";
 import { ata_recherche_parseGeoJson } from "./index";
 
 let keywordsLabel = [];
