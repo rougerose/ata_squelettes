@@ -15,7 +15,7 @@ let mapInit = (mapObj) => {
 
 // Position des boutons de zoom sur la carte
 function setupControlZoom(mapObj) {
-	L.control.zoom({ position: "bottomleft" }).addTo(mapObj);
+	L.control.zoom({ position: "topleft" }).addTo(mapObj);
 }
 
 // Charger les points à partir d'une recherche

@@ -37,9 +37,10 @@ const options = {
 			},
 			leaflet: {
 				src: [
-					"node_modules/leaflet-sidebar/src/L.Control.Sidebar.js",
+					// "node_modules/leaflet-sidebar/src/L.Control.Sidebar.js",
+					"src/js/leaflet/L.Control.AtaSearchBox.js",
 				],
-				dest: "dist/js/vendor/",
+				dest: "dist/js/leaflet/",
 			},
 		},
 	},
@@ -128,8 +129,13 @@ export const jsTask = series(ata, js);
 
 // JS Leaflet Lib/Plugins
 // chaque plugin est copié séparément
-export const jsLeafletLib = () => {
+export const jsLeaflet = () => {
 	return src(options.paths.jsLib.leaflet.src)
+		// .pipe(gulpTerser())
+		// .on("error", function (error) {
+		// 	this.emit("end");
+		// })
+		.pipe(rename({ suffix: ".min" }))
 		.pipe(size({ title: "JSLib", gzip: true, showFiles: true }))
 		.pipe(dest(options.paths.jsLib.leaflet.dest));
 };
@@ -156,5 +162,5 @@ export const watchFiles = () => {
 
 // dev, build and default Tasks
 export const dev = series(parallel(scss, jsTask), serve, watchFiles);
-export const build = series(clean, parallel(scss, jsLeafletLib, jsTask), cssMinify);
+export const build = series(clean, parallel(scss, jsLeaflet, jsTask), cssMinify);
 export default dev;
