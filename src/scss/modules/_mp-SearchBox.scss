@@ -7,6 +7,11 @@
 	z-index: $zindex-searchbox;
 	top: 0;
 	left: $spacing-unit-small;
+
+	// Annuler le z-index de jquery-ui
+	&.ui-front {
+		z-index: $zindex-searchbox;
+	}
 }
 
 .mp-SearchBox_Module {
