@@ -10,8 +10,8 @@ import browserSync from "browser-sync";
 import babel from "@rollup/plugin-babel";
 import { rollup } from "rollup";
 import { terser } from "rollup-plugin-terser";
-import gulpterser from "gulp-terser-js";
 import gulpTerser from "gulp-terser-js";
+import gulpif from "gulp-if";
 
 const options = {
 	paths: {
@@ -28,7 +28,7 @@ const options = {
 				"src/js/Ata/ata_init.js",
 				"src/js/Ata/ata_autocomplete_widget.js",
 			],
-			dest: "dist/js/"
+			dest: "dist/js/",
 		},
 		jsLib: {
 			all: {
@@ -38,7 +38,7 @@ const options = {
 			leaflet: {
 				src: [
 					// "node_modules/leaflet-sidebar/src/L.Control.Sidebar.js",
-					"src/js/leaflet/L.Control.AtaSearchBox.js",
+					"src/js/leaflet/L.Control.AtaPanes.js",
 				],
 				dest: "dist/js/leaflet/",
 			},
@@ -74,71 +74,71 @@ export const cssMinify = () => {
 		.pipe(dest(options.paths.css.dest));
 };
 
-// JS Task
-// const jsAta = () => {
-// 	return src(options.paths.jsAta.src)
-// 		.pipe(webpackStream(config))
-// 		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
-// 		.pipe(dest(options.paths.jsAta.dest));
-// };
+// JS Tasks
 
-// const jsComp = () => {
-// 	return src(options.paths.jsComp.src)
-// 		.pipe(terser())
-// 		.on("error", function (error) {
-// 			this.emit("end");
-// 		})
-// 		.pipe(rename({ suffix: ".min" }))
-// 		.pipe(size({ title: "JSsup", gzip: true, showFiles: true }))
-// 		.pipe(dest(options.paths.jsAta.dest));
-// };
-
-
+// Fichiers site (Ata)
 const ata = () => {
 	return rollup({
 		input: "src/js/Ata/index.js",
 		plugins: [
 			babel({ babelHelpers: "bundled" }),
-			(process.env.NODE_ENV === "production" && terser()),
+			process.env.NODE_ENV === "production" && terser(),
 		],
-		external: ['jquery'],
+		external: ["jquery"],
 	}).then((bundle) => {
 		return bundle.write({
 			file: "dist/js/ata.min.js",
 			name: "Ata",
 			exports: "named",
 			format: "iife",
-			globals: {jquery: "$"},
+			globals: { jquery: "$" },
 			esModule: false,
 			sourcemap: false,
 		});
 	});
-}
-
-const js = () => {
-	return src(options.paths.js.src)
-		.pipe(gulpTerser())
-		.on("error", function (error) { this.emit("end") })
-		.pipe(rename({ suffix: ".min" }))
-		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
-		.pipe(dest(options.paths.js.dest));
 };
 
-export const jsTask = series(ata, js);
-// export const js = series(jsAta);
+// JS individuels utilisés par le site.
+// Les fichiers sont traités individuellement.
+const js = () => {
+	return (
+		src(options.paths.js.src)
+			.pipe(
+				gulpif(
+					process.env.NODE_ENV === "production",
+					gulpTerser().on("error", function (error) {
+						this.emit("end");
+					})
+				)
+			)
+			// .pipe(gulpTerser())
+			// .on("error", function (error) {
+			// 	this.emit("end");
+			// })
+			.pipe(rename({ suffix: ".min" }))
+			.pipe(size({ title: "JS", gzip: true, showFiles: true }))
+			.pipe(dest(options.paths.js.dest))
+	);
+};
 
-// JS Leaflet Lib/Plugins
-// chaque plugin est copié séparément
-export const jsLeaflet = () => {
+// Plugins Leaflet
+// Les fichiers sont traités individuellement
+const jsLeaflet = () => {
 	return src(options.paths.jsLib.leaflet.src)
-		// .pipe(gulpTerser())
-		// .on("error", function (error) {
-		// 	this.emit("end");
-		// })
+		.pipe(
+			gulpif(
+				process.env.NODE_ENV === "production",
+				gulpTerser().on("error", function (error) {
+					this.emit("end");
+				})
+			)
+		)
 		.pipe(rename({ suffix: ".min" }))
 		.pipe(size({ title: "JSLib", gzip: true, showFiles: true }))
 		.pipe(dest(options.paths.jsLib.leaflet.dest));
 };
+
+export const jsTask = series(ata, js, jsLeaflet);
 
 // Browsersync
 const server = browserSync.create();
@@ -156,11 +156,11 @@ export const reload = (done) => {
 
 // Watch Task
 export const watchFiles = () => {
-	watch('src/scss/**/*.scss', scss);
-	watch('src/js/**/*.js', series(jsTask, reload));
+	watch("src/scss/**/*.scss", scss);
+	watch("src/js/**/*.js", series(jsTask, reload));
 };
 
 // dev, build and default Tasks
 export const dev = series(parallel(scss, jsTask), serve, watchFiles);
-export const build = series(clean, parallel(scss, jsLeaflet, jsTask), cssMinify);
+export const build = series(clean, parallel(scss, jsTask), cssMinify);
 export default dev;
