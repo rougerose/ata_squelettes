@@ -23,6 +23,5 @@
 
 	<spip compatibilite="[3.3.0-dev;3.3.*]">
 		<script type="public" source="dist/js/ata.min.js" />
-		<style type="public" source="dist/css/ata.min.css" />
 	</spip>
 </paquet>

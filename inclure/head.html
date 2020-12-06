@@ -4,7 +4,7 @@
 [<link rel="alternate" type="application/rss+xml" title="[(#NOM_SITE_SPIP)[ (#SLOGAN_SITE_SPIP)] : ]<:syndiquer_site:>" href="(#URL_PAGE{backend})" />]
 [(#REM) Balise permettant aux plugins d'inserer des fichiers CSS ]
 #INSERT_HEAD_CSS
-
+[<link rel="stylesheet" href="(#CHEMIN{dist/css/ata.min.css}|timestamp)">]
 [(#CHEMIN{inc-theme-head.html}|oui) #INCLURE{fond=inc-theme-head,env}]
 [(#REM) Balise permettant aux plugins d'inserer des appels javascript ou css ;
 C'est ici que SPIP va inserer l'appel de la librairie jQuery
