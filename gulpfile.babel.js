@@ -8,6 +8,7 @@ import size from "gulp-size";
 import del from "del";
 import browserSync from "browser-sync";
 import babel from "@rollup/plugin-babel";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import { rollup } from "rollup";
 import { terser } from "rollup-plugin-terser";
 import gulpTerser from "gulp-terser-js";
@@ -81,6 +82,7 @@ const ata = () => {
 	return rollup({
 		input: "src/js/Ata/index.js",
 		plugins: [
+			nodeResolve(),
 			babel({ babelHelpers: "bundled" }),
 			process.env.NODE_ENV === "production" && terser(),
 		],
@@ -138,7 +140,7 @@ const jsLeaflet = () => {
 		.pipe(dest(options.paths.jsLib.leaflet.dest));
 };
 
-export const jsTask = series(ata, js, jsLeaflet);
+export const jsTask = parallel(ata, js, jsLeaflet);
 
 // Browsersync
 const server = browserSync.create();
