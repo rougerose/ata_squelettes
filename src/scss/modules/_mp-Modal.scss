@@ -1,0 +1,22 @@
+.mp-Modal {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: -120px;
+	z-index: $zindex-map + 1;
+	background-color: $color-white;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	box-shadow: 0 0 4px rgba($color-black, 0.25);
+	// opacity: 1;
+	// transform: translateY(100%);
+	transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), opacity .3s ease;
+
+	&.is-selected {
+		// opacity: 1;
+		// transform: translateY(120px);
+	}
+}
+
+@import "components/mp-Modal_Btn";
+@import "components/mp-Modal_Content";

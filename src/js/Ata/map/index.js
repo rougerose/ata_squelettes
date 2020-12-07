@@ -1,14 +1,22 @@
 import { config } from "../ata_config";
 import { setupSearchBox } from "./searchBox";
+import { handleClickOnMarker } from "./markers";
+import { Modal } from "./modal";
 
 const _map = {};
 
 let mapInit = (mapObj) => {
 	_map.instance = mapObj;
+
+	// _panes = new Panes("panes");
+	let modal = new Modal("Modal");
+
 	// Ajouter les boutons de zoom
 	setupControlZoom(mapObj);
+
 	// Charger les points
 	ata_loadData(mapObj);
+
 	// Initialiser la recherche
 	setupSearchBox();
 };
@@ -18,8 +26,182 @@ function setupControlZoom(mapObj) {
 	L.control.zoom({ position: "topleft" }).addTo(mapObj);
 }
 
+// Chargement de la carte
+//
+// Fonction identique à celle de l'API GIS (loadData)
+// mais elle utilise une fonction de chargement des données spécifique.
+function ata_loadData(mapObj) {
+	let map = mapObj;
+	if (
+		typeof map.options.json_points !== "undefined" &&
+		map.options.json_points.url.length
+	) {
+		let args = {};
+		jQuery.extend(true, args, map.options.json_points.env);
+		args.objets = map.options.json_points.objets;
+		if (args.objets == "point_libre") {
+			args.lat = map.options.center[0];
+			args.lon = map.options.center[1];
+			if (typeof map.options.json_points.titre !== "undefined")
+				args.titre = map.options.json_points.titre;
+			if (typeof map.options.json_points.description !== "undefined")
+				args.description = map.options.json_points.description;
+			if (typeof map.options.json_points.icone !== "undefined")
+				args.icone = map.options.json_points.icone;
+		}
+		if (typeof map.options.json_points.limit !== "undefined") {
+			args.limit = map.options.json_points.limit;
+		}
+		jQuery.getJSON(map.options.json_points.url, args, function (data) {
+			if (data) {
+				// Charger le json (data) et déclarer les points
+				// en utilisant une fonction spécifique,
+				// au lieu de l'API de GIS (map.parseGeoJson)
+				ata_parseGeoJson(data);
+				jQuery("#" + map._container.id).trigger("ready", map);
+			}
+		});
+	}
+}
+
+// Chargement des données JSON
+//
+// Adaptation de la fonction gis parseGeoJson
+// afin de personnaliser les icones de cluster.
+function ata_parseGeoJson(data) {
+	let map = _map.instance;
+	if (!map.options.cluster) {
+		map.parseGeoJsonFeatures(data);
+	} else {
+		let options = map.options.clusterOptions;
+		options.iconCreateFunction = function (cluster) {
+			let size;
+			let variant;
+			let count = cluster.getChildCount();
+			if (count <= 3) {
+				variant = "-xs";
+				size = config.markers.size.xs;
+			} else if (count <= 10) {
+				variant = "-s";
+				size = config.markers.size.s;
+			} else if (count <= 50) {
+				variant = "-m";
+				size = config.markers.size.m;
+			} else if (count <= 100) {
+				variant = "-l";
+				size = config.markers.size.l;
+			} else if (count <= 250) {
+				variant = "-xl";
+				size = config.markers.size.xl;
+			} else {
+				variant = "-xxl";
+				size = config.markers.size.xxl;
+			}
+			return new L.DivIcon({
+				html: "<div><span>" + count + "</span></div>",
+				className: "mp-MarkerCluster mp-MarkerCluster" + variant,
+				iconSize: new L.Point(size, size),
+			});
+		};
+		map.markerCluster = L.markerClusterGroup(options).addTo(map);
+		let markers = [];
+		let autres = {
+			type: "FeatureCollection",
+			features: [],
+		};
+
+		for (let i = 0; i < data.features.length; i++) {
+			const feature = data.features[i];
+			if (
+				feature.geometry.type == "Point" &&
+				feature.geometry.coordinates[0]
+			) {
+				let marker = L.marker([
+					feature.geometry.coordinates[1],
+					feature.geometry.coordinates[0],
+				]);
+				// Déclarer l'icone du point
+				map.setGeoJsonFeatureIcon(feature, marker);
+				// Pas de popup
+				// map.setGeoJsonFeaturePopup(feature, marker);
+
+				// Gérer le click sur le marker
+				// marker.addEventListener("click", handleClickOnMarker, false);
+				marker.on("click", handleClickMarker);
+				// On garde en mémoire toute la feature d'origine dans le marker, comme sans clusters
+				marker.feature = feature;
+				// Pour compat, on continue de garder l'id à part
+				marker.id = feature.id;
+				markers.push(marker);
+			} else {
+				autres.features.push(feature);
+			}
+		}
+		map.markerCluster.addLayers(markers);
+		ata_parseGeoJsonFeatures(autres);
+	}
+}
+
+function handleClickMarker(marker) {
+	// _panes.open()
+}
+
+// Traitement d'un seul point à afficher sur la carte.
+//
+// Contrairement à la fonction de l'API GIS, les limites du point (bounds)
+// sont prises en compte et on zoome sur lui.
+function ata_parseGeoJsonFeatures(data) {
+	let map = _map.instance;
+	if (data.features && data.features.length > 0) {
+		let geojson = L.geoJson("", {
+			style: map.options.pathStyles
+				? map.options.pathStyles
+				: function (feature) {
+						if (feature.properties && feature.properties.styles) {
+							return feature.properties.styles;
+						} else {
+							return "";
+						}
+				  },
+			onEachFeature: function (feature, layer) {
+				// Déclarer l'icone du point
+				if (feature.geometry.type == "Point") {
+					map.setGeoJsonFeatureIcon(feature, layer);
+				}
+				// Pas de popup
+				// map.setGeoJsonFeaturePopup(feature, layer);
+			},
+			pointToLayer: function (feature, latlng) {
+				let alt = "Marker";
+				if (feature.properties.title) {
+					alt = feature.properties.title;
+				}
+				let marker = L.marker(latlng, { alt: alt });
+				marker.on("click", handleClickOnMarker);
+				return marker;
+			},
+		})
+			.addData(data)
+			.addTo(map);
+
+		if (map.options.autocenterandzoom) {
+			// map.centerAndZoom(geojson.getBounds());
+			let options = { maxZoom: 10 };
+			map.fitBounds(geojson.getBounds(), options);
+		}
+
+		if (map.options.openId) {
+			gis_focus_marker(map.options.openId, map.options.mapId);
+		}
+		if (typeof map.geojsons == "undefined") {
+			map.geojsons = [];
+		}
+		map.geojsons.push(geojson);
+	}
+}
+
 // Charger les points à partir d'une recherche
-function ata_recherche_parseGeoJson(keywords) {
+function ata_parseGeoJson_search(keywords) {
 	let map = _map.instance;
 	let limit = 2000;
 
@@ -96,165 +278,4 @@ function ata_recherche_parseGeoJson(keywords) {
 	}
 }
 
-// Traitement d'un seul point à afficher sur la carte.
-// Contrairement au traitement standard de GIS, les limites du point (bounds)
-// sont prises en compte et on zoome sur lui.
-function ata_parseGeoJsonFeatures(data) {
-	let map = _map.instance;
-	if (data.features && data.features.length > 0) {
-		let geojson = L.geoJson("", {
-			style: map.options.pathStyles
-				? map.options.pathStyles
-				: function (feature) {
-						if (feature.properties && feature.properties.styles) {
-							return feature.properties.styles;
-						} else {
-							return "";
-						}
-				  },
-			onEachFeature: function (feature, layer) {
-				// Déclarer l'icone du point
-				if (feature.geometry.type == "Point") {
-					map.setGeoJsonFeatureIcon(feature, layer);
-				}
-				// Déclarer le contenu de la popup s'il y en a
-				// map.setGeoJsonFeaturePopup(feature, layer);
-			},
-			pointToLayer: function (feature, latlng) {
-				var alt = "Marker";
-				if (feature.properties.title) {
-					alt = feature.properties.title;
-				}
-				return L.marker(latlng, { alt: alt });
-			},
-		})
-			.addData(data)
-			.addTo(map);
-
-		if (map.options.autocenterandzoom) {
-			// map.centerAndZoom(geojson.getBounds());
-			let options = { maxZoom: 10 };
-			map.fitBounds(geojson.getBounds(), options);
-
-		}
-
-		if (map.options.openId) {
-			gis_focus_marker(map.options.openId, map.options.mapId);
-		}
-		if (typeof map.geojsons == "undefined") {
-			map.geojsons = [];
-		}
-		map.geojsons.push(geojson);
-	}
-}
-
-// Fonction reprise de GIS (loadData) et adaptée pour le chargement
-// des marqueurs.
-function ata_loadData(mapObj) {
-	let map = mapObj;
-	if (
-		typeof map.options.json_points !== "undefined" &&
-		map.options.json_points.url.length
-	) {
-		let args = {};
-		jQuery.extend(true, args, map.options.json_points.env);
-		args.objets = map.options.json_points.objets;
-		if (args.objets == "point_libre") {
-			args.lat = map.options.center[0];
-			args.lon = map.options.center[1];
-			if (typeof map.options.json_points.titre !== "undefined")
-				args.titre = map.options.json_points.titre;
-			if (typeof map.options.json_points.description !== "undefined")
-				args.description = map.options.json_points.description;
-			if (typeof map.options.json_points.icone !== "undefined")
-				args.icone = map.options.json_points.icone;
-		}
-		if (typeof map.options.json_points.limit !== "undefined") {
-			args.limit = map.options.json_points.limit;
-		}
-		jQuery.getJSON(map.options.json_points.url, args, function (data) {
-			if (data) {
-				// Charger le json (data) et déclarer les points
-				ata_parseGeoJson(data);
-				// map.parseGeoJson(data);
-				jQuery("#" + map._container.id).trigger("ready", map);
-			}
-		});
-	}
-}
-
-// Adaptation de la fonction gis parseGeoJson
-// afin de personnaliser les icones de cluster.
-function ata_parseGeoJson(data) {
-	let map = _map.instance;
-	if (!map.options.cluster) {
-		map.parseGeoJsonFeatures(data);
-	} else {
-		let options = map.options.clusterOptions;
-		options.iconCreateFunction = function (cluster) {
-			let size;
-			let variant;
-			let count = cluster.getChildCount();
-			if (count <= 3) {
-				variant = "-xs";
-				size = config.markers.size.xs;
-			} else if (count <= 10) {
-				variant = "-s";
-				size = config.markers.size.s;
-			} else if (count <= 50) {
-				variant = "-m";
-				size = config.markers.size.m;
-			} else if (count <= 100) {
-				variant = "-l";
-				size = config.markers.size.l;
-			} else if (count <= 250) {
-				variant = "-xl";
-				size = config.markers.size.xl;
-			} else {
-				variant = "-xxl";
-				size = config.markers.size.xxl;
-			}
-			return new L.DivIcon({
-				html: "<div><span>" + count + "</span></div>",
-				className: "mp-MarkerCluster mp-MarkerCluster" + variant,
-				iconSize: new L.Point(size, size),
-			});
-		};
-		map.markerCluster = L.markerClusterGroup(options).addTo(map);
-		let markers = [];
-		let autres = {
-			type: "FeatureCollection",
-			features: [],
-		};
-
-		for (let i = 0; i < data.features.length; i++) {
-			const feature = data.features[i];
-			if (
-				feature.geometry.type == "Point" &&
-				feature.geometry.coordinates[0]
-			) {
-				let marker = L.marker([
-					feature.geometry.coordinates[1],
-					feature.geometry.coordinates[0],
-				]);
-				// Déclarer l'icone du point
-				map.setGeoJsonFeatureIcon(feature, marker);
-				// Déclarer le contenu de la popup s'il y en a
-				// ! appel de la fonction désactivé
-				// map.setGeoJsonFeaturePopup(feature, marker);
-
-				// On garde en mémoire toute la feature d'origine dans le marker, comme sans clusters
-				marker.feature = feature;
-				// Pour compat, on continue de garder l'id à part
-				marker.id = feature.id;
-				markers.push(marker);
-			} else {
-				autres.features.push(feature);
-			}
-		}
-		map.markerCluster.addLayers(markers);
-		ata_parseGeoJsonFeatures(autres);
-	}
-}
-
-export { mapInit, ata_recherche_parseGeoJson };
+export { mapInit, _map, ata_parseGeoJson_search };

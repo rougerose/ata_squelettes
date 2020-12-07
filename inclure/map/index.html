@@ -4,5 +4,6 @@
 	[(#INCLURE{fond=modeles/carte_gis, objets=associations, point=non, id_map=#GET{mapID}, no_control=oui, style=non, zoom=6, cluster=oui, clusterSpiderfyOnMaxZoom=oui, maxClusterRadius=50, limite=#GET{total, 500}})
 	<script type="text/javascript">callback_map#GET{mapID}=function(map){ Ata.map(map); }</script>
 	]
-	<INCLURE{fond=inclure/map/searchBox} />
+	<INCLURE{fond=inclure/map/searchBox}/>
+	<INCLURE{fond=inclure/map/modal}/>
 </div>

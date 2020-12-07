@@ -113,10 +113,6 @@ const js = () => {
 					})
 				)
 			)
-			// .pipe(gulpTerser())
-			// .on("error", function (error) {
-			// 	this.emit("end");
-			// })
 			.pipe(rename({ suffix: ".min" }))
 			.pipe(size({ title: "JS", gzip: true, showFiles: true }))
 			.pipe(dest(options.paths.js.dest))

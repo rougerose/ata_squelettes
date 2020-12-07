@@ -1,0 +1,7 @@
+.mp-Pane_Header {
+	padding-top: $spacing-unit-small;
+	h1 {
+		@include font-size(16px);
+		margin: 0;
+	}
+}

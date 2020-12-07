@@ -1,12 +1,12 @@
 import { config } from "../ata_config";
-import { ata_recherche_parseGeoJson } from "./index";
+import { ata_parseGeoJson_search } from "./index";
 
 let keywordsLabel = [];
 let keywordsValue = [];
 
 // Ajouter le mot-clé à la liste des critères de recherche
 // Fonction appelée par autocomplete_callback
-export function addKeyword(keyword) {
+function addKeyword(keyword) {
 	if (keyword.label && keyword.value) {
 		let label = keyword.label;
 		let value = keyword.value;
@@ -21,7 +21,7 @@ export function addKeyword(keyword) {
 			let list = itemToList(item);
 			// recharger la carte en fonction de la recherche
 			if (list) {
-				ata_recherche_parseGeoJson(keywordsValue);
+				ata_parseGeoJson_search(keywordsValue);
 			}
 		}
 	} else {
@@ -42,7 +42,7 @@ function deleteKeyword() {
 			btn.parentElement.remove();
 		}
 		// Recharger la carte
-		ata_recherche_parseGeoJson(keywordsValue);
+		ata_parseGeoJson_search(keywordsValue);
 	}
 }
 
@@ -107,3 +107,5 @@ function keywordCategory(str) {
 	}
 	return res;
 }
+
+export { addKeyword };

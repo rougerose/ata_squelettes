@@ -1,0 +1,11 @@
+.mp-OrgProfile {
+	display: flex;
+	flex-direction: column;
+}
+
+@import "components/mp-OrgProfile_Identity";
+@import "components/mp-OrgProfile_Name";
+@import "components/mp-OrgProfile_Address";
+@import "components/mp-OrgProfile_Logo";
+
+@import "components/mp-OrgProfile_Infos";

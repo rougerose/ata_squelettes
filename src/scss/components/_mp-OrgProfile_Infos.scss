@@ -1,0 +1,15 @@
+.mp-OrgProfile_Infos {
+	@include font-size(14px);
+	p {
+		margin-bottom: 0;
+	}
+
+	&::before {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		margin: $spacing-unit-small 0;
+		background-color: $color-purple-500;
+	}
+}
