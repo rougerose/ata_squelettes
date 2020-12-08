@@ -1,11 +1,20 @@
 <BOUCLE_asso_recherche(ASSOCIATIONS){gis}{id_association IN #ENV{id}}{0, #ENV{limit}}{","}>
+[(#SET{logo, [(#LOGO_ASSOCIATION|image_passe_partout{70,70}|image_reduire{70,70})] })]
+[(#SET{largeur, #GET{logo}|largeur})]
+[(#SET{hauteur, #GET{logo}|hauteur})]
+[(#SET{src, #GET{logo}|extraire_attribut{src}})]
 {"type": "Feature",
 ["geometry": (#GEOMETRY|appliquer_filtre{wkt_to_json}|sinon{{"type": "Point", "coordinates": \[#LON, #LAT\]}}),]
 "id":"#ID_GIS",
 "properties": {
 "title":[(#NOM*|json_encode)],
 "fraapmember":[(#MEMBRE_FRAAP|json_encode)],
-"url_site":[(#URL_SITE|json_encode)][
+"url_site":[(#URL_SITE|json_encode)][,
+"logo":(#GET{src}|url_absolue|json_encode)][,
+"logo_size":(#GET{src}|oui)\[#GET{largeur},#GET{hauteur}\]][,
+(#INCLURE{fond=json/inc_association_rezos, id_association})][,
+(#INCLURE{fond=json/inc_association_adresse, id_association})][,
+(#INCLURE{fond=json/inc_association_activites, id_association})][,
 (#LOGO_GIS|gis_icon_properties)][,
 "styles": (#GEOMETRY_STYLES|appliquer_filtre{geometry_styles_to_json})]
 }}</BOUCLE_asso_recherche>

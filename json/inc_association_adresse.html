@@ -1,0 +1,15 @@
+<BOUCLE_adresse(ADRESSES){id_association}{type=work}>
+	<BOUCLE_pays(PAYS){code=#PAYS}>[(#SET{pays,#NOM})]</BOUCLE_pays>
+	<BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#ENV{id_association}}>
+		[(#CATEGORIE|=={metropolitan_region}|oui) #SET{region, #ISO_TITRE}]
+		[(#CATEGORIE|=={metropolitan_department}|oui) #SET{departement, #ISO_TITRE}]
+	</BOUCLE_territoires>
+"address1":[(#VOIE*|json_encode)],
+"address2":[(#COMPLEMENT*|json_encode)],
+"postalcode":[(#CODE_POSTAL*|json_encode)],
+"city":[(#VILLE*|json_encode)],
+"departement":[(#GET{departement}|textebrut|sinon{''}|json_encode)],
+"region":[(#GET{region}|textebrut|sinon{''}|json_encode)],
+"country":[(#GET{pays}|textebrut|sinon{''}|json_encode)]
+</BOUCLE_adresse>
+#FILTRE{trim}
