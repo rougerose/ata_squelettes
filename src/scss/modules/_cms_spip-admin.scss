@@ -6,7 +6,13 @@
 	bottom: auto !important;
 	left: 0 !important;
 	z-index: $zindex-spip-admin-float !important;
-	width: 146px;
+	width: 32px;
+	transition: width 0.3s ease;
+	overflow: hidden;
+
+	&:hover {
+		width: 146px;
+	}
 
 	.spip-admin-boutons {
 		margin: 0.25rem 0 0;
@@ -15,19 +21,6 @@
 		@include inuit-font-size(10px);
 		font-weight: normal;
 		text-align: left;
-		transition: width 0.5s ease-in;
-		overflow: hidden;
-		width: 32px;
-
-		&:hover {
-			width: 100%;
-		}
-	}
-
-	#ecrire {
-		background-color: red;
-	}
-	#var_mode {
-		background-color: rgb(0, 81, 255);
+		background-color:rgba(0, 81, 255);
 	}
 }
