@@ -1,6 +1,6 @@
 .mp-Modal_BtnAction {
 	display: block;
-	margin: $spacing-unit-tiny auto 0;
+	margin: ($spacing-unit-tiny / 2 * -1) auto 0;
 	width: 36px;
 	height: $spacing-unit;
 	position: relative;
@@ -8,18 +8,16 @@
 	&::before,
 	&::after {
 		position: absolute;
+		top: 8px;
 		content: "";
 		display: block;
-		height: 4px;
+		height: $spacing-unit-tiny / 2;
 		width: 36px;
 		border-radius: 4px;
 		background-color: $color-gray-600;
 	}
 
-	&::before {
-		top: 6px;
-	}
 	&::after {
-		bottom: 6px;
+		margin-top: $spacing-unit-tiny;
 	}
 }
