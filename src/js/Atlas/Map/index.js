@@ -10,7 +10,7 @@ export class Map {
 	}
 
 	setupZoom() {
-		L.control.zoom({ position: "topleft" }).addTo(this._map);
+		L.control.zoom({ position: "bottomleft" }).addTo(this._map);
 	}
 
 	// Fonction reprise et adaptée de loadData() API de GIS
