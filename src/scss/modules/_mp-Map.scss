@@ -4,6 +4,7 @@
 
 .mp-Map {
 	position: relative;
+	overflow: hidden;
 
 	.leaflet-container {
 		font: inherit;

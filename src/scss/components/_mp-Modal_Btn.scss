@@ -1,8 +1,25 @@
 .mp-Modal_BtnAction {
 	display: block;
-	margin: $spacing-unit-small auto 0;
-	width: 24px;
-	height: 4px;
-	border-radius: 2px;
-	background-color: $color-gray-600;
+	margin: $spacing-unit-tiny auto 0;
+	width: 36px;
+	height: $spacing-unit;
+	position: relative;
+
+	&::before,
+	&::after {
+		position: absolute;
+		content: "";
+		display: block;
+		height: 4px;
+		width: 36px;
+		border-radius: 4px;
+		background-color: $color-gray-600;
+	}
+
+	&::before {
+		top: 6px;
+	}
+	&::after {
+		bottom: 6px;
+	}
 }

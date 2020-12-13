@@ -802,6 +802,7 @@ img[height] {
 
 .mp-Map {
   position: relative;
+  overflow: hidden;
 }
 .mp-Map .leaflet-container {
   font: inherit;
@@ -1100,47 +1101,76 @@ img[height] {
 .mp-Modal {
   position: absolute;
   width: 100%;
+  height: 100%;
   left: 0;
-  bottom: -120px;
+  top: 100%;
+  bottom: 0;
   z-index: 6;
   background-color: #fff;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
 }
+
 .mp-Modal_BtnAction {
   display: block;
-  margin: 12px auto 0;
-  width: 24px;
+  margin: 6px auto 0;
+  width: 36px;
+  height: 24px;
+  position: relative;
+}
+.mp-Modal_BtnAction::before, .mp-Modal_BtnAction::after {
+  position: absolute;
+  content: "";
+  display: block;
   height: 4px;
-  border-radius: 2px;
+  width: 36px;
+  border-radius: 4px;
   background-color: #aea9b2;
+}
+.mp-Modal_BtnAction::before {
+  top: 6px;
+}
+.mp-Modal_BtnAction::after {
+  bottom: 6px;
 }
 
 .mp-Modal_Content {
   display: flex;
   flex-direction: column;
-  padding: 6px 12px 12px;
+  margin: 12px;
+  overflow-y: auto;
+  height: 458px;
 }
 
 .mp-OrgProfile {
   display: flex;
   flex-direction: column;
 }
+.mp-OrgProfile h1, .mp-OrgProfile h2 {
+  margin: 0;
+  text-transform: uppercase;
+  color: #5c08a1;
+}
+.mp-OrgProfile::after  {
+  content: "";
+  padding: 6px;
+}
 
-.mp-OrgProfile_Identity {
+.mp-OrgProfile_Header {
   display: flex;
 }
 
 .mp-OrgProfile_Name {
-  flex: 1 0 auto;
+  flex: 1 auto;
+  padding-right: 24px;
 }
 .mp-OrgProfile_Name h1 {
-  font-size: 16px;
-  font-size: 1rem;
-  line-height: 1.5;
-  margin: 0;
+  color: #8b0bf4;
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.3333333333;
 }
 
 .mp-OrgProfile_Address {
@@ -1150,29 +1180,162 @@ img[height] {
   margin-bottom: 0;
 }
 
-.mp-OrgProfile_Logo {
-  background-color: #cdc7d1;
-  width: 48px;
-  height: 48px;
+.mp-OrgProfile_BagdeContainer {
+  flex: 0 0 75px;
 }
 
-.mp-OrgProfile_Infos {
+.mp-OrgProfile_Badge {
+  margin-bottom: 0;
+}
+.mp-OrgProfile_Badge-membreFraap {
+  position: relative;
+}
+
+.mp-OrgProfile_Body {
+  display: flex;
+  padding-top: 12px;
+}
+
+.mp-OrgProfile_Informations {
+  flex: 1 auto;
+  padding-right: 24px;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.2857142857;
+}
+.mp-OrgProfile_Informations h2 {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.7142857143;
 }
-.mp-OrgProfile_Infos p {
-  margin-bottom: 0;
-}
-.mp-OrgProfile_Infos::before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  margin: 12px 0;
-  background-color: #8b0bf4;
+.mp-OrgProfile_Informations h2::before {
+  content: "—";
+  margin-right: 6px;
 }
 
+.mp-OrgProfile_List {
+  list-style: none;
+  margin: 0 0 12px;
+}
+
+.mp-OrgProfile_ListItem {
+  position: relative;
+  padding: 3px 0 6px 24px;
+}
+.mp-OrgProfile_ListItem::before {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  content: "";
+  width: 18px;
+  height: 18px;
+  background-image: url("../../images/icons/autocomplete-marker@2x.png");
+  background-repeat: no-repeat;
+  background-position: -36px 0;
+}
+
+.mp-OrgProfile_Online {
+  margin: 0 0 12px;
+}
+.mp-OrgProfile_Online-social {
+  display: flex;
+}
+
+.mp-OrgProfile_WebLink {
+  color: #000;
+  border-bottom: 2px solid #ffc70f;
+  transition: color 0.3s ease;
+}
+.mp-OrgProfile_WebLink:hover {
+  color: #d5a60b !important;
+}
+
+.mp-OrgProfile_SocialLink {
+  background-image: url("../../images/icons/icon-facebook-k-24.svg");
+  background-repeat: no-repeat;
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+}
+.mp-OrgProfile_SocialLink-fb {
+  background-image: url("../../images/icons/icon-facebook-k-24.svg");
+}
+.mp-OrgProfile_SocialLink-fb.mp-OrgProfile_SocialLink-off {
+  background-image: url("../../images/icons/icon-facebook-g-24.svg");
+}
+.mp-OrgProfile_SocialLink-tw {
+  background-image: url("../../images/icons/icon-twitter-k-24.svg");
+}
+.mp-OrgProfile_SocialLink-tw.mp-OrgProfile_SocialLink-off {
+  background-image: url("../../images/icons/icon-twitter-g-24.svg");
+}
+.mp-OrgProfile_SocialLink-ig {
+  background-image: url("../../images/icons/icon-instagram-k-24.svg");
+}
+.mp-OrgProfile_SocialLink-ig.mp-OrgProfile_SocialLink-off {
+  background-image: url("../../images/icons/icon-instagram-g-24.svg");
+}
+
+.mp-OrgProfile_LogoMembreFraap {
+  display: block;
+  width: 65px;
+  margin: 0 auto;
+}
+
+.mp-OrgProfile_Tooltip {
+  position: absolute;
+  width: 150px;
+  top: 75px;
+  right: 19px;
+  padding: 6px;
+  background-color: #ffc70f;
+  border-radius: 6px;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.7142857143;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+}
+.mp-OrgProfile_Tooltip::before {
+  content: "";
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid #ffc70f;
+  top: -10px;
+  position: absolute;
+  right: 10px;
+}
+.mp-OrgProfile_Tooltip.is-open {
+  opacity: 1;
+  -webkit-animation: animateDown 0.2s linear forwards;
+          animation: animateDown 0.2s linear forwards;
+}
+
+@-webkit-keyframes animateDown {
+  0% {
+    opacity: 0;
+    transform: translatey(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatey(0);
+  }
+}
+
+@keyframes animateDown {
+  0% {
+    opacity: 0;
+    transform: translatey(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatey(0);
+  }
+}
 /*!
  * Hamburgers
  * @description Tasty CSS-animated hamburgers

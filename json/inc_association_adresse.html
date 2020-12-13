@@ -4,12 +4,12 @@
 		[(#CATEGORIE|=={metropolitan_region}|oui) #SET{region, #ISO_TITRE}]
 		[(#CATEGORIE|=={metropolitan_department}|oui) #SET{departement, #ISO_TITRE}]
 	</BOUCLE_territoires>
-"address1":[(#VOIE*|json_encode)],
-"address2":[(#COMPLEMENT*|json_encode)],
-"postalcode":[(#CODE_POSTAL*|json_encode)],
-"city":[(#VILLE*|json_encode)],
-"departement":[(#GET{departement}|textebrut|sinon{''}|json_encode)],
-"region":[(#GET{region}|textebrut|sinon{''}|json_encode)],
-"country":[(#GET{pays}|textebrut|sinon{''}|json_encode)]
+	"voie":[(#VOIE*|json_encode)],
+	"complement":[(#COMPLEMENT*|json_encode)],
+	"code_postal":[(#CODE_POSTAL*|json_encode)],
+	"ville":[(#VILLE*|json_encode)],
+	"departement":[(#GET{departement}|textebrut|sinon{''}|json_encode)],
+	"region":[(#GET{region}|textebrut|sinon{''}|json_encode)],
+	"pays":[(#GET{pays}|textebrut|sinon{''}|json_encode)]
 </BOUCLE_adresse>
 #FILTRE{trim}

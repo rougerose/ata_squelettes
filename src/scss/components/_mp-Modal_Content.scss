@@ -1,5 +1,15 @@
 .mp-Modal_Content {
 	display: flex;
 	flex-direction: column;
-	padding: $spacing-unit-tiny $spacing-unit-small $spacing-unit-small;
+	margin: $spacing-unit-small;
+	// padding: $spacing-unit-small;
+	overflow-y: auto;
+	height: 458px
+	// height: 100%;
+
+	// &::after {
+	// 	content: "";
+	// 	display: block;
+	// 	padding: 12px;
+	// }
 }

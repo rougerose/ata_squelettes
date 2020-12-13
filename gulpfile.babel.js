@@ -33,8 +33,8 @@ const options = {
 		},
 		jsLib: {
 			all: {
-				src: "",
-				dest: "",
+				src: ["node_modules/imagesloaded/imagesloaded.pkgd.js"],
+				dest: "dist/js/lib/",
 			},
 			leaflet: {
 				src: [
@@ -100,23 +100,44 @@ const ata = () => {
 	});
 };
 
+// Fichiers site (Atlas)
+const atlas = () => {
+	return rollup({
+		input: "src/js/Atlas/index.js",
+		plugins: [
+			nodeResolve(),
+			babel({ babelHelpers: "bundled" }),
+			process.env.NODE_ENV === "production" && terser(),
+		],
+		external: ["jquery"],
+	}).then((bundle) => {
+		return bundle.write({
+			file: "dist/js/atlas.min.js",
+			name: "Atlas",
+			exports: "named",
+			format: "iife",
+			globals: { jquery: "$" },
+			esModule: false,
+			sourcemap: false,
+		});
+	});
+};
+
 // JS individuels utilisés par le site.
 // Les fichiers sont traités individuellement.
 const js = () => {
-	return (
-		src(options.paths.js.src)
-			.pipe(
-				gulpif(
-					process.env.NODE_ENV === "production",
-					gulpTerser().on("error", function (error) {
-						this.emit("end");
-					})
-				)
+	return src(options.paths.js.src)
+		.pipe(
+			gulpif(
+				process.env.NODE_ENV === "production",
+				gulpTerser().on("error", function (error) {
+					this.emit("end");
+				})
 			)
-			.pipe(rename({ suffix: ".min" }))
-			.pipe(size({ title: "JS", gzip: true, showFiles: true }))
-			.pipe(dest(options.paths.js.dest))
-	);
+		)
+		.pipe(rename({ suffix: ".min" }))
+		.pipe(size({ title: "JS", gzip: true, showFiles: true }))
+		.pipe(dest(options.paths.js.dest));
 };
 
 // Plugins Leaflet
@@ -132,11 +153,28 @@ const jsLeaflet = () => {
 			)
 		)
 		.pipe(rename({ suffix: ".min" }))
-		.pipe(size({ title: "JSLib", gzip: true, showFiles: true }))
+		.pipe(size({ title: "JSLeaflet", gzip: true, showFiles: true }))
 		.pipe(dest(options.paths.jsLib.leaflet.dest));
 };
 
-export const jsTask = parallel(ata, js, jsLeaflet);
+// JS Lib
+// Les fichiers sont traités individuellement
+const jsLib = () => {
+	return src(options.paths.jsLib.all.src)
+		.pipe(
+			gulpif(
+				process.env.NODE_ENV === "production",
+				gulpTerser().on("error", function (error) {
+					this.emit("end");
+				})
+			)
+		)
+		.pipe(rename({ suffix: ".min" }))
+		.pipe(size({ title: "JSLib", gzip: true, showFiles: true }))
+		.pipe(dest(options.paths.jsLib.all.dest));
+};
+
+export const jsTask = parallel(ata, atlas, js, jsLeaflet, jsLib);
 
 // Browsersync
 const server = browserSync.create();
