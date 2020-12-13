@@ -1,23 +1,33 @@
 .spip-admin-float {
 	display: flex;
 	flex-direction: column;
-	right: 0 !important;
-	top: 50% !important;
+	top: 0 !important;
+	right: auto !important;
 	bottom: auto !important;
+	left: 0 !important;
 	z-index: $zindex-spip-admin-float !important;
+	width: 146px;
 
 	.spip-admin-boutons {
-		margin: 0.25rem;
+		margin: 0.25rem 0 0;
 		border-radius: 0;
 		font-family: $font-monospace;
 		@include inuit-font-size(10px);
 		font-weight: normal;
 		text-align: left;
-		transition: transform 0.5s ease-in;
-		transform: translateX(70%);
+		transition: width 0.5s ease-in;
+		overflow: hidden;
+		width: 32px;
 
 		&:hover {
-			transform: translateX(0);
+			width: 100%;
 		}
+	}
+
+	#ecrire {
+		background-color: red;
+	}
+	#var_mode {
+		background-color: rgb(0, 81, 255);
 	}
 }
