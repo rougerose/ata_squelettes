@@ -20,9 +20,8 @@
 	.st-NavOverlay_SiteLink {
 		&-logo {
 			flex: 2;
-			display: flex;
-			justify-content: center;
 			padding-left: $hamburger-layer-width;
+			text-align: center;
 		}
 	}
 
@@ -43,7 +42,7 @@
 			transition: all .1s linear;
 		}
 
-		.nav-is-opened & {
+		.nav-is-open & {
 			transform: none;
 			opacity: 1;
 			transition: all 1s ease;
