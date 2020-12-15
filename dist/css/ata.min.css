@@ -1127,19 +1127,21 @@ img[height] {
 }
 
 .mp-Modal_Inner {
-  padding: 12px;
+  padding: 0 12px 12px;
 }
 
 .mp-Modal_BtnAction {
   display: block;
-  margin: -3px auto 0;
-  width: 36px;
+  margin: 9px auto 0;
+  width: 100%;
   height: 24px;
   position: relative;
 }
 .mp-Modal_BtnAction::before, .mp-Modal_BtnAction::after {
   position: absolute;
   top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
   content: "";
   display: block;
   height: 3px;

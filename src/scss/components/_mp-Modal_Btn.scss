@@ -1,7 +1,7 @@
 .mp-Modal_BtnAction {
 	display: block;
-	margin: ($spacing-unit-tiny / 2 * -1) auto 0;
-	width: 36px;
+	margin: ($spacing-unit-small - 3px) auto 0;
+	width: 100%;
 	height: $spacing-unit;
 	position: relative;
 
@@ -9,6 +9,8 @@
 	&::after {
 		position: absolute;
 		top: 8px;
+		left: 50%;
+		transform: translateX(-50%);
 		content: "";
 		display: block;
 		height: $spacing-unit-tiny / 2;

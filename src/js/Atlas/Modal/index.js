@@ -34,6 +34,7 @@ export class Modal {
 			dragResistance: 0.19,
 			inertia: true,
 			zIndexBoost: false,
+			trigger: "#ModalAction",
 			bounds: bounds,
 			onMove: function (e) {
 				console.log(this);
