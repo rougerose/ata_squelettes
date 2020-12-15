@@ -528,10 +528,6 @@ html {
   background-color: #fff;
 }
 
-body {
-  padding-top: 60px;
-}
-
 a {
   color: #000;
   text-decoration: none;
@@ -593,6 +589,10 @@ img[height] {
   text-align: center;
   cursor: pointer;
   background-color: transparent;
+}
+
+.st-Doc {
+  padding-top: 60px;
 }
 
 .st-Header {
@@ -1103,45 +1103,59 @@ img[height] {
   width: 100%;
   height: 100%;
   left: 0;
-  top: 100%;
-  bottom: 0;
-  z-index: 6;
+  top: 0;
+  z-index: 7;
+  transition: translate 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(100%);
+}
+
+.mp-Modal_Layout {
+  width: 100%;
+  height: 100%;
   background-color: #fff;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.mp-Modal_Scroll {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  touch-action: none;
+  overflow: hidden auto;
+}
+
+.mp-Modal_Inner {
+  padding: 12px;
 }
 
 .mp-Modal_BtnAction {
   display: block;
-  margin: 6px auto 0;
+  margin: -3px auto 0;
   width: 36px;
   height: 24px;
   position: relative;
 }
 .mp-Modal_BtnAction::before, .mp-Modal_BtnAction::after {
   position: absolute;
+  top: 8px;
   content: "";
   display: block;
-  height: 4px;
+  height: 3px;
   width: 36px;
   border-radius: 4px;
   background-color: #aea9b2;
 }
-.mp-Modal_BtnAction::before {
-  top: 6px;
-}
 .mp-Modal_BtnAction::after {
-  bottom: 6px;
+  margin-top: 6px;
 }
 
 .mp-Modal_Content {
   display: flex;
   flex-direction: column;
-  margin: 12px;
-  overflow-y: auto;
-  height: 458px;
 }
 
 .mp-OrgProfile {
@@ -1176,8 +1190,11 @@ img[height] {
 .mp-OrgProfile_Address {
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 1.7142857143;
+  line-height: 1.2857142857;
   margin-bottom: 0;
+}
+.mp-OrgProfile_Address > span {
+  display: block;
 }
 
 .mp-OrgProfile_BagdeContainer {
@@ -1206,7 +1223,7 @@ img[height] {
 .mp-OrgProfile_Informations h2 {
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 1.7142857143;
+  line-height: 1.2857142857;
 }
 .mp-OrgProfile_Informations h2::before {
   content: "—";
@@ -1293,7 +1310,7 @@ img[height] {
   border-radius: 6px;
   font-size: 14px;
   font-size: 0.875rem;
-  line-height: 1.7142857143;
+  line-height: 1.2857142857;
   opacity: 0;
   transition: opacity 0.2s linear;
 }
@@ -1435,13 +1452,20 @@ img[height] {
 .spip-admin-float {
   display: flex;
   flex-direction: column;
-  right: 0 !important;
-  top: 50% !important;
+  top: 0 !important;
+  right: auto !important;
   bottom: auto !important;
+  left: 0 !important;
   z-index: 20 !important;
+  width: 32px;
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+.spip-admin-float:hover {
+  width: 146px;
 }
 .spip-admin-float .spip-admin-boutons {
-  margin: 0.25rem;
+  margin: 0.25rem 0 0;
   border-radius: 0;
   font-family: monospace;
   font-size: 10px;
@@ -1449,11 +1473,7 @@ img[height] {
   line-height: 1.8;
   font-weight: normal;
   text-align: left;
-  transition: transform 0.5s ease-in;
-  transform: translateX(70%);
-}
-.spip-admin-float .spip-admin-boutons:hover {
-  transform: translateX(0);
+  background-color: #0051ff;
 }
 
 /* ==========================================================================

@@ -21,6 +21,7 @@
 .mp-OrgProfile_Name {
 	flex: 1 auto;
 	padding-right: $spacing-unit;
+
 	h1 {
 		color: $color-primary;
 		@include font-size(18px);
@@ -28,8 +29,12 @@
 }
 
 .mp-OrgProfile_Address {
-	@include font-size(14px);
+	@include font-size(14px, $modifier:-1);
 	margin-bottom: 0;
+
+	> span {
+		display: block;
+	}
 }
 
 .mp-OrgProfile_BagdeContainer {
@@ -38,6 +43,7 @@
 
 .mp-OrgProfile_Badge {
 	margin-bottom: 0;
+
 	&-membreFraap {
 		position: relative;
 	}
@@ -54,7 +60,8 @@
 	@include font-size(14px, $modifier:-1);
 
 	h2 {
-		@include font-size(14px);
+		@include font-size(14px, $modifier:-1);
+
 		&::before {
 			content: "\002014";
 			margin-right: $spacing-unit-tiny;
@@ -86,6 +93,7 @@
 
 .mp-OrgProfile_Online {
 	margin: 0 0 $spacing-unit-small;
+
 	&-social {
 		display: flex;
 	}
@@ -95,6 +103,7 @@
 	color: $color-black;
 	border-bottom: 2px solid $color-ternary;
 	transition: color .3s ease;
+
 	&:hover {
 		color: $color-yellow-600 !important;
 	}
@@ -147,7 +156,7 @@
 	padding: $spacing-unit-tiny;
 	background-color: $color-ternary;
 	border-radius: $spacing-unit-tiny;
-	@include font-size(14px);
+	@include font-size(14px, $modifier:-1);
 	opacity: 0;
 	transition: opacity 0.2s linear;
 

@@ -1,122 +1,229 @@
-// import { gsap } from "gsap";
-// import { Draggable } from "gsap/Draggable";
+import { config } from "../config";
+import { gsap } from "gsap";
+import { Draggable } from "gsap/Draggable";
+import { InertiaPlugin } from "gsap/InertiaPlugin";
 
-// gsap.registerPlugin(Draggable);
+gsap.registerPlugin(Draggable, InertiaPlugin);
 
 export class Modal {
 	constructor(id) {
 		this.id = id;
 		this._modal = document.getElementById(id);
 		this._btn = this._modal.querySelector("button");
-		this._clickListener = this.clickToggleModal.bind(this);
-		this._btn.addEventListener("click", this.clickToggleModal.bind(this));
+		this._clickListener = this._onClickToggleModal.bind(this);
+		this._btn.addEventListener("click", this._clickListener);
 		this.isOpen = false;
+		this.isOpenFull = false;
 
-		// console.log(this._height, this._bounds);
-		/*
-		document.body.scrollHeight - this._modal.offsetTop
-		*/
-		// let that = this;
-		// Draggable.create("#" + this.id, {
-		// 	type: "y",
-		// 	bounds: { minY: 50, maxY: -125 },
-		// 	// edgeResistance: 0.5,
-		// 	dragResistance: 0.7,
-		// 	zIndexBoost: false,
-		// 	liveSnap: true,
-		// 	onMove: function () {
-		// 		console.log(this.y);
-		// 	},
-		// 	onDragEnd: function () {
-		// 		if (this.y <= -10) {
-		// 			that.toggleModal("open");
-		// 		} else if (this.y >= 5) {
-		// 			that.toggleModal("close");
-		// 		}
-		// 	},
-		// });
+		// Draggable
+		let self = this;
+		// gsap.config({ units: { top: "%" } });
+		Draggable.zIndex = config.modal.zIndex;
+
+		// TODO à garder pour masquer la modal ?
+		// gsap.set(this._modal, { y: "100%" });
+
+		let bounds = this._applyBounds();
+		this.isOpen = true; //! Test uniquement
+		const seuil = 100;
+		console.log(bounds);
+		let dragModal = Draggable.create(self._modal, {
+			type: "y",
+			zIndex: config.modal.zIndex,
+			edgeResistance: 0.9,
+			dragResistance: 0.19,
+			inertia: true,
+			zIndexBoost: false,
+			bounds: bounds,
+			onMove: function (e) {
+				console.log(this);
+				// let direction = this.getDirection();
+				// if (self.isOpen && self.isOpenFull) {
+				// 	if (direction == "up") {
+				// 		console.log("disable");
+				// 		dragModal[0].disable();
+				// 	}
+				// }
+				// else if (self.isOpen && !self.isOpenFull) {
+				// 	// preview
+				// 	if (direction == "up") {
+				// 		this.endDrag();
+				// 		gsap.to(self._modal, { y: this.minY });
+				// 		self.isOpen = true;
+				// 		self.isOpenFull = true;
+				// 	}
+				// }
+				if (self.isOpen && !self.isOpenFull && this.y <= this.maxY) {
+					console.log("ouvrir");
+					this.endDrag();
+					gsap.to(self._modal, { y: this.minY });
+					self.isOpen = true;
+					self.isOpenFull = true;
+				} else if (self.isOpen && self.isOpenFull && this.y >= this.minY && this.y < this.minY + seuil) {
+					console.log("fermer");
+					this.endDrag();
+					gsap.to(self._modal, { y: this.maxY });
+					self.isOpen = true;
+					self.isOpenFull = false;
+				}
+			},
+		});
 	}
 
-	clickToggleModal(event) {
-		event.preventDefault();
-		console.log("toggleModal", this, event);
+	_applyBounds(draggableEl) {
+		let minVal = this._calcPreviewHeight();
+		let maxVal = 0;
+		return { minY: minVal, maxY: maxVal };
+	}
+
+	_onDragToggleModal(el, bool) {
+		if (bool === true) {
+			console.log("_onDragToggleModal isOpen (début/fermer): ", this.isOpen);
+			// fermer
+			gsap.to(el, { top: 100, duration: 0.2 });
+			this.isOpen = false;
+			el.style.top = "";
+			el.dataset.visibilityStatus = "";
+			console.log(
+				"_onDragToggleModal isOpen (fin/fermer): ",
+				this.isOpen
+			);
+		} else {
+			console.log(
+				"_onDragToggleModal isOpen (début/ouvrir): ",
+				this.isOpen
+			);
+			// ouvrir
+			gsap.to(el, { top: 0, duration: 0.2 });
+			this.isOpen = true;
+			console.log(
+				"_onDragToggleModal isOpen (fin/ouvrir): ",
+				this.isOpen
+			);
+			el.dataset.visibilityStatus = "all";
+		}
+	}
+
+	_onClickToggleModal(event) {
+		console.log("_onClickToggleModal isOpen (début): ", this.isOpen);
 		if (!this.isOpen) {
 			return;
 		}
-		console.log(event.target, this._modal.dataset.visibilityState);
+		// console.log(event.target, this._modal.dataset.visibilityStatus);
 
-		if (this._modal.dataset.visibilityState === "preview") {
+		if (this._modal.dataset.visibilityStatus === "preview") {
 			console.log("toggle Preview -> All");
-			this._modal.dataset.visibilityState = "all";
-			this._modal.style.top = 0;
-			this._modal.removeEventListener("click", this._clickListener);
-		} else if (this._modal.dataset.visibilityState === "all") {
+			this._modal.dataset.visibilityStatus = "all";
+			this._modal.style.transform = "translateY(0)";
+			// this._modal.removeEventListener("click", this._clickListener);
+			this.isOpen = true;
+			console.log("_onClickToggleModal (fin/cas preview): ", this.isOpen);
+		} else if (this._modal.dataset.visibilityStatus === "all") {
 			console.log("toggle All -> Close");
-			// this._modal.dataset.visibilityState = "";
-			// this._modal.style.top = "100%";
-			this.close();
+			this._modal.dataset.visibilityStatus = "";
+			this._modal.style.transform = "translateY(100%)";
+			this.isOpen = false;
+			console.log(
+				"_onClickToggleModal isOpen (fin/cas all): ",
+				this.isOpen
+			);
 		}
 	}
 
 	open(data) {
+		console.log("open isOpen (debut): ", this.isOpen);
 		// si déjà ouvert, fermer avant de charger le html
 		if (this.isOpen) {
 			this.close().then(() => {
+				console.log("then");
 				this._buildModal(data);
 			});
 		} else {
 			this._buildModal(data);
 		}
 		this.isOpen = true;
+		console.log("open isOpen (fin): ", this.isOpen);
 	}
 
 	close() {
-		this.isOpen = false;
-		let modal = this._modal;
-		if (this._modal.dataset.visibilityState === "preview") {
-			this._modal.removeEventListener("click", this._clickListener);
-		}
-		// https://gist.github.com/davej/44e3bbec414ed4665220
-		return new Promise((resolve) => {
-			modal.style.top = "100%";
-			modal.dataset.visibilityState = "";
-			const transitionendListener = (event) => {
-				modal.removeEventListener(
+		return new Promise((resolve, reject) => {
+			console.log("close isOpen (début): ", this.isOpen);
+			console.log("promesse");
+			let self = this;
+			if (self._modal.dataset.visibilityStatus === "preview") {
+				// self._modal.removeEventListener("click", self._clickListener);
+			}
+			let transitionendListener = function (event) {
+				self._modal.removeEventListener(
 					"transitionend",
 					transitionendListener
 				);
 				resolve();
-			};
-			modal.addEventListener("transitionend", transitionendListener);
+				console.log("resolve");
+				this.isOpen = false;
+			}
+			self._modal.addEventListener(
+				"transitionend",
+				transitionendListener
+			);
+			self._modal.style.transform = "translateY(78%)";
 		});
 	}
+
+	// close() {
+	// 	console.log("close isOpen (début): ", this.isOpen);
+	// 	this.isOpen = false;
+	// 	let modal = this._modal;
+	// 	let self = this;
+	// 	if (modal.dataset.visibilityStatus === "preview") {
+	// 		modal.removeEventListener("click", self._clickListener);
+	// 	}
+	// 	// https://gist.github.com/davej/44e3bbec414ed4665220
+	// 	// return new Promise((resolve, reject) => {
+	// 	// 	// modal.style.top = "100%";
+	// 	// 	const transitionendListener = (event) => {
+	// 	// 		modal.removeEventListener(
+	// 	// 			"transitionend",
+	// 	// 			transitionendListener
+	// 	// 		);
+	// 	// 		modal.dataset.visibilityStatus = "";
+	// 	// 		console.log("close isOpen (fin): ", this.isOpen);
+	// 	// 		resolve();
+	// 	// 	};
+	// 	// 	modal.addEventListener("transitionend", transitionendListener);
+	// 	// });
+	// }
 
 	_buildModal(data) {
 		const properties = data.properties;
+
 		// Convertir le json en fonction du gabarit html
 		const html = this._createHTML(properties);
-		// Ajouter le contenu html à conteneur
+
+		// Ajouter le contenu html dans le conteneur
 		const htmlContainer = this._modal.querySelector(".mp-Modal_Content");
-		htmlContainer.firstElementChild.innerHTML = html;
-		// Avant d'afficher vérifier que les images de la modale
-		// sont chargées(via la lib imagesLoaded).
+		htmlContainer.innerHTML = html;
+
+		// Avant d'afficher, vérifier que les images de la modale
+		// sont bien chargées(via la lib imagesLoaded).
 		// Cela permet de calculer une hauteur de header (preview) plus précise.
 		imagesLoaded(this._modal, () => {
 			let previewHeight = this._calcPreviewHeight();
-			this._modal.style.top = previewHeight + "px";
-			this._modal.dataset.visibilityState = "preview";
+			console.log(previewHeight);
+			// this._modal.style.top = previewHeight + "px";
+			this._modal.style.transform = `translateY(${previewHeight}px)`;
+			this._modal.dataset.visibilityStatus = "preview";
+			// this._modal.addEventListener("click", this._clickListener);
 		});
-		this._modal.addEventListener("click", this._clickListener);
 	}
 
 	_calcPreviewHeight() {
-		return 0;
-		// let parentHeight = this._modal.offsetParent.offsetHeight;
-		// let content = this._modal.children[1];
-		// let bodyProfile = content.children[0].children[1].firstElementChild;
-		// let padding = 20;
-		// let previewHeight = parentHeight - (bodyProfile.offsetTop + padding);
-		// return previewHeight;
+		let parentHeight = this._modal.offsetParent.offsetHeight;
+		let bodyContent = this._modal.querySelector(".mp-OrgProfile_Body");
+		let padding = 24;
+		let previewHeight = parentHeight - (bodyContent.offsetTop + padding);
+
+		return previewHeight;
 	}
 
 	_createHTML(data) {

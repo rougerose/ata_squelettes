@@ -1,4 +1,7 @@
 export const config = {
+	modal: {
+		zIndex: 7,
+	},
 	markers: {
 		size: {
 			xs: 34,

@@ -7,6 +7,9 @@ export class Map {
 		this._modal = new Modal("Modal");
 		this._json_url;
 		this.body = document.body;
+		// Double click sur terminaux tactiles. Solution provisoire.
+		// https://github.com/Leaflet/Leaflet/issues/7255
+		L.Util.setOptions(this._map, { tap: false });
 	}
 
 	setupZoom() {
@@ -164,30 +167,26 @@ export class Map {
 	// le complément : adresse, réseaux sociaux, activités.
 	// Puis d'ouvrir la fenêtre modale de consultation des infos
 	// de l'association.
-	onClickMarker(event) {
+	onClickMarker(eventObj) {
 		const map = this;
 		const args = {
 			objets: "association",
-			id_association: event.target.feature.properties.id_association,
+			id_association: eventObj.target.feature.properties.id_association,
 		};
 
 		jQuery.getJSON(map._json_url, args, (data) => {
 			if (data && data.features.length == 1) {
 				const modal = map._modal;
 				modal.open(data.features[0]);
-				// if (modal.close()) {
-				// 	if (modal.parseContent(data.features[0])) {
-				// 		map._modal.open();
-				// 	}
-				// }
 			}
 		});
 	}
 
 	_clickMarker(marker, on) {
 		if (on === "on") {
-		L.DomEvent.on(marker, "click", this.onClickMarker, this);
+			L.DomEvent.on(marker, "click", this.onClickMarker, this);
 		} else {
+			console.log("_clickMarker off", on);
 			L.DomEvent.off(marker, "click", this.onClickMarker, this);
 		}
 	}
