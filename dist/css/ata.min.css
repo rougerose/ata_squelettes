@@ -753,7 +753,7 @@ img[height] {
   transform: translateX(100px);
   transition: all 0.1s linear;
 }
-.nav-is-opened .st-NavOverlay_Slogan {
+.nav-is-open .st-NavOverlay_Slogan {
   transform: none;
   opacity: 1;
   transition: all 1s ease;
