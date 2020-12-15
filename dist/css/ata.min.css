@@ -646,8 +646,7 @@ img[height] {
 }
 
 .st-Nav_SiteLink-logo {
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 @media (max-width: 63.99em) {
   .st-Nav_SiteLink-logo {
@@ -734,9 +733,8 @@ img[height] {
 
 .st-NavOverlay_SiteLink-logo {
   flex: 2;
-  display: flex;
-  justify-content: center;
   padding-left: 20px;
+  text-align: center;
 }
 
 .st-NavOverlay_Logo {

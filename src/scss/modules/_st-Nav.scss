@@ -17,11 +17,12 @@ $hamburger-layer-spacing: 3px;
 	// ========================================
 
 	.st-Nav_SiteLink {
+
 		&-logo {
-			display: flex;
-			justify-content: center;
+			text-align: center;
+
 			@include mq($until: l) {
-				flex: 2; // Centrer le logo
+				flex: 2; // Centrer le bloc
 				padding-left: $hamburger-layer-width;
 			}
 		}
