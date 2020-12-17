@@ -4,13 +4,17 @@
 .mp-SearchBox {
 	position: absolute;
 	width: calc(100% - #{$spacing-unit});
-	z-index: $zindex-searchbox;
+	// z-index: $zindex-searchbox;
 	top: 0;
 	left: $spacing-unit-small;
 
 	// Annuler le z-index de jquery-ui
 	&.ui-front {
 		z-index: $zindex-searchbox;
+	}
+
+	@include mq(l) {
+		width: 300px;
 	}
 }
 

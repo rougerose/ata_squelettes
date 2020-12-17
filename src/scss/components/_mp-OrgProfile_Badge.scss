@@ -1,0 +1,23 @@
+.mp-OrgProfile_BagdeContainer {
+	flex-shrink: 0;
+}
+
+.mp-OrgProfile_Badge {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 0;
+	margin-right: $spacing-unit-small;
+
+	&-membreFraap {
+		position: relative;
+		margin-right: 0;
+	}
+}
+
+.mp-OrgProfile_Logo {
+	width: 60px;
+}
+
+.mp-OrgProfile_LogoMembreFraap {
+	width: 65px;
+}
