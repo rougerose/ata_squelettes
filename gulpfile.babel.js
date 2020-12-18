@@ -109,14 +109,14 @@ const atlas = () => {
 			babel({ babelHelpers: "bundled" }),
 			process.env.NODE_ENV === "production" && terser(),
 		],
-		external: ["jquery"],
+		external: ["jquery", "leaflet"],
 	}).then((bundle) => {
 		return bundle.write({
 			file: "dist/js/atlas.min.js",
 			name: "Atlas",
 			exports: "named",
 			format: "iife",
-			globals: { jquery: "$" },
+			globals: { jquery: "$", leaflet: "L" },
 			esModule: false,
 			sourcemap: false,
 		});
