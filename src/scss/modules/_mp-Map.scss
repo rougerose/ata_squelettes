@@ -10,6 +10,10 @@
 
 	.leaflet-container {
 		font: inherit;
+
+		a {
+			color: currentColor;
+		}
 	}
 
 	// Surcharger le z-index défini par les css de leaflet
@@ -25,8 +29,14 @@
 		will-change: auto !important;
 	}
 
-	// leaflet-control-container
-	// .leaflet-control-container {}
+	// Ajouter une transition sur les 4 div enfants de leaflet-control-container
+	// pour les déplacements de ces éléments en fonction de la position
+	// de la fenêtre modale et du formulaire de recherche.
+	.leaflet-control-container {
+		div {
+			transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+	}
 
 	// la classe de la carte générée par le plugin GIS n'est pas modifiable
 	.carte_gis {

@@ -1,7 +1,5 @@
-// import { Map } from "./Map/index";
-// import { Map.Atlas } from "./Map/index";
 import { config } from "./config";
-import { Modal } from "./Modal/index";
+// import { Modal } from "./Modal/index";
 
 export const init = (mapObj) => {
 	const map = new Map(mapObj);
@@ -25,7 +23,9 @@ export class Map {
 		this.loadJson();
 
 		// Modal
-		this._modal = new Modal("Modal");
+		this._modal = L.control
+			.modal({ container: "Modal", position: "bottom" })
+			.addTo(this._map);
 	}
 
 	// Fonction reprise et adaptée de loadData() API de GIS

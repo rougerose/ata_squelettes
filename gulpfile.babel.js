@@ -37,10 +37,7 @@ const options = {
 				dest: "dist/js/lib/",
 			},
 			leaflet: {
-				src: [
-					// "node_modules/leaflet-sidebar/src/L.Control.Sidebar.js",
-					"src/js/leaflet/L.Control.AtaPanes.js",
-				],
+				src: ["src/js/leaflet/leaflet-modal.js"],
 				dest: "dist/js/leaflet/",
 			},
 		},
@@ -142,17 +139,9 @@ const js = () => {
 
 // Plugins Leaflet
 // Les fichiers sont traités individuellement
+//! Pas de compression, ce sera fait par spip.
 const jsLeaflet = () => {
 	return src(options.paths.jsLib.leaflet.src)
-		.pipe(
-			gulpif(
-				process.env.NODE_ENV === "production",
-				gulpTerser().on("error", function (error) {
-					this.emit("end");
-				})
-			)
-		)
-		.pipe(rename({ suffix: ".min" }))
 		.pipe(size({ title: "JSLeaflet", gzip: true, showFiles: true }))
 		.pipe(dest(options.paths.jsLib.leaflet.dest));
 };
@@ -174,7 +163,7 @@ const jsLib = () => {
 		.pipe(dest(options.paths.jsLib.all.dest));
 };
 
-export const jsTask = parallel(ata, atlas, js, jsLeaflet, jsLib);
+export const jsTask = series(ata, atlas, js, jsLeaflet, jsLib);
 
 // Browsersync
 const server = browserSync.create();
