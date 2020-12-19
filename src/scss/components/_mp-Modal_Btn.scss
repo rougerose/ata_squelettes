@@ -1,25 +1,23 @@
 .mp-Modal_BtnAction {
-	display: block;
-	margin: ($spacing-unit-small - 3px) auto 0;
-	width: 100%;
-	height: $spacing-unit;
-	position: relative;
+	display: flex;
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	margin-left: $spacing-unit;
+	background-color: $color-white;
 
-	&::before,
-	&::after {
-		position: absolute;
-		top: 8px;
-		left: 50%;
-		transform: translateX(-50%);
-		content: "";
-		display: block;
-		height: $spacing-unit-tiny / 2;
-		width: 36px;
-		border-radius: 4px;
-		background-color: $color-gray-600;
-	}
+	svg {
+		stroke-width: 1.5;
+		stroke: $color-black;
+		fill: $color-white;
+		transition: .2s;
 
-	&::after {
-		margin-top: $spacing-unit-tiny;
+		circle {
+			stroke-dashoffset: 0;
+			transition-delay: .3s;
+			display: block;
+			transition: stroke-dashoffset .3s;
+		}
 	}
 }

@@ -1,0 +1,21 @@
+.mp-OrgProfile_List {
+	list-style: none;
+	margin: 0;
+}
+
+.mp-OrgProfile_ListItem {
+	position: relative;
+  	padding: ($spacing-unit-tiny / 2) 0 ($spacing-unit-tiny) 1.33rem;
+
+	&::before {
+		position: absolute;
+		left: 0;
+		top: 2px;
+		content: "";
+		width: 18px;
+		height: 18px;
+		background-image: url("../../images/icons/autocomplete-marker@2x.png");
+		background-repeat: no-repeat;
+		background-position: -36px 0;
+	}
+}

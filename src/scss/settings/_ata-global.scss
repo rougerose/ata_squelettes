@@ -36,5 +36,7 @@
 	$zindex-spip-admin-float: 20;
 	$zindex-header: 10;
 	$zindex-map: 5;
-	$zindex-searchbox: $zindex-map + 1;
-	$zindex-modal: $zindex-map + 2;
+	$zindex-searchbox: $zindex-map + 2;
+	$zindex-modal: $zindex-map + 3;
+	$zindex-modal-mobile: $zindex-map + 3;
+	$zindex-modal-desktop: $zindex-map + 1;

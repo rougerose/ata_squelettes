@@ -805,6 +805,9 @@ img[height] {
 .mp-Map .leaflet-container {
   font: inherit;
 }
+.mp-Map .leaflet-container a {
+  color: currentColor;
+}
 .mp-Map .leaflet-pane,
 .mp-Map .leaflet-top,
 .mp-Map .leaflet-bottom {
@@ -814,6 +817,9 @@ img[height] {
 .mp-Map .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: auto !important;
 }
+.mp-Map .leaflet-control-container div {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 .mp-Map .carte_gis {
   width: 100%;
   height: calc(100vh - 60px);
@@ -822,17 +828,21 @@ img[height] {
 .mp-SearchBox {
   position: absolute;
   width: calc(100% - 24px);
-  z-index: 6;
   top: 0;
   left: 12px;
 }
 .mp-SearchBox.ui-front {
-  z-index: 6;
+  z-index: 7;
+}
+@media (min-width: 64em) {
+  .mp-SearchBox {
+    width: 300px;
+  }
 }
 
 .mp-SearchBox_Module {
   position: relative;
-  z-index: 7;
+  z-index: 8;
   margin-top: 6px;
   font-size: 15px;
   font-size: 0.9375rem;
@@ -933,7 +943,7 @@ img[height] {
 }
 
 .mp-Autocomplete_List.ui-widget.ui-widget-content {
-  z-index: 6;
+  z-index: 7;
   padding: 12px 6px 6px 0;
   font-family: inherit;
   font-size: 14px;
@@ -1100,76 +1110,89 @@ img[height] {
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 8;
   left: 0;
   top: 0;
-  z-index: 7;
-  transition: translate 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(100%);
+}
+@media (min-width: 64em) {
+  .mp-Modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 6;
+    width: 300px;
+    height: 100%;
+  }
 }
 
 .mp-Modal_Layout {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-}
-
-.mp-Modal_Scroll {
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
   width: 100%;
-  touch-action: none;
-  overflow: hidden auto;
-}
-
-.mp-Modal_Inner {
-  padding: 0 12px 12px;
-}
-
-.mp-Modal_BtnAction {
-  display: block;
-  margin: 9px auto 0;
-  width: 100%;
-  height: 24px;
-  position: relative;
-}
-.mp-Modal_BtnAction::before, .mp-Modal_BtnAction::after {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  content: "";
-  display: block;
-  height: 3px;
-  width: 36px;
-  border-radius: 4px;
-  background-color: #aea9b2;
-}
-.mp-Modal_BtnAction::after {
-  margin-top: 6px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.3);
 }
 
 .mp-Modal_Content {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
-.mp-OrgProfile {
+.mp-Modal_Header {
   display: flex;
-  flex-direction: column;
+  flex-grow: 1;
+  padding: 12px;
 }
+
+.mp-Modal_HeaderContent {
+  padding-top: 21px;
+  flex-grow: 1;
+}
+
+.mp-Modal_Body {
+  height: 100%;
+  overflow-y: auto;
+  padding: 0 12px 12px;
+}
+
+.mp-Modal_BtnAction {
+  display: flex;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-left: 24px;
+  background-color: #fff;
+}
+.mp-Modal_BtnAction svg {
+  stroke-width: 1.5;
+  stroke: #000;
+  fill: #fff;
+  transition: 0.2s;
+}
+.mp-Modal_BtnAction svg circle {
+  stroke-dashoffset: 0;
+  transition-delay: 0.3s;
+  display: block;
+  transition: stroke-dashoffset 0.3s;
+}
+
 .mp-OrgProfile h1, .mp-OrgProfile h2 {
   margin: 0;
   text-transform: uppercase;
   color: #5c08a1;
 }
-.mp-OrgProfile::after  {
-  content: "";
-  padding: 6px;
+.mp-OrgProfile h2 {
+  margin: 12px 0 6px;
+}
+
+.mp-OrgProfile_Tooltip {
+  display: none;
 }
 
 .mp-OrgProfile_Header {
@@ -1177,45 +1200,55 @@ img[height] {
 }
 
 .mp-OrgProfile_Name {
-  flex: 1 auto;
-  padding-right: 24px;
+  display: flex;
+  flex-direction: column;
 }
 .mp-OrgProfile_Name h1 {
-  color: #8b0bf4;
+  color: #750acd;
   font-size: 18px;
   font-size: 1.125rem;
-  line-height: 1.3333333333;
+  line-height: 1.1666666667;
 }
 
 .mp-OrgProfile_Address {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.2857142857;
-  margin-bottom: 0;
+  margin-bottom: 12px;
 }
 .mp-OrgProfile_Address > span {
   display: block;
 }
 
 .mp-OrgProfile_BagdeContainer {
-  flex: 0 0 75px;
+  flex-shrink: 0;
 }
 
 .mp-OrgProfile_Badge {
+  display: flex;
+  align-items: flex-start;
   margin-bottom: 0;
+  margin-right: 12px;
 }
 .mp-OrgProfile_Badge-membreFraap {
   position: relative;
+  margin-right: 0;
+}
+
+.mp-OrgProfile_Logo {
+  width: 60px;
+}
+
+.mp-OrgProfile_LogoMembreFraap {
+  width: 65px;
 }
 
 .mp-OrgProfile_Body {
   display: flex;
-  padding-top: 12px;
 }
 
 .mp-OrgProfile_Informations {
-  flex: 1 auto;
-  padding-right: 24px;
+  flex-grow: 1;
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.2857142857;
@@ -1227,22 +1260,26 @@ img[height] {
 }
 .mp-OrgProfile_Informations h2::before {
   content: "—";
-  margin-right: 6px;
+  margin-right: 0.33rem;
+  font-size: 1rem;
+}
+.mp-OrgProfile_Informations p {
+  margin-left: 1.33rem;
 }
 
 .mp-OrgProfile_List {
   list-style: none;
-  margin: 0 0 12px;
+  margin: 0;
 }
 
 .mp-OrgProfile_ListItem {
   position: relative;
-  padding: 3px 0 6px 24px;
+  padding: 3px 0 6px 1.33rem;
 }
 .mp-OrgProfile_ListItem::before {
   position: absolute;
-  left: 3px;
-  top: 3px;
+  left: 0;
+  top: 2px;
   content: "";
   width: 18px;
   height: 18px;
@@ -1294,65 +1331,6 @@ img[height] {
   background-image: url("../../images/icons/icon-instagram-g-24.svg");
 }
 
-.mp-OrgProfile_LogoMembreFraap {
-  display: block;
-  width: 65px;
-  margin: 0 auto;
-}
-
-.mp-OrgProfile_Tooltip {
-  position: absolute;
-  width: 150px;
-  top: 75px;
-  right: 19px;
-  padding: 6px;
-  background-color: #ffc70f;
-  border-radius: 6px;
-  font-size: 14px;
-  font-size: 0.875rem;
-  line-height: 1.2857142857;
-  opacity: 0;
-  transition: opacity 0.2s linear;
-}
-.mp-OrgProfile_Tooltip::before {
-  content: "";
-  width: 0;
-  height: 0;
-  background-color: transparent;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid #ffc70f;
-  top: -10px;
-  position: absolute;
-  right: 10px;
-}
-.mp-OrgProfile_Tooltip.is-open {
-  opacity: 1;
-  -webkit-animation: animateDown 0.2s linear forwards;
-          animation: animateDown 0.2s linear forwards;
-}
-
-@-webkit-keyframes animateDown {
-  0% {
-    opacity: 0;
-    transform: translatey(-15px);
-  }
-  100% {
-    opacity: 1;
-    transform: translatey(0);
-  }
-}
-
-@keyframes animateDown {
-  0% {
-    opacity: 0;
-    transform: translatey(-15px);
-  }
-  100% {
-    opacity: 1;
-    transform: translatey(0);
-  }
-}
 /*!
  * Hamburgers
  * @description Tasty CSS-animated hamburgers
