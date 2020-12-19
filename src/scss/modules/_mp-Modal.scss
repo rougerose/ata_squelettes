@@ -1,18 +1,6 @@
 
 
 .mp-Modal {
-	// position: absolute;
-	// width: 100%;
-	// height: 100%;
-	// left: 0;
-	// top: 0;
-	// z-index: $zindex-modal;
-	// background-color: $color-white;
-	// // border-radius: 8px 8px 0 0;
-	// box-shadow: 0 0 8px rgba($color-black, 0.25);
-	// transition: translate 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	// transform: translateY(100%);
-
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -33,72 +21,8 @@
 	}
 }
 
-.mp-Modal_Layout {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: $color-white;
-	box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.3);
-}
-
-.mp-Modal_Content {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-.mp-Modal_Header {
-	display: flex;
-	flex-grow: 1;
-	padding: $spacing-unit-small;
-}
-
-.mp-Modal_HeaderContent {
-	padding-top: 21px;
-	flex-grow: 1;
-}
-
-.mp-Modal_Body {
-	height: 100%;
-	overflow-y: auto;
-	padding: 0 $spacing-unit-small $spacing-unit-small;
-
-	// &::before {
-	// 	content: "";
-	// 	display: block;
-	// 	height: 1px;
-	// 	width: 100%;
-	// 	background-color: #fff;
-	// 	box-shadow: 0 1px 5px 1px rgba(#000, 0.8);
-	// }
-}
-
-.mp-Modal_BtnAction {
-	display: flex;
-	flex-shrink: 0;
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-	margin-left: $spacing-unit;
-	background-color: $color-white;
-	svg {
-		stroke-width: 1.5;
-		stroke: $color-black;
-		fill: $color-white;
-		transition: .2s;
-		circle {
-			stroke-dashoffset: 0;
-			transition-delay: .3s;
-			display: block;
-			transition: stroke-dashoffset .3s;
-		}
-	}
-}
-
-// @import "components/mp-Modal_Layout";
-// @import "components/mp-Modal_Scroll";
-// @import "components/mp-Modal_Inner";
-// @import "components/mp-Modal_Btn";
-// @import "components/mp-Modal_Content";
+@import "components/mp-Modal_Layout";
+@import "components/mp-Modal_Content";
+@import "components/mp-Modal_Header";
+@import "components/mp-Modal_Body";
+@import "components/mp-Modal_Btn";
