@@ -1167,21 +1167,57 @@ img[height] {
   height: 32px;
   border-radius: 50%;
   margin-left: 24px;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   background-color: #fff;
+  transition: background-color 0.3s ease;
 }
-.mp-Modal_BtnAction svg {
-  stroke-width: 1.5;
-  stroke: #000;
-  fill: #fff;
-  transition: 0.2s;
+.mp-Modal_BtnAction:hover {
+  background-color: #ffc70f;
 }
-.mp-Modal_BtnAction svg circle {
+.mp-Modal_BtnAction.is-ready-to-animate circle {
   stroke-dashoffset: 0;
   transition-delay: 0.3s;
-  display: block;
-  transition: stroke-dashoffset 0.3s;
+  -webkit-animation: 0.3s ease 0.5s 1 color_change;
+          animation: 0.3s ease 0.5s 1 color_change;
+}
+.mp-Modal_BtnAction[data-position=close] path {
+  stroke: transparent;
+}
+.mp-Modal_BtnAction[data-position=preview] path {
+  stroke: transparent;
+}
+.mp-Modal_BtnAction[data-position=preview] path#bottomCaret {
+  stroke: #000;
+  transform: translateY(-7px);
+}
+.mp-Modal_BtnAction[data-position=full] path {
+  stroke: #000;
+  transform: translateY(0);
 }
 
+.mp-Modal_BtnBg circle {
+  stroke-width: 2.5;
+  stroke: #000;
+  transition: stroke-dashoffset 0.3s 0s;
+}
+
+@-webkit-keyframes color_change {
+  from {
+    stroke: #ffc70f;
+  }
+  to {
+    stroke: #000;
+  }
+}
+
+@keyframes color_change {
+  from {
+    stroke: #ffc70f;
+  }
+  to {
+    stroke: #000;
+  }
+}
 .mp-OrgProfile h1, .mp-OrgProfile h2 {
   margin: 0;
   text-transform: uppercase;

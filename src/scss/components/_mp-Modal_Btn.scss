@@ -5,19 +5,61 @@
 	height: 32px;
 	border-radius: 50%;
 	margin-left: $spacing-unit;
+	box-shadow: 0 0 0 rgba($color-black, 0);
 	background-color: $color-white;
+	transition: background-color 0.3s ease;
 
-	svg {
-		stroke-width: 1.5;
-		stroke: $color-black;
-		fill: $color-white;
-		transition: .2s;
+	&:hover {
+		background-color: $color-yellow-500;
+	}
 
+	// classe ajouté par js, après transitionend
+	&.is-ready-to-animate {
 		circle {
 			stroke-dashoffset: 0;
-			transition-delay: .3s;
-			display: block;
-			transition: stroke-dashoffset .3s;
+			transition-delay: 0.3s;
+			animation: 0.3s ease 0.5s 1 color_change;
 		}
+	}
+
+	// dataset ajoutés par js
+	&[data-position="close"] {
+		path {
+			stroke: transparent;
+		}
+	}
+
+	&[data-position="preview"] {
+		path {
+			stroke: transparent;
+		}
+		path#bottomCaret {
+			stroke: $color-black;
+			transform: translateY(-7px);
+		}
+	}
+
+	&[data-position="full"] {
+		path {
+			stroke: $color-black;
+			transform: translateY(0);
+		}
+	}
+}
+
+.mp-Modal_BtnBg {
+	circle {
+		stroke-width: 2.5;
+		stroke: $color-black;
+		transition: stroke-dashoffset 0.3s 0s;
+	}
+}
+
+@keyframes color_change {
+	from {
+		stroke: $color-yellow-500;
+	}
+	to {
+		stroke: $color-black;
 	}
 }

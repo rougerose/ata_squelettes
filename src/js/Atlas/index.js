@@ -193,13 +193,13 @@ export class Map {
 		if (on === "on") {
 			L.DomEvent.on(marker, "click", this.onClickMarker, this);
 		} else {
-			console.log("_clickMarker off", on);
+			// console.log("_clickMarker off", on);
 			L.DomEvent.off(marker, "click", this.onClickMarker, this);
 		}
 	}
 
 	handler(event) {
-		console.log(this, event);
+		// console.log(this, event);
 		// let map = this;
 		// map.body.removeEventListener("transitionend", map.handler.bind(map, event.target));
 		// this.body.removeEventListener("transitionend", map.handler.bind(map, event.target));

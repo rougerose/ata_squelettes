@@ -16,14 +16,13 @@
 		 * Créer la fenêtre modal
 		 */
 		initialize: function (options) {
-			this.isOpen = false;
-			this.isOpenFull = false;
-
+			this._isOpen = false;
+			this._isOpenFull = false;
+			this._jsonData = null;
 			this._actionBtn;
 			this._headerContent;
 			this._bodyContent;
-			this._mapHeight;
-			this._zoomControl = {position: null, container: null};
+			this._zoomControl = { position: null, container: null };
 
 			L.setOptions(this, options);
 			return this;
@@ -47,9 +46,11 @@
 						: this.options.container;
 			}
 
-			// register click listener
+			container.dataset.position = "close";
+
+			// register and init actionBtn
 			this._actionBtn = container.querySelector("#ModalAction");
-			this._clickActionBtn(this._actionBtn, "on");
+			this._initActionBtn(this._actionBtn);
 
 			// register header and body content
 			this._headerContent = container.querySelector(
@@ -58,7 +59,7 @@
 			this._bodyContent = container.querySelector(".mp-Modal_Body");
 
 			// register map height
-			this._mapHeight = container.offsetParent.offsetHeight;
+			// this._mapHeight = container.offsetParent.offsetHeight;
 
 			// leaflet moves the returned container to the right place in the DOM
 			return container;
@@ -69,6 +70,14 @@
 		 * Fonction appelée par Leaflet remove(). Présente pour mémoire, sans effet ici.
 		 */
 		onRemove: function (map) {},
+
+		_onResize: function () {
+			if (this._isOpen && !this._isOpenFull && this._jsonData) {
+				const json = this._jsonData;
+				this.close();
+				this.open(json);
+			}
+		},
 
 		/**
 		 * Ajouter la modal comme "control" dans la carte.
@@ -109,41 +118,86 @@
 				map._container.firstChild
 			);
 
+			map.on("resize", this._onResize, this);
+
 			return this;
 		},
 
-		toggle: function (position, previewHeight) {
-			if (position === "preview" && parseInt(previewHeight) > 0) {
-				this._container.style.transform = `translateY(${previewHeight}px)`;
-				this._container.dataset.visibilityStatus = "preview";
-				this._translateZoomControlPosition("preview", previewHeight);
-				this.isOpen = true;
-				this.isOpenFull = false;
+		toggle: function (position, height) {
+			const promesse = new Promise((resolve, reject) => {
+				const self = this;
+				let unit = "px";
+				const handler = (event) => {
+					self._container.removeEventListener(
+						"transitionend",
+						handler
+					);
+					resolve();
+				};
+				if (position === "full") {
+					this._actionBtn.classList.remove("is-ready-to-animate");
+				}
+				this._container.addEventListener("transitionend", handler);
+				this._container.style.transform = `translateY(${height}${unit})`;
+				this._container.dataset.position = position;
+			});
+
+			if (position === "preview") {
+				promesse.then(() => {
+					this._actionBtn.classList.add("is-ready-to-animate");
+					this._actionBtn.dataset.position = position;
+					this._translateZoomControlPosition(position, height);
+					this._isOpen = true;
+					this._isOpenFull = false;
+				});
+			} else if (position === "full") {
+				promesse.then(() => {
+					this._actionBtn.classList.add("is-ready-to-animate");
+					this._actionBtn.dataset.position = position;
+					this._translateZoomControlPosition(position);
+					this._isOpen = true;
+					this._isOpenFull = true;
+				});
 			} else if (position === "close") {
 				this._container.style.transform = "translateY(100%)";
-				this._container.dataset.visibilityStatus = "";
-				this._translateZoomControlPosition("close");
-				this.isOpen = false;
-				this.isOpenFull = false;
-			} else if (position === "full") {
-				this._container.style.transform = "translateY(0)";
-				this._container.dataset.visibilityStatus = "full";
-				this._translateZoomControlPosition("full");
-				this.isOpen = true;
-				this.isOpenFull = true;
+				this._container.dataset.position = position;
+				this._translateZoomControlPosition(position);
+				this._actionBtn.dataset.position = position;
+				this._actionBtn.classList.remove("is-ready-to-animate");
+				this._isOpen = false;
+				this._isOpenFull = false;
 			}
 		},
 
 		open: function (json) {
-			// si la modale est déjà ouverte,
-			// fermer avant de charge le html.
-			if (this.isOpen) {
-				this._closePromise().then(() => {
+			// stocker les données json pour une réutilisation éventuelle avec _onResize
+			this._jsonData = json;
+			// si la modale est déjà ouverte, fermer avant de charge le html.
+			if (this._isOpen) {
+				const close = new Promise((resolve, reject) => {
+					const self = this;
+					const handler = (event) => {
+						self._container.removeEventListener(
+							"transitionend",
+							handler
+						);
+						resolve();
+					};
+					self._container.addEventListener("transitionend", handler);
+					self.close();
+				});
+				close.then(() => {
 					this._addContent(json);
 				});
 			} else {
 				this._addContent(json);
 			}
+		},
+
+		close: function () {
+			this.toggle("close", 100);
+			// supprimer les données json enregistrées lors de open()
+			this._jsonData = null;
 		},
 
 		// Repositionner les boutons de zoom de la carte
@@ -156,12 +210,31 @@
 			if (this._zoomControl.position.indexOf("bottom") !== -1) {
 				// zoom au-dessus de la modal en mode "preview"
 				if (position === "preview") {
-					const translateY = this._mapHeight - previewHeight;
+					const mapHeight = this._container.offsetParent.offsetHeight;
+					const translateY = mapHeight - previewHeight;
 					this._zoomControl.container.style.transform = `translateY(-${translateY}px)`;
-				// sinon position normale
+					// sinon position normale
 				} else if (position === "full" || position === "close") {
 					this._zoomControl.container.style.transform = "";
 				}
+			}
+		},
+
+		_initActionBtn: function (btnAction) {
+			// click listner
+			this._clickActionBtn(btnAction, "on");
+
+			btnAction.dataset.position = "close";
+
+			const circle = btnAction.querySelector("circle");
+			if (circle) {
+				const circumference = (
+					2 *
+					Math.PI *
+					circle.getAttribute("r")
+				).toFixed(2);
+				circle.setAttribute("stroke-dashoffset", circumference);
+				circle.setAttribute("stroke-dasharray", circumference);
 			}
 		},
 
@@ -174,27 +247,12 @@
 		},
 
 		_onclickActionBtn: function () {
-			const status = this._container.dataset.visibilityStatus;
-			if (status === "preview") {
-				this.toggle("full");
-			} else if (status === "full") {
-				this.toggle("close");
+			const position = this._container.dataset.position;
+			if (position === "preview") {
+				this.toggle("full", 0);
+			} else if (position === "full") {
+				this.toggle("close", 100);
 			}
-		},
-
-		_closePromise: function () {
-			return new Promise((resolve, reject) => {
-				const modal = this._container;
-				let transitionenHandler = function (event) {
-					modal.removeEventListener(
-						"transitionend",
-						transitionenHandler
-					);
-					resolve();
-				};
-				modal.addEventListener("transitionend", transitionenHandler);
-				this.toggle("close", "");
-			});
 		},
 
 		_addContent: function (json) {
@@ -206,6 +264,7 @@
 
 			this._headerContent.innerHTML = headerMarkup;
 			this._bodyContent.innerHTML = bodyMarkup;
+
 			// Avant d'afficher, vérifer que les images sont bien chargées
 			// (via la lib imagesLoaded).Cela permet de calculer
 			// une hauteur de preview (header) plus précise.
@@ -216,7 +275,7 @@
 		},
 
 		_calcPreviewHeight: function () {
-			const parentHeight = this._mapHeight;
+			const parentHeight = this._container.offsetParent.offsetHeight;
 			const bodyContentOffsetTop = this._bodyContent.offsetTop;
 			const previewHeight = parentHeight - (bodyContentOffsetTop + 24);
 
