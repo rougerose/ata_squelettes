@@ -48,18 +48,15 @@
 
 			container.dataset.position = "close";
 
-			// register and init actionBtn
+			// actionBtn : register and init
 			this._actionBtn = container.querySelector("#ModalAction");
 			this._initActionBtn(this._actionBtn);
 
-			// register header and body content
+			// header/body content : register
 			this._headerContent = container.querySelector(
 				".mp-Modal_HeaderContent"
 			);
 			this._bodyContent = container.querySelector(".mp-Modal_Body");
-
-			// register map height
-			// this._mapHeight = container.offsetParent.offsetHeight;
 
 			// leaflet moves the returned container to the right place in the DOM
 			return container;
@@ -71,6 +68,9 @@
 		 */
 		onRemove: function (map) {},
 
+		/**
+		 *
+		 */
 		_onResize: function () {
 			if (this._isOpen && !this._isOpenFull && this._jsonData) {
 				const json = this._jsonData;
@@ -118,6 +118,7 @@
 				map._container.firstChild
 			);
 
+			// Vérifier un éventuel changement de dimensions de la carte
 			map.on("resize", this._onResize, this);
 
 			return this;

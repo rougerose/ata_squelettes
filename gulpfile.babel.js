@@ -182,7 +182,10 @@ export const reload = (done) => {
 // Watch Task
 export const watchFiles = () => {
 	watch("src/scss/**/*.scss", scss);
-	watch("src/js/**/*.js", series(jsTask, reload));
+	watch(
+		["src/js/Ata/**/*.js", "src/js/Atlas/**/*.js", "src/js/leaflet/*.js"],
+		series(jsTask, reload)
+	);
 };
 
 // dev, build and default Tasks

@@ -1,5 +1,4 @@
 import { config } from "./config";
-// import { Modal } from "./Modal/index";
 
 export const init = (mapObj) => {
 	const map = new Map(mapObj);
@@ -22,7 +21,7 @@ export class Map {
 		// charger les données json
 		this.loadJson();
 
-		// Modal
+		// charger l'objet Modal dans la carte
 		this._modal = L.control
 			.modal({ container: "Modal", position: "bottom" })
 			.addTo(this._map);
