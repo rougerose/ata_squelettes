@@ -1,8 +1,12 @@
+
+$btnWidth: 32px;
+$btnHeight: 32px;
+
 .mp-Modal_BtnAction {
 	display: flex;
 	flex-shrink: 0;
-	width: 32px;
-	height: 32px;
+	width: $btnWidth;
+	height: $btnHeight;
 	border-radius: 50%;
 	margin-left: $spacing-unit;
 	box-shadow: 0 0 0 rgba($color-black, 0);
@@ -48,6 +52,9 @@
 }
 
 .mp-Modal_BtnBg {
+	width: $btnWidth;
+	height: $btnHeight;
+
 	circle {
 		stroke-width: 2.5;
 		stroke: $color-black;

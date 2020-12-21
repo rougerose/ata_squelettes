@@ -1237,6 +1237,10 @@ img[height] {
   transform: translateY(0);
 }
 
+.mp-Modal_BtnBg {
+  width: 32px;
+  height: 32px;
+}
 .mp-Modal_BtnBg circle {
   stroke-width: 2.5;
   stroke: #000;
