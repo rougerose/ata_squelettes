@@ -2,29 +2,50 @@
 
 
 // ATA
-	// Mediaqueries
-	$mq-breakpoints: (s: 320px, m: 768px, l: 1024px, xl: 1200px);
+	//* Mediaqueries
+	$mq-breakpoints: (
+		"s": 320px,
+		"m": 768px,
+		"l": 1024px,
+		"xl": 1200px,
+		"mobileLandscape": 667px
+	);
 
-	// fonts
+	//* fonts
 	$font-ata: "Euclid Triangle", sans-serif;
 	$font-monospace: monospace;
 
-	// logo sizes
-	$logo-width-mobile: 117px;
+	//* logo sizes
+	$logo-width-mobile: 85px;
+	$logo-width-desktop: 117px;
 
-	// Hauteur du header //
-	$headerHeight: 60px;
+	//* Hauteur du header //
+	$headerHeight-mobile: 48px;
+	$headerHeight-desktop: 60px;
 
-	// nav
+	// Variables pour définir une mediaquery
+	/// qui accompagne la hauteur du logo, de la navigation
+	// et de l'espace disponible pour la carte.
+	@use "sass:map"; // [1]
+	$maxHeight: mq-px2em(map.get($mq-breakpoints, mobileLandscape)); // [2]
+	// [1] @use map déclaration obligatoire pour sass dart
+	// [2] mq-px2em : fonction de conversion px -> em de sass-mq
+
+	//* nav
 	$nav-line-height: 49px;
 
-	// searchbox
+	//* Variables Hamburger //
+	$hamburger-layer-width: 20px;
+	$hamburger-layer-height: 3px;
+	$hamburger-layer-spacing: 3px;
+
+	//* searchbox
 	$searchbox-btn-size: 24px;
 	$searchbox-btn-size-mobile: 20px;
 	$searchbox-btn-options-size: 24px;
 	$searchbox-padding-left: $inuit-global-spacing-unit-tiny + $searchbox-btn-options-size + $inuit-global-spacing-unit-tiny;
 
-	// marker
+	//* markercluster sizes
 	$marker-size-xs: 34px;
 	$marker-size-s: 44px;
 	$marker-size-m: 54px;
@@ -32,7 +53,7 @@
 	$marker-size-xl: 74px;
 	$marker-size-xxl: 84px;
 
-	// z-index
+	//* z-index
 	$zindex-spip-admin-float: 20;
 	$zindex-header: 10;
 	$zindex-map: 5;

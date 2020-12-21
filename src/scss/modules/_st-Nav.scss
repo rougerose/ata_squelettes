@@ -2,89 +2,80 @@
 // Navigation principale
 // ========================================
 
-// Variables Hamburger //
-$hamburger-layer-width: 20px;
-$hamburger-layer-height: 3px;
-$hamburger-layer-spacing: 3px;
-
 .st-Nav {
 	display: flex;
+	align-items: center;
 	padding-top: $spacing-unit-tiny;
 	padding-bottom: $spacing-unit-tiny;
 }
 
-	// Lien logo et slogan
-	// ========================================
+.st-Nav_Slogan {
+	flex: 1; // largeur fixe, pour centrer le logo.
+	@include font-size(16px);
+	font-weight: 600;
 
-	.st-Nav_SiteLink {
 
-		&-logo {
-			text-align: center;
-
-			@include mq($until: l) {
-				flex: 2; // Centrer le bloc
-				padding-left: $hamburger-layer-width;
-			}
-		}
+	@include mq($until: l) {
+		display: none;
 	}
 
-	// Logo
-	// ========================================
-	.st-Nav_Logo {
+	@include mq(xl) {
+		@include font-size(18px);
+	}
+}
+
+// Lien du logo : élement conteneur
+.st-Nav_SiteLink-logo {
+	display: block;
+	margin: 0 auto;
+	// Compenser la largeur du bouton menu pour le centrage du logo
+	padding-left: $hamburger-layer-width;
+
+	@include mq(l) {
+		padding-left: 0;
+	}
+}
+
+.st-Nav_Logo {
+	width: $logo-width-mobile;
+
+	@include mq(m) {
+		width: $logo-width-desktop;
+	}
+
+	// réduire la hauteur pour les terminaux mobiles en orientation paysage
+	@media (max-height: $maxHeight) and (orientation: landscape) {
 		width: $logo-width-mobile;
 	}
+}
 
-	// Slogan
-	// ========================================
-	.st-Nav_Slogan {
-		@include mq($until: l) {
-			display: none;
-		}
+.st-Nav_List {
+	display: flex;
+	justify-content: flex-end;
+	flex: 1; // largeur fixe, pour centrer le logo.
+	list-style: none;
+	margin: 0;
+	@include font-size(16px);
 
-		@include mq(l) {
-			flex: 1; // Permet au logo d'être centrer*
-			align-self: center;
-			@include font-size(16px);
-			font-weight: 600;
-
-			@include mq(xl) {
-				@include font-size(18px);
-			}
-		}
+	@include mq($until: l) {
+		display: none;
 	}
 
-	// Menu principal
-	// ========================================
-	// [1] Permet au logo d'être centrer, voir
-	// https://stackoverflow.com/questions/32378953/keep-the-middle-item-centered-when-side-items-have-different-widths
-	.st-Nav_List {
-		display: flex;
-		justify-content: flex-end;
-		flex: 1; // [1]
-		align-self: center;
-		margin: 0;
-		list-style: none;
-		@include font-size(16px);
-
-		@include mq($until: l) {
-			display: none;
-		}
-
-		@include mq(xl) {
-			@include font-size(18px);
-		}
+	@include mq(xl) {
+		@include font-size(18px);
 	}
+}
 
-	.st-Nav_Item {
-		margin-left: $spacing-unit-small;
-	}
+.st-Nav_Item {
+	margin-left: $spacing-unit-small;
+}
 
-	// Nav Trigger
-	// ========================================
-	.st-Nav_Trigger {
-		display: flex;
-		align-self: center;
-		@include mq(l) {
-			display: none;
-		}
+.st-Nav_Trigger {
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+
+	@include mq(l) {
+		display: none;
 	}
+}

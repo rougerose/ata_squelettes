@@ -2,6 +2,11 @@
 // mp-Map
 // ========================================
 
+@use "sass:map";
+// mq-px2em : fonction de conversion px -> em de sass-mq
+$maxHeight: mq-px2em(map.get($mq-breakpoints, mobileLandscape));
+
+
 .mp-Map {
 	position: relative;
 	// width: 100%;
@@ -41,6 +46,15 @@
 	// la classe de la carte générée par le plugin GIS n'est pas modifiable
 	.carte_gis {
 		width: 100%;
-		height: calc(100vh - #{$headerHeight});
+		height: calc(100vh - #{$headerHeight-mobile});
+
+		@include mq(m) {
+			height: calc(100vh - #{$headerHeight-desktop});
+		}
+
+		//réduire la hauteur pour les terminaux mobiles en orientation paysage
+		@media (max-height: $maxHeight) and (orientation: landscape) {
+			height: calc(100vh - #{$headerHeight-mobile});
+		}
 	}
 }

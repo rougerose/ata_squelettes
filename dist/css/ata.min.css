@@ -579,6 +579,9 @@ img[height] {
     padding-left: 24px;
   }
 }
+.o-wrapper--flexible {
+  max-width: 100%;
+}
 
 .o-btn {
   display: inline-block;
@@ -592,7 +595,17 @@ img[height] {
 }
 
 .st-Doc {
-  padding-top: 60px;
+  padding-top: 48px;
+}
+@media (min-width: 48em) {
+  .st-Doc {
+    padding-top: 60px;
+  }
+}
+@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+  .st-Doc {
+    padding-top: 48px;
+  }
 }
 
 .st-Header {
@@ -641,40 +654,24 @@ img[height] {
 
 .st-Nav {
   display: flex;
+  align-items: center;
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
-.st-Nav_SiteLink-logo {
-  text-align: center;
+.st-Nav_Slogan {
+  flex: 1;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
 }
-@media (max-width: 63.99em) {
-  .st-Nav_SiteLink-logo {
-    flex: 2;
-    padding-left: 20px;
-  }
-}
-
-.st-Nav_Logo {
-  width: 117px;
-}
-
 @media (max-width: 63.99em) {
   .st-Nav_Slogan {
     display: none;
   }
 }
-@media (min-width: 64em) {
-  .st-Nav_Slogan {
-    flex: 1;
-    align-self: center;
-    font-size: 16px;
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: 600;
-  }
-}
-@media (min-width: 64em) and (min-width: 75em) {
+@media (min-width: 75em) {
   .st-Nav_Slogan {
     font-size: 18px;
     font-size: 1.125rem;
@@ -682,13 +679,37 @@ img[height] {
   }
 }
 
+.st-Nav_SiteLink-logo {
+  display: block;
+  margin: 0 auto;
+  padding-left: 20px;
+}
+@media (min-width: 64em) {
+  .st-Nav_SiteLink-logo {
+    padding-left: 0;
+  }
+}
+
+.st-Nav_Logo {
+  width: 85px;
+}
+@media (min-width: 48em) {
+  .st-Nav_Logo {
+    width: 117px;
+  }
+}
+@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+  .st-Nav_Logo {
+    width: 85px;
+  }
+}
+
 .st-Nav_List {
   display: flex;
   justify-content: flex-end;
   flex: 1;
-  align-self: center;
-  margin: 0;
   list-style: none;
+  margin: 0;
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -712,6 +733,7 @@ img[height] {
 
 .st-Nav_Trigger {
   display: flex;
+  flex-direction: column;
   align-self: center;
 }
 @media (min-width: 64em) {
@@ -732,13 +754,23 @@ img[height] {
 }
 
 .st-NavOverlay_SiteLink-logo {
-  flex: 2;
+  display: block;
+  margin: 0 auto;
   padding-left: 20px;
-  text-align: center;
 }
 
 .st-NavOverlay_Logo {
-  width: 117px;
+  width: 85px;
+}
+@media (min-width: 48em) {
+  .st-NavOverlay_Logo {
+    width: 117px;
+  }
+}
+@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+  .st-NavOverlay_Logo {
+    width: 85px;
+  }
 }
 
 .st-NavOverlay_Slogan {
@@ -822,7 +854,17 @@ img[height] {
 }
 .mp-Map .carte_gis {
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 48px);
+}
+@media (min-width: 48em) {
+  .mp-Map .carte_gis {
+    height: calc(100vh - 60px);
+  }
+}
+@media (max-height: 41.6875em) and (orientation: landscape) {
+  .mp-Map .carte_gis {
+    height: calc(100vh - 48px);
+  }
 }
 
 .mp-SearchBox {
@@ -834,7 +876,7 @@ img[height] {
 .mp-SearchBox.ui-front {
   z-index: 7;
 }
-@media (min-width: 64em) {
+@media (min-width: 41.6875em) {
   .mp-SearchBox {
     width: 300px;
   }

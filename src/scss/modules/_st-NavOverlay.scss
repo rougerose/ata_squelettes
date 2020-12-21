@@ -2,6 +2,8 @@
 // Navigation Overlay (mobile)
 // ========================================
 
+//! Les variables sont définies dans _st-Nav.scss et _ata-global.scss
+
 // .st-NavOverlay {}
 
 // Head container (logo, slogan et bouton)
@@ -19,15 +21,25 @@
 
 	.st-NavOverlay_SiteLink {
 		&-logo {
-			flex: 2;
+			display: block;
+			margin: 0 auto;
+			// Compenser la largeur du bouton menu pour le centrage du logo
 			padding-left: $hamburger-layer-width;
-			text-align: center;
 		}
 	}
 
 	// Logo
 	.st-NavOverlay_Logo {
 		width: $logo-width-mobile;
+
+		@include mq(m) {
+			width: $logo-width-desktop;
+		}
+
+		// réduire la hauteur pour les terminaux mobiles en orientation paysage
+		@media (max-height: $maxHeight) and (orientation: landscape) {
+			width: $logo-width-mobile;
+		}
 	}
 
 	// Slogan

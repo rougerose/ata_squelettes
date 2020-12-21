@@ -1,3 +1,13 @@
+// html > body
 .st-Doc {
-	padding-top: $headerHeight;
+	padding-top: $headerHeight-mobile;
+
+	@include mq(m) {
+		padding-top: $headerHeight-desktop;
+	}
+
+	// réduire la marge pour les terminaux mobiles en orientation paysage
+	@media (max-height: $maxHeight) and (orientation: landscape) {
+		padding-top: $headerHeight-mobile;
+	}
 }
