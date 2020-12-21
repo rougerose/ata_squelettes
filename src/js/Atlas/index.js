@@ -4,7 +4,7 @@ export const init = (mapObj) => {
 	const map = new Map(mapObj);
 };
 
-export class Map {
+class Map {
 	constructor(mapObj) {
 		this._map = mapObj;
 		this._json = this._map.options.json_points;
