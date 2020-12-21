@@ -1,7 +1,9 @@
 import { config } from "./config";
+import { Searchbox } from "./Searchbox";
 
 export const init = (mapObj) => {
 	const map = new Map(mapObj);
+	const searchbox = new Searchbox("SearchBox");
 };
 
 class Map {
