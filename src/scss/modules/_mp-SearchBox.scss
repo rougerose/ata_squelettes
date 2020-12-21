@@ -24,7 +24,7 @@
 	// width: 100%;
 	// left: $spacing-unit-small;
 	// top: 0;
-	margin-top: $spacing-unit-tiny;
+	margin-top: $spacing-unit-tiny / 2;
 	@include font-size(15px, $modifier: -1);
 	background-color: $color-form-searchBox-bg;
 	box-shadow: 0 4px 4px rgba($color-black, 0.25);

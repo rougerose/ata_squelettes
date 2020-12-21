@@ -6,12 +6,6 @@
 	padding: 0 $spacing-unit-tiny;
 	transition: border-color 0.3s ease;
 
-	&.is-focused {
-		border-color: $color-ternary;
-	}
-
-	// .editer_fulltext {}
-
 	label {
 		position: absolute;
 		top: 50%;
@@ -19,12 +13,16 @@
 		color: $color-form-label;
 		transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
 		transform: translateY(-50%);
-		@include font-size(15px, 1);
+		@include font-size(14px, 1);
+	}
 
-		&.is-focused {
+	&.is-focused {
+		border-color: $color-ternary;
+
+		label {
 			color: $color-secondary;
 			transform: translateY(-120%);
-			@include font-size(12px, false);
+			@include font-size(11px, false);
 		}
 	}
 }

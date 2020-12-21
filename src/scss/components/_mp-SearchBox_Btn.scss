@@ -1,7 +1,7 @@
 // Options
 .mp-SearchBox_BtnOptions {
 	position: absolute;
-	top: 16px;
+	top: 10px;
   	left: $spacing-unit-tiny;
   	z-index: $zindex-map + 1;
   	height: $searchbox-btn-options-size;
@@ -17,7 +17,9 @@
 // Remarque: le "bouton" Rechercher est en réalité un div
 .mp-SearchBox_BtnSearch,
 .mp-SearchBox_BtnCancel {
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	z-index: $zindex-map + 1;
 	right: $spacing-unit-tiny;
@@ -25,12 +27,30 @@
 	transform: translateY(-50%);
 	height: $searchbox-btn-size-mobile;
 	width: $searchbox-btn-size-mobile;
+	visibility: visible;
 }
 
 .mp-SearchBox_BtnCancel {
-	display: none;
+	visibility: hidden;
+	border-radius: 50%;
+	transition: background-color .3s ease;
 
 	.is-focused & {
-		display: block;
+		visibility: visible;
+	}
+
+	&:hover {
+		background-color: $color-ternary;
+		svg {
+			stroke: $color-black;
+		}
+	}
+}
+
+.mp-SearchBox_BtnSearch {
+	cursor: auto;
+
+	.is-focused & {
+		visibility: hidden;
 	}
 }
