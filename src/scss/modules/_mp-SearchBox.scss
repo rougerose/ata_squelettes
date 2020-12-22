@@ -4,7 +4,6 @@
 .mp-SearchBox {
 	position: absolute;
 	width: calc(100% - #{$spacing-unit});
-	// z-index: $zindex-searchbox;
 	top: 0;
 	left: $spacing-unit-small;
 
@@ -24,7 +23,7 @@
 	// width: 100%;
 	// left: $spacing-unit-small;
 	// top: 0;
-	margin-top: $spacing-unit-tiny / 2;
+	margin-top: $spacing-unit-tiny;
 	@include font-size(15px, $modifier: -1);
 	background-color: $color-form-searchBox-bg;
 	box-shadow: 0 4px 4px rgba($color-black, 0.25);
@@ -32,7 +31,5 @@
 
 @import "components/mp-SearchBox_Fulltext";
 @import "components/mp-SearchBox_Form";
-@import "components/mp-SearchBox_GroupFulltext";
-@import "components/mp-SearchBox_Input";
 @import "components/mp-SearchBox_Btn";
 @import "components/mp-SearchBox_Icon";
