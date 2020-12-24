@@ -1,5 +1,5 @@
 #HTTP_HEADER{Content-type:text/javascript}
-
+[(#REM)<!--  Les éléments ajoutés ou modifiés par rapport au fichier original sont précédent d'un commentaire -->]
 [(#INCLURE{lib/leaflet/dist/leaflet-src.js})]
 #SET{plugins_desactives, #CONFIG{gis/plugins_desactives,#ARRAY}}
 [(#REM) Déprécié avec Leaflet 1.0, mais nécessaire si le site utilise compresseur_embarquer_images_css ]
@@ -55,8 +55,8 @@ L.geocoderConfig = {
 [(#VAL{leaflet.markercluster-src.js}|in_array{#GET{plugins_desactives,#ARRAY}}|non)
 [(#INCLURE{lib/leaflet/plugins/leaflet.markercluster-src.js})]]
 
-[(#REM)<!-- Ajouter leaflet-modal -->]
-[(#INCLURE{dist/js/leaflet/leaflet-modal.js})]
+[(#REM)<!-- Ajouter L.Control.AtlasModal.js -->]
+[(#INCLURE{dist/js/leaflet/L.Control.AtlasModal.js})]
 
 [(#INCLURE{javascript/leaflet.gis.js})]
 

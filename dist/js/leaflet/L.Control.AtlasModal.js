@@ -407,43 +407,6 @@ L.Control.AtlasModal = L.Control.extend({
 	},
 });
 
-L.control.modal = function (options) {
-	return new L.Control.Modal(options);
-};
-
-L.MyPlugin = L.Control.extend({
-	options: { position: "topright" },
-	initialize: function (options) {
-		// Combine the control plugin's default options with those passed in as the parameter
-		L.Util.setOptions(this, options);
-
-		// Continue initializing the control plugin here.
-	},
-	onAdd: function (map) {
-		/*
-		 * Create the DOM element that will contain the control. The leaflet-control-template
-		 * CSS class is defined in the LeafletControlTemplate.css file.
-		 */
-		var controlElementTag = "div";
-		var controlElementClass = "leaflet-control-template";
-		var controlElement = L.DomUtil.create(
-			controlElementTag,
-			controlElementClass
-		);
-
-		// Continue implementing the control here.
-
-		/*
-		 * The onAdd function must return the DOM element that contains the plugin
-		 * control. Leaflet will add this element to the map.
-		 */
-		return controlElement;
-	},
-	onRemove: function (map) {
-		// Tear down the control by releasing resources and removing event listeners, etc.
-	},
-});
-
 // Ne pas activer par défaut.
 L.Map.mergeOptions({
 	atlasModal: false,

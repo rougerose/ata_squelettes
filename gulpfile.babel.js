@@ -37,7 +37,7 @@ const options = {
 				dest: "dist/js/lib/",
 			},
 			leaflet: {
-				src: ["src/js/leaflet/leaflet-modal.js"],
+				src: ["src/js/leaflet/L.Control.AtlasModal.js"],
 				dest: "dist/js/leaflet/",
 			},
 		},
@@ -92,7 +92,6 @@ const ata = () => {
 			format: "iife",
 			globals: { jquery: "$" },
 			esModule: false,
-			sourcemap: false,
 		});
 	});
 };
@@ -115,7 +114,6 @@ const atlas = () => {
 			format: "iife",
 			globals: { jquery: "$", leaflet: "L" },
 			esModule: false,
-			sourcemap: false,
 		});
 	});
 };
@@ -183,7 +181,7 @@ export const reload = (done) => {
 export const watchFiles = () => {
 	watch("src/scss/**/*.scss", scss);
 	watch(
-		["src/js/Ata/**/*.js", "src/js/Atlas/**/*.js", "src/js/leaflet/*.js"],
+		["src/js/Ata/**/*.js", "src/js/Atlas/*.js", "src/js/leaflet/*.js"],
 		series(jsTask, reload)
 	);
 };
