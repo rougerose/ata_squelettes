@@ -1,0 +1,33 @@
+<div class="formulaire_spip formulaire_#FORM mp-SearchBox_Form">
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+	[(#ENV{editable})
+	<form method="post" action="#ENV{action}">
+		<div>
+			#ACTION_FORMULAIRE{#ENV{action}}
+
+			[(#SET{params, #ARRAY{limite, 5}|json_encode|attribut_html})]
+			[(#SET{dataid, #VAL{1}|uniqid})]
+			[(#SET{attributs, value="" data-id="[(#GET{dataid})]" data-selecteur="atlas_fulltext" data-select-php="oui" data-select-callback="autocomplete_callback" data-select-params="[(#GET{params})]"})]
+			<div class="editer-groupe mp-SearchBox_GroupFulltext">
+				[(#SAISIE{input, fulltext,
+					label=<:ata_squelettes:label_fulltext:>,
+					class=mp-SearchBox_InputFulltext,
+					attributs=#GET{attributs}}
+				)]
+				[<div class="o-btn mp-SearchBox_BtnSearch">
+					(#INCLURE{fond=images/icons/icon-search-32.svg, title="
+					<:ata_squelettes:label_icon_search:>", class="mp-SearchBox_IconSearch"})
+				</div>]
+				[<button type="reset" data-rel-id="[(#GET{dataid})]" aria-label="<:ata_squelettes:label_effacer:>"
+					class="o-btn mp-SearchBox_BtnCancel">(#INCLURE{fond=images/icons/icon-cancel-32.svg, class="mp-SearchBox_IconCancel"})</button>]
+			</div>
+			<!--extra-->
+			<!-- <p class="boutons">
+				<a class="ajax" href="[(#SELF)]"><:bouton_annuler:></a>
+				<input type='submit' class='submit' value='<:bouton_valider:>' />
+			</p> -->
+		</div>
+	</form>]
+</div>

@@ -1,0 +1,17 @@
+// Options //
+.mp-SearchBox_IconOptions {
+	stroke: $color-form-label;
+}
+
+// Rechercher et Annuler //
+.mp-SearchBox_IconSearch,
+.mp-SearchBox_IconCancel {
+	stroke: $color-form;
+	transition: stroke 0.3s ease;
+	width: 16px;
+	height: 16px;
+}
+
+// .mp-SearchBox_IconCancel {}
+
+// .mp-SearchBox_IconSearch {}

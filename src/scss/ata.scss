@@ -119,24 +119,34 @@
 // @import "node_modules/inuitcss/objects/objects.table";
 // @import "node_modules/inuitcss/objects/objects.pack";
 @import "objects/wrapper";
+@import "objects/btn";
 
+// MODULES
+// st : structure des pages
+@import "modules/st-Doc";
+@import "modules/st-Header";
+@import "modules/st-Main";
+@import "modules/st-Overlay";
+@import "modules/st-Nav";
+@import "modules/st-NavOverlay";
+
+// mp : map
+@import "modules/mp-Map";
+@import "modules/mp-SearchBox";
+@import "modules/mp-Autocomplete";
+@import "modules/mp-Keywords";
+@import "modules/mp-MarkerCluster";
+@import "modules/mp-Modal";
+@import "modules/mp-OrgProfile";
+
+// libs
+@import "node_modules/hamburgers/_sass/hamburgers/hamburgers";
+
+// CMS : styles spécifiques à SPIP
+@import "modules/cms_spip-admin";
 
 // COMPONENTS
-	// st : structure des pages
-	@import "components/st-Header";
-	@import "components/st-Main";
-	@import "components/st-Overlay";
-	@import "components/st-Nav";
-	@import "components/st-NavOverlay";
 
-	// mp : map
-	@import "components/mp-Map";
-
-	// libs
-	@import "node_modules/hamburgers/_sass/hamburgers/hamburgers";
-
-	// CMS : styles spécifiques à SPIP
-	@import "components/cms_spip-admin";
 
 
 // UTILITIES

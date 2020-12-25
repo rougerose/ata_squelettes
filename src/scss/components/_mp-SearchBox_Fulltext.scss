@@ -1,0 +1,43 @@
+.mp-SearchBox_Fulltext {
+	padding: $spacing-unit-tiny / 2;
+	padding-left: $searchbox-padding-left;
+}
+
+.mp-SearchBox_GroupFulltext {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	border: 1px solid $color-form;
+	padding: 0 $spacing-unit-tiny;
+	transition: border-color 0.3s ease;
+
+	label {
+		position: absolute;
+		top: 50%;
+		z-index: $zindex-map + 1;
+		color: $color-form-label;
+		transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
+		transform: translateY(-50%);
+		@include font-size(14px, 1);
+	}
+
+	&.is-focused {
+		border-color: $color-ternary;
+
+		label {
+			color: $color-secondary;
+			transform: translateY(-120%);
+			@include font-size(11px, false);
+		}
+	}
+}
+
+// Input fulltext
+.mp-SearchBox_InputFulltext {
+	padding-top: $spacing-unit-small + $spacing-unit-tiny;
+	padding-right: $spacing-unit;
+	width: 100%;
+	border: none;
+	outline: currentColor none medium;
+	@include font-size(14px, 1);
+}

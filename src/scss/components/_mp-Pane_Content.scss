@@ -1,0 +1,9 @@
+.mp-Pane_Content {
+	display: flex;
+	flex-direction: column;
+	padding: 0 $spacing-unit-small;
+
+	&.is-scrollable-y {
+		overflow: hidden auto;
+	}
+}

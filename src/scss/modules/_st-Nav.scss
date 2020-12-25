@@ -1,0 +1,81 @@
+// ========================================
+// Navigation principale
+// ========================================
+
+.st-Nav {
+	display: flex;
+	align-items: center;
+	padding-top: $spacing-unit-tiny;
+	padding-bottom: $spacing-unit-tiny;
+}
+
+.st-Nav_Slogan {
+	flex: 1; // largeur fixe, pour centrer le logo.
+	@include font-size(16px);
+	font-weight: 600;
+
+
+	@include mq($until: l) {
+		display: none;
+	}
+
+	@include mq(xl) {
+		@include font-size(18px);
+	}
+}
+
+// Lien du logo : élement conteneur
+.st-Nav_SiteLink-logo {
+	display: block;
+	margin: 0 auto;
+	// Compenser la largeur du bouton menu pour le centrage du logo
+	padding-left: $hamburger-layer-width;
+
+	@include mq(l) {
+		padding-left: 0;
+	}
+}
+
+.st-Nav_Logo {
+	width: $logo-width-mobile;
+
+	@include mq(m) {
+		width: $logo-width-desktop;
+	}
+
+	// réduire la hauteur pour les terminaux mobiles en orientation paysage
+	@media (max-height: $maxHeight) and (orientation: landscape) {
+		width: $logo-width-mobile;
+	}
+}
+
+.st-Nav_List {
+	display: flex;
+	justify-content: flex-end;
+	flex: 1; // largeur fixe, pour centrer le logo.
+	list-style: none;
+	margin: 0;
+	@include font-size(16px);
+
+	@include mq($until: l) {
+		display: none;
+	}
+
+	@include mq(xl) {
+		@include font-size(18px);
+	}
+}
+
+.st-Nav_Item {
+	margin-left: $spacing-unit-small;
+}
+
+.st-Nav_Trigger {
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+
+	@include mq(l) {
+		display: none;
+	}
+}

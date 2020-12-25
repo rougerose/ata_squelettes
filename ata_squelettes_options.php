@@ -15,3 +15,8 @@ if (!isset($GLOBALS['z_blocs'])) {
 		'overlay'
 	);
 }
+
+// Formulaire de recherche de la carte : activer le sélecteur générique
+if (!defined('_SELECTEUR_GENERIQUE_ACTIVER_PUBLIC')) {
+	define('_SELECTEUR_GENERIQUE_ACTIVER_PUBLIC', true);
+}

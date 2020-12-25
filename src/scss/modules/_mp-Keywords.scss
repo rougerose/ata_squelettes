@@ -1,0 +1,83 @@
+.mp-Keywords {
+	@include font-size(14px, $modifier: -1.5);
+}
+
+.mp-Keywords_List {
+	list-style: none;
+	margin: 0;
+	padding: $spacing-unit-tiny 0;
+	display: flex;
+	flex-wrap: nowrap;
+	overflow: auto;
+	scroll-snap-type: x proximity;
+
+	&::before,
+	&::after {
+		content: "";
+		width: $spacing-unit-tiny;
+		flex: 0 0 auto;
+	}
+}
+
+.mp-Keywords_Item {
+	display: flex;
+	flex: 0 0 auto;
+	margin-right: $spacing-unit-tiny;
+	padding: $spacing-unit-tiny;
+	border-radius: 0.5em;
+	background-color: $color-keyword-bg;
+	color: $color-black;
+}
+
+.mp-Keywords_Label {
+	position: relative;
+	margin-right: $spacing-unit-tiny;
+	padding-left: 20px;
+
+	&::before {
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		content: "";
+		width: 18px;
+		height: 18px;
+		background-image: url("../../images/icons/autocomplete-marker@2x.png");
+		background-repeat: no-repeat;
+	}
+
+	&-city {
+		&::before {
+			background-position: -18px 0;
+		}
+	}
+
+	&-activity {
+		&::before {
+		  background-position: -36px 0;
+		}
+	}
+
+	&-org {
+		&::before {
+			background-position: 0 0;
+		}
+	}
+}
+
+.mp-Keywords_BtnDelete {
+	display: flex;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: $color-keyword-delete-bg;
+	background-image: url("../../images/icons/icon-delete-32.svg");
+	background-size: 10px;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: background-color 0.5s ease;
+
+	&:hover {
+		background-color: $color-orange-600;
+	}
+}

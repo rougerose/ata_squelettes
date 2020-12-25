@@ -1,0 +1,56 @@
+// Options
+.mp-SearchBox_BtnOptions {
+	position: absolute;
+	top: 10px;
+  	left: $spacing-unit-tiny;
+  	z-index: $zindex-map + 1;
+  	height: $searchbox-btn-options-size;
+  	width: $searchbox-btn-options-size;
+  	background-color: $color-form-searchBox-bg;
+	transition: background-color 0.3s ease;
+}
+
+// Rechercher et Annuler
+// ========================================
+
+// Boutons Rechercher et Annuler
+// Remarque: le "bouton" Rechercher est en réalité un div
+.mp-SearchBox_BtnSearch,
+.mp-SearchBox_BtnCancel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	z-index: $zindex-map + 1;
+	right: $spacing-unit-tiny;
+	top: 50%;
+	transform: translateY(-50%);
+	height: $searchbox-btn-size-mobile;
+	width: $searchbox-btn-size-mobile;
+	visibility: visible;
+}
+
+.mp-SearchBox_BtnCancel {
+	visibility: hidden;
+	border-radius: 50%;
+	transition: background-color .3s ease;
+
+	.is-focused & {
+		visibility: visible;
+	}
+
+	&:hover {
+		background-color: $color-ternary;
+		svg {
+			stroke: $color-black;
+		}
+	}
+}
+
+.mp-SearchBox_BtnSearch {
+	cursor: auto;
+
+	.is-focused & {
+		visibility: hidden;
+	}
+}

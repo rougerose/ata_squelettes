@@ -16,4 +16,8 @@ $inuit-wrapper-width: 1200px !default;
 		padding-right: $spacing-unit;
 		padding-left: $spacing-unit;
 	}
+
+	&--flexible {
+		max-width: 100%;
+	}
 }

@@ -1,0 +1,111 @@
+// ========================================
+// Navigation Overlay (mobile)
+// ========================================
+
+//! Les variables sont définies dans _st-Nav.scss et _ata-global.scss
+
+// .st-NavOverlay {}
+
+// Head container (logo, slogan et bouton)
+// ========================================
+.st-NavOverlay_Head {
+	display: flex;
+	flex-direction: column;
+	padding-top: $spacing-unit-tiny;
+	padding-bottom: $spacing-unit-large;
+	& > div {
+		display: flex;
+		margin-bottom: $spacing-unit-tiny;
+	}
+}
+
+	.st-NavOverlay_SiteLink {
+		&-logo {
+			display: block;
+			margin: 0 auto;
+			// Compenser la largeur du bouton menu pour le centrage du logo
+			padding-left: $hamburger-layer-width;
+		}
+	}
+
+	// Logo
+	.st-NavOverlay_Logo {
+		width: $logo-width-mobile;
+
+		@include mq(m) {
+			width: $logo-width-desktop;
+		}
+
+		// réduire la hauteur pour les terminaux mobiles en orientation paysage
+		@media (max-height: $maxHeight) and (orientation: landscape) {
+			width: $logo-width-mobile;
+		}
+	}
+
+	// Slogan
+	.st-NavOverlay_Slogan {
+		@include font-size(18px);
+		font-weight: 600;
+		text-align: center;
+
+		.js & {
+			opacity: 0;
+			transform: translateX(100px);
+			transition: all .1s linear;
+		}
+
+		.nav-is-open & {
+			transform: none;
+			opacity: 1;
+			transition: all 1s ease;
+		}
+	}
+
+// Body container (nav et sociaux)
+// ========================================
+.st-NavOverlay_Body {
+	padding-left: $spacing-unit-small;
+}
+
+	// Nav List
+	// ========================================
+	.st-NavOverlay_List {
+		margin: 0 0 $spacing-unit;
+		list-style: none;
+		@include font-size(20px);
+		font-weight: 600;
+	}
+
+	.st-NavOverlay_Item {
+		.js & {
+			opacity: 0;
+			transform: translateX(-100px);
+			transition: all .1s linear 1s;
+		}
+
+		.nav-is-open & {
+			transform: none;
+			opacity: 1;
+			transition: all 1s ease 1s;
+		}
+	}
+
+	// Social List
+	// ========================================
+	.st-NavOverlay_SocialList {
+		display: flex;
+		flex-direction: column;
+
+
+		.js & {
+			opacity: 0;
+			transform: translateY(100%);
+			transition: all .1s linear 1s;
+		}
+
+		.nav-is-open & {
+			opacity: 1;
+			transform: none;
+			transition: all 1s ease 1s;
+		}
+	}
