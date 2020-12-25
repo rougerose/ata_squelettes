@@ -37,7 +37,10 @@ const options = {
 				dest: "dist/js/lib/",
 			},
 			leaflet: {
-				src: ["src/js/leaflet/L.Control.AtlasModal.js"],
+				src: [
+					"src/js/leaflet/L.Control.AtlasModal.js",
+					"src/js/leaflet/L.Control.AtlasSearchBox.js",
+				],
 				dest: "dist/js/leaflet/",
 			},
 		},

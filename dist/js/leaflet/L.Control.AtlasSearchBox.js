@@ -1,9 +1,18 @@
-import { config } from "./config";
+L.Control.AtlasSearchBox = L.Control.extend({
+	options: {
+		container: "SearchBox",
+		position: "topleft",
+		keywords: {
+			containerId: "#js-Keywords",
+			ulClassName: "mp-Keywords_List",
+			liClassName: "mp-Keywords_Item",
+			labelClassName: "mp-Keywords_Label",
+			btnClassName: "o-btn mp-Keywords_BtnDelete",
+		},
+	},
 
-export class Searchbox {
-	constructor(id, MapInstance) {
-		this._container = document.getElementById(id);
-		this._map = MapInstance;
+	initialize: function (options) {
+		L.Util.setOptions(this, options);
 		this._labels = [];
 		this._inputs = [];
 		this._inputsId = [];
@@ -11,7 +20,59 @@ export class Searchbox {
 		this._buttonsCancelId = [];
 		this._kwLabels = [];
 		this._kwValues = [];
+	},
 
+	onAdd: function (map) {
+		let container;
+		// use container from previous onAdd()
+		container = this._container;
+		// use the container given via options.
+		if (!container) {
+			container =
+				this._container || typeof this.options.container === "string"
+					? L.DomUtil.get(this.options.container)
+					: this.options.container;
+		}
+		return container;
+	},
+
+	onRemove: function (map) {},
+
+	addTo: function (map) {
+		this.remove();
+		this._map = map;
+		this._container = this.onAdd(map);
+
+		L.DomUtil.addClass(this._container, "leaflet-control");
+		L.DomUtil.addClass(
+			this._container,
+			"leaflet-atlasSearchBox-" + this.getPosition()
+		);
+		if (L.Browser.touch)
+			L.DomUtil.addClass(this._container, "leaflet-touch");
+
+		// when adding to the map container, we should stop event propagation
+		// L.DomEvent.disableScrollPropagation(this._container);
+		// L.DomEvent.disableClickPropagation(this._container);
+		L.DomEvent.on(
+			this._container,
+			"contextmenu",
+			L.DomEvent.stopPropagation
+		);
+
+		this._map._container.insertBefore(
+			this._container,
+			this._map._container.firstChild
+		);
+
+		this._initLayout();
+
+		this._map.on("resize", this._onResize, this);
+
+		return this;
+	},
+
+	_initLayout: function () {
 		this._labels = this._container.querySelectorAll("label");
 		for (let index = 0; index < this._labels.length; index++) {
 			this._labels[index].classList.add("js-Searchbox_Label");
@@ -21,8 +82,8 @@ export class Searchbox {
 		for (let index = 0; index < this._inputs.length; index++) {
 			const input = this._inputs[index];
 			this._inputsId[index] = input.dataset.id;
-			input.addEventListener("focus", this._oneventInput);
-			input.addEventListener("blur", this._oneventInput);
+			input.addEventListener("focus", this._onEventInput);
+			input.addEventListener("blur", this._onEventInput);
 		}
 
 		this._buttonsCancel = this._container.querySelectorAll(
@@ -36,26 +97,30 @@ export class Searchbox {
 			const input = this._inputs[idx];
 			btn.addEventListener("click", this._onclickCancelBtn.bind(input));
 		}
-	}
+	},
 
-	_oneventInput(event) {
+	_onResize: function () {
+		console.log("onResize atlasSearchBox");
+	},
+
+	_onEventInput: function (event) {
 		const parent = this.offsetParent;
 		if (event.type === "focus") {
 			parent.classList.add("is-focused");
 		} else if (event.type == "blur" && event.target.value == "") {
 			parent.classList.remove("is-focused");
 		}
-	}
+	},
 
-	_onclickCancelBtn(event) {
+	_onclickCancelBtn: function (event) {
 		event.preventDefault();
 		const input = this;
 		// effacer la saisie
 		input.value = null;
 		input.offsetParent.classList.remove("is-focused");
-	}
+	},
 
-	addKeyword(keyword) {
+	addKeywords: function (keyword) {
 		const label = keyword.label;
 		const value = keyword.value;
 
@@ -67,18 +132,18 @@ export class Searchbox {
 			// Afficher le mot-clé saisi
 			const markup = this._addMarkup(label, value);
 
-			this._parseGeoJsonSearch(this._kwValues);
+			// this._parseGeoJsonSearch(this._kwValues);
 		}
-	}
+	},
 
-	_addMarkup(label, value) {
+	_addMarkup: function (label, value) {
 		// <li>
 		const li = document.createElement("li");
-		li.className = config.keywords.liClassName;
+		li.className = this.options.keywords.liClassName;
 
 		// span
 		const span = document.createElement("span");
-		const classStr = config.keywords.labelClassName;
+		const classStr = this.options.keywords.labelClassName;
 		// la clé permet de déterminer l'icone de la catégorie
 		const key = value.split(":");
 
@@ -99,7 +164,7 @@ export class Searchbox {
 
 		// <button>
 		const btn = document.createElement("button");
-		btn.className = config.keywords.btnClassName;
+		btn.className = this.options.keywords.btnClassName;
 		btn.dataset.value = value;
 		btn.addEventListener("click", this.removeKeyword);
 
@@ -108,54 +173,25 @@ export class Searchbox {
 		li.appendChild(btn);
 
 		// Identifier le conteneur
-		const container = this._container.querySelector(config.keywords.containerId);
+		const container = this._container.querySelector(
+			this.options.keywords.containerId
+		);
 
 		// Une liste est déjà présente ?
 		let ul = container.firstChild;
 		if (!ul) {
 			ul = document.createElement("ul");
-			ul.className = config.keywords.ulClassName;
+			ul.className = this.options.keywords.ulClassName;
 		} else {
 			// Todo : vérifier si message "Aucun résultat" est présent
 		}
 
 		ul.appendChild(li);
 		container.appendChild(ul);
-	}
+	},
+});
 
-	_parseGeoJsonSearch(keywords) {
-		// keyword =
-		if (Array.isArray(keywords) && keywords.length > 0) {
-			// parametres de la requete
-			const limit = this._map._json.limit;
-			const query = {
-				id_association: [],
-				id_mot: [],
-				id_adresse: [],
-				limit: limit,
-			};
-
-			// collecter l'id_objet de chaque mot-clé
-			for (let index = 0; index < keywords.length; index++) {
-				const keyword = keywords[index].split(":");
-				const id = keyword[0];
-				for (const key in query) {
-					if (key === id) {
-						query[key].push(keyword[1]);
-					}
-				}
-			}
-
-			let args = {};
-			const url = "http.api/collectionjson/associations";
-
-			jQuery.extend(true, args, query);
-			// const q = $.param(query);
-			jQuery.getJSON(url, args, (data) => {
-				if (data) {
-					console.log(data);
-				}
-			});
-		}
-	}
-}
+// Initialisation
+L.control.atlasSearchBox = function (options) {
+	return new L.Control.AtlasSearchBox(options);
+};

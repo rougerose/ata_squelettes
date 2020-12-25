@@ -894,12 +894,8 @@ img[height] {
 }
 
 .mp-SearchBox_Fulltext {
-  padding: 6px;
+  padding: 3px;
   padding-left: 36px;
-}
-
-.mp-SearchBox_Form {
-  position: relative;
 }
 
 .mp-SearchBox_GroupFulltext {
@@ -910,9 +906,6 @@ img[height] {
   padding: 0 6px;
   transition: border-color 0.3s ease;
 }
-.mp-SearchBox_GroupFulltext.is-focused {
-  border-color: #ffc70f;
-}
 .mp-SearchBox_GroupFulltext label {
   position: absolute;
   top: 50%;
@@ -920,30 +913,38 @@ img[height] {
   color: #aea9b2;
   transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
   transform: translateY(-50%);
-  font-size: 15px;
-  font-size: 0.9375rem;
+  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1;
 }
-.mp-SearchBox_GroupFulltext label.is-focused {
+.mp-SearchBox_GroupFulltext.is-focused {
+  border-color: #ffc70f;
+}
+.mp-SearchBox_GroupFulltext.is-focused label {
   color: #f26e26;
   transform: translateY(-120%);
-  font-size: 12px;
-  font-size: 0.75rem;
+  font-size: 11px;
+  font-size: 0.6875rem;
 }
 
 .mp-SearchBox_InputFulltext {
   padding-top: 18px;
+  padding-right: 24px;
   width: 100%;
   border: none;
   outline: currentColor none medium;
-  font-size: 15px;
-  font-size: 0.9375rem;
+  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1;
+}
+
+.mp-SearchBox_Form {
+  position: relative;
 }
 
 .mp-SearchBox_BtnOptions {
   position: absolute;
-  top: 16px;
+  top: 10px;
   left: 6px;
   z-index: 6;
   height: 24px;
@@ -954,21 +955,39 @@ img[height] {
 
 .mp-SearchBox_BtnSearch,
 .mp-SearchBox_BtnCancel {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   z-index: 6;
   right: 6px;
   top: 50%;
   transform: translateY(-50%);
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
+  visibility: visible;
 }
 
 .mp-SearchBox_BtnCancel {
-  display: none;
+  visibility: hidden;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
 }
 .is-focused .mp-SearchBox_BtnCancel {
-  display: block;
+  visibility: visible;
+}
+.mp-SearchBox_BtnCancel:hover {
+  background-color: #ffc70f;
+}
+.mp-SearchBox_BtnCancel:hover svg {
+  stroke: #000;
+}
+
+.mp-SearchBox_BtnSearch {
+  cursor: auto;
+}
+.is-focused .mp-SearchBox_BtnSearch {
+  visibility: hidden;
 }
 
 .mp-SearchBox_IconOptions {
@@ -978,10 +997,9 @@ img[height] {
 .mp-SearchBox_IconSearch,
 .mp-SearchBox_IconCancel {
   stroke: #cdc7d1;
-}
-
-.is-focused .mp-SearchBox_IconSearch {
-  display: none;
+  transition: stroke 0.3s ease;
+  width: 16px;
+  height: 16px;
 }
 
 .mp-Autocomplete_List.ui-widget.ui-widget-content {

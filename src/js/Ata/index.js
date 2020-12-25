@@ -1,7 +1,7 @@
 import { navInit } from "./components/nav";
 import { pageInit } from "./components/page";
 // import { mapInit } from "./map/index";
-import { addKeyword } from "./map/keywords";
+// import { addKeyword } from "./map/keywords";
 
 
 // Initialiser les scripts relatifs au site
@@ -15,4 +15,4 @@ export const init = () => {
 // 	mapInit(mapObj);
 // }
 
-export { addKeyword };
+// export { addKeyword };

@@ -35,14 +35,20 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 	},
 });
 
-function autocomplete_callback(event, ui) {
-	var keyword = {
-		label: ui.item.label,
-		value: ui.item.value,
-	};
-	// Ajouter le critère à la liste dans searchBox
-	Ata.addKeyword(keyword);
-	// Ne rien afficher dans le champs de recherche
+autocomplete_callback = (event, ui) => {
+	const keyword = { label: ui.item.label, value: ui.item.value };
+	Atlas.addKeywords(keyword);
 	this.value = "";
 	return false;
 }
+// function autocomplete_callback(event, ui) {
+// 	var keyword = {
+// 		label: ui.item.label,
+// 		value: ui.item.value,
+// 	};
+// 	// Ajouter le critère à la liste dans searchBox
+// 	Ata.addKeyword(keyword);
+// 	// Ne rien afficher dans le champs de recherche
+// 	this.value = "";
+// 	return false;
+// }

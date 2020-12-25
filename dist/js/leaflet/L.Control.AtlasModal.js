@@ -1,10 +1,3 @@
-
-/**
- * @name Modal
- * @class L.Control.Modal
- * @extends L.Control
- * @param {Object} [options]
- */
 L.Control.AtlasModal = L.Control.extend({
 	options: {
 		container: "Modal",
@@ -15,6 +8,7 @@ L.Control.AtlasModal = L.Control.extend({
 	 * Créer la fenêtre modal
 	 */
 	initialize: function (options) {
+		L.setOptions(this, options);
 		this._isOpen = false;
 		this._isOpenFull = false;
 		this._jsonData = null;
@@ -22,20 +16,12 @@ L.Control.AtlasModal = L.Control.extend({
 		this._headerContent;
 		this._bodyContent;
 		this._zoomControl = { position: null, container: null };
-
-		L.setOptions(this, options);
-		return this;
 	},
 
-	/**
-	 * Ajouter la fenêtre modal sur une carte
-	 */
 	onAdd: function (map) {
 		let container;
-
 		// use container from previous onAdd()
 		container = this._container;
-
 		// use the container given via options.
 		if (!container) {
 			container =
@@ -43,19 +29,6 @@ L.Control.AtlasModal = L.Control.extend({
 					? L.DomUtil.get(this.options.container)
 					: this.options.container;
 		}
-
-		container.dataset.position = "close";
-
-		// actionBtn : register and init
-		this._actionBtn = container.querySelector("#ModalAction");
-		this._initActionBtn(this._actionBtn);
-
-		// header/body content : register
-		this._headerContent = container.querySelector(
-			".mp-Modal_HeaderContent"
-		);
-		this._bodyContent = container.querySelector(".mp-Modal_Body");
-
 		// leaflet moves the returned container to the right place in the DOM
 		return container;
 	},
@@ -66,25 +39,20 @@ L.Control.AtlasModal = L.Control.extend({
 	 */
 	onRemove: function (map) {},
 
-	/**
-	 *
-	 */
-	_onResize: function () {
-		if (this._isOpen && !this._isOpenFull && this._jsonData) {
-			const json = this._jsonData;
-			this.close();
-			this.open(json);
-		}
-	},
-
-	/**
-	 * Ajouter la modal comme "control" dans la carte.
-	 * L'objet est inséré avant le premier enfant dans le DOM de la carte.
-	 */
 	addTo: function (map) {
-		this.onRemove();
+		this.remove();
 		this._map = map;
 		this._container = this.onAdd(map);
+
+		this._container.dataset.position = "close";
+		// actionBtn : register and init
+		this._actionBtn = this._container.querySelector("#ModalAction");
+		this._initActionBtn(this._actionBtn);
+		// header/body content : register
+		this._headerContent = this._container.querySelector(
+			".mp-Modal_HeaderContent"
+		);
+		this._bodyContent = this._container.querySelector(".mp-Modal_Body");
 
 		// Ajouter au conteneur mp-Modal_Content la classe principale
 		// du contenu d'un marqueur Association
@@ -96,7 +64,7 @@ L.Control.AtlasModal = L.Control.extend({
 		L.DomUtil.addClass(this._container, "leaflet-control");
 		L.DomUtil.addClass(
 			this._container,
-			"leaflet-modal-" + this.getPosition()
+			"leaflet-atlasModal-" + this.getPosition()
 		);
 		if (L.Browser.touch)
 			L.DomUtil.addClass(this._container, "leaflet-touch");
@@ -111,12 +79,21 @@ L.Control.AtlasModal = L.Control.extend({
 		);
 
 		// insert as first child of map container (important for css)
-		map._container.insertBefore(this._container, map._container.firstChild);
+		this._map._container.insertBefore(this._container, this._map._container.firstChild);
 
 		// Vérifier un éventuel changement de dimensions de la carte
-		map.on("resize", this._onResize, this);
+		this._map.on("resize", this._onResize, this);
 
 		return this;
+	},
+
+	_onResize: function () {
+		console.log("onResize AtlasModal");
+		if (this._isOpen && !this._isOpenFull && this._jsonData) {
+			const json = this._jsonData;
+			this.close();
+			this.open(json);
+		}
 	},
 
 	toggle: function (position, height) {
@@ -407,17 +384,17 @@ L.Control.AtlasModal = L.Control.extend({
 	},
 });
 
-// Ne pas activer par défaut.
-L.Map.mergeOptions({
-	atlasModal: false,
-});
+// // Ne pas activer par défaut.
+// L.Map.mergeOptions({
+// 	atlasModal: false,
+// });
 
-// Ajouter méthodes et propriétés du plugin à L
-L.Map.addInitHook(function () {
-	if (this.options.atlasModal) {
-		this.atlasModal = new L.Control.AtlasModal().addTo(this);
-	}
-});
+// // Ajouter méthodes et propriétés du plugin à L
+// L.Map.addInitHook(function () {
+// 	if (this.options.atlasModal) {
+// 		this.atlasModal = new L.Control.AtlasModal().addTo(this);
+// 	}
+// });
 
 // Initialisation
 L.control.atlasModal = function (options) {
