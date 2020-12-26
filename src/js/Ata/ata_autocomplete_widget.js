@@ -1,8 +1,6 @@
 $.widget("ui.autocomplete", $.ui.autocomplete, {
 	options: {
 		delay: 500,
-		// prefix: "",
-		// appendTo: "#SearchBox",
 		classes: {
 			"ui-autocomplete": "mp-Autocomplete_List",
 		},
@@ -35,20 +33,9 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 	},
 });
 
-autocomplete_callback = (event, ui) => {
+function autocomplete_callback(event, ui) {
 	const keyword = { label: ui.item.label, value: ui.item.value };
-	Atlas.addKeywords(keyword);
+	atlas.searchBox.addKeywords(keyword);
 	this.value = "";
 	return false;
 }
-// function autocomplete_callback(event, ui) {
-// 	var keyword = {
-// 		label: ui.item.label,
-// 		value: ui.item.value,
-// 	};
-// 	// Ajouter le critère à la liste dans searchBox
-// 	Ata.addKeyword(keyword);
-// 	// Ne rien afficher dans le champs de recherche
-// 	this.value = "";
-// 	return false;
-// }
