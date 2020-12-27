@@ -27,7 +27,7 @@ const options = {
 		js: {
 			src: [
 				"src/js/Ata/ata_init.js",
-				"src/js/Ata/ata_autocomplete_widget.js",
+				"src/js/Atlas/atlas_autocomplete_widget.js",
 			],
 			dest: "dist/js/",
 		},
@@ -108,15 +108,14 @@ const atlas = () => {
 			babel({ babelHelpers: "bundled" }),
 			process.env.NODE_ENV === "production" && terser(),
 		],
-		external: ["jquery", "leaflet"],
+		// external: ["jquery", "leaflet"],
 	}).then((bundle) => {
 		return bundle.write({
-			file: "dist/js/atlas.min.js",
+            file: "dist/js/atlas.min.js",
+			format: "umd",
 			name: "Atlas",
-			exports: "named",
-			format: "iife",
-			globals: { jquery: "$", leaflet: "L" },
-			esModule: false,
+			// exports: "named",
+			// globals: { jquery: "$", leaflet: "L" },
 		});
 	});
 };
@@ -185,7 +184,7 @@ export const reload = (done) => {
 export const watchFiles = () => {
 	watch("src/scss/**/*.scss", scss);
 	watch(
-		["src/js/Ata/**/*.js", "src/js/Atlas/*.js", "src/js/leaflet/*.js"],
+		["src/js/Ata/*.js", "src/js/Atlas/*.js", "src/js/leaflet/*.js"],
 		series(jsTask, reload)
 	);
 };
