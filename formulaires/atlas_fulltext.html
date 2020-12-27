@@ -17,11 +17,10 @@
 					attributs=#GET{attributs}}
 				)]
 				[<div class="o-btn mp-SearchBox_BtnSearch">
-					(#INCLURE{fond=images/icons/icon-search-32.svg, title="
-					<:ata_squelettes:label_icon_search:>", class="mp-SearchBox_IconSearch"})
+					(#INCLURE{fond=images/icons/icon-search-32.svg, class=mp-SearchBox_IconSearch})
 				</div>]
 				[<button type="reset" data-rel-id="[(#GET{dataid})]" aria-label="<:ata_squelettes:label_effacer:>"
-					class="o-btn mp-SearchBox_BtnCancel">(#INCLURE{fond=images/icons/icon-cancel-32.svg, class="mp-SearchBox_IconCancel"})</button>]
+					class="o-btn mp-SearchBox_BtnCancel">(#INCLURE{fond=images/icons/icon-cancel-32.svg, class=mp-SearchBox_IconCancel, title=Effacer la saisie})</button>]
 			</div>
 			<!--extra-->
 			<!-- <p class="boutons">

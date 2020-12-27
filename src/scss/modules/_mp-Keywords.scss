@@ -1,5 +1,5 @@
 .mp-Keywords {
-	@include font-size(14px, $modifier: -1.5);
+	@include font-size(13px, $modifier: -1);
 }
 
 .mp-Keywords_List {
@@ -21,9 +21,10 @@
 
 .mp-Keywords_Item {
 	display: flex;
-	flex: 0 0 auto;
+    flex: 0 0 auto;
+    align-items: center;
 	margin-right: $spacing-unit-tiny;
-	padding: $spacing-unit-tiny;
+	padding: $spacing-unit-tiny / 2;
 	border-radius: 0.5em;
 	background-color: $color-keyword-bg;
 	color: $color-black;
@@ -40,10 +41,11 @@
 		top: 50%;
 		transform: translateY(-50%);
 		content: "";
-		width: 18px;
-		height: 18px;
+		width: 16px;
+		height: 16px;
 		background-image: url("../../images/icons/autocomplete-marker@2x.png");
-		background-repeat: no-repeat;
+        background-repeat: no-repeat;
+        background-size: cover;
 	}
 
 	&-city {
@@ -67,15 +69,15 @@
 
 .mp-Keywords_BtnDelete {
 	display: flex;
-	width: 16px;
-	height: 16px;
+	width: 14px;
+	height: 14px;
 	border-radius: 50%;
 	background-color: $color-keyword-delete-bg;
 	background-image: url("../../images/icons/icon-delete-32.svg");
-	background-size: 10px;
+	background-size: 8px;
 	background-position: center;
 	background-repeat: no-repeat;
-	transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease;
 
 	&:hover {
 		background-color: $color-orange-600;
