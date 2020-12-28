@@ -1,5 +1,27 @@
 .mp-Keywords {
-	@include font-size(13px, $modifier: -1);
+    position: relative;
+    display: flex;
+    @include font-size(13px, $modifier: -1);
+
+    &::before,
+    &::after {
+        position: absolute;
+        width: $spacing-unit-tiny;
+        z-index: $zindex-searchbox + 1;
+        flex: 0 0 auto;
+        content: "";
+        background-color: $color-white;
+        top: 0;
+        bottom: 0;
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
 }
 
 .mp-Keywords_List {
@@ -11,7 +33,6 @@
 	overflow: auto;
 	scroll-snap-type: x proximity;
 
-	&::before,
 	&::after {
 		content: "";
 		width: $spacing-unit-tiny;
@@ -27,13 +48,20 @@
 	padding: $spacing-unit-tiny / 2;
 	border-radius: 0.5em;
 	background-color: $color-keyword-bg;
-	color: $color-black;
+    color: $color-black;
+
+    &:first-child {
+        margin-left: $spacing-unit-tiny;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
 }
 
 .mp-Keywords_Label {
 	position: relative;
-	margin-right: $spacing-unit-tiny;
-	padding-left: 20px;
+	padding-left: 18px;
 
 	&::before {
 		position: absolute;
@@ -50,13 +78,13 @@
 
 	&-city {
 		&::before {
-			background-position: -18px 0;
+			background-position: -16px 0;
 		}
 	}
 
 	&-activity {
 		&::before {
-		  background-position: -36px 0;
+		  background-position: -32px 0;
 		}
 	}
 
@@ -67,19 +95,40 @@
 	}
 }
 
+.mp-Keywords_BtnDelete,
+.mp-Keywords_BtnTooltip {
+    display: flex;
+    padding: $spacing-unit-small;
+    border-radius: 100%;
+    background-color: $color-keyword-delete-bg;
+    margin-left: $spacing-unit-tiny;
+    background-size: $spacing-unit-small;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 0 0 rgba($color-yellow-500, 0);
+
+}
+
 .mp-Keywords_BtnDelete {
-	display: flex;
-	width: 14px;
-	height: 14px;
-	border-radius: 50%;
-	background-color: $color-keyword-delete-bg;
 	background-image: url("../../images/icons/icon-delete-32.svg");
-	background-size: 8px;
-	background-position: center;
-	background-repeat: no-repeat;
-    transition: background-color 0.5s ease;
+    box-shadow: 0 0 0 0 rgba($color-yellow-500, 0);
+    transform-origin: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 
 	&:hover {
-		background-color: $color-orange-600;
+        background-color: $color-orange-600;
+        box-shadow: -1px -2px 3px 2px rgba($color-yellow-600, 1);
+        transform: rotate(-180deg);
 	}
+}
+
+.mp-Keywords_BtnTooltip {
+    background-image: url("../../images/icons/icon-ellipsis-32.svg");
+	background-size: 16px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 1px 2px 3px 2px rgba($color-yellow-600, 1);
+    }
 }

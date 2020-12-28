@@ -1,6 +1,5 @@
 .mp-SearchBox_Fulltext {
-	padding: $spacing-unit-tiny / 2;
-	padding-left: $searchbox-padding-left;
+    padding: $spacing-unit-tiny / 2 $spacing-unit-tiny $spacing-unit-tiny / 2 $searchbox-padding-left;
 }
 
 .mp-SearchBox_GroupFulltext {
