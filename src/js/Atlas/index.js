@@ -1,31 +1,22 @@
-import { config } from "./config";
-// import { Searchbox } from "./Searchbox";
-import { Map } from "./Map";
-// import { Searchbox } from "./Searchbox";
+import { SearchBox } from "./SearchBox-test";
 
+class AtlasBase {
+    constructor(mapObj) {
+        this._map = mapObj;
+        this._container = this._map._container;
+        this.searchBox = new SearchBox("SearchBox");
+        this._initEvents();
+    }
 
+    addKeyword(keyword) {
+        this.searchBox.addKeyword(keyword);
+    }
 
-// class M {
-// 	constructor(mapObj) {
-// 		this._map = mapObj;
-// 		this._searchbox = L.control.atlasSearchBox().addTo(this._map);
-// 	}
-// }
+    _initEvents() {
+        this._container.addEventListener("update", (event) => {
+            console.log(this, event, event.detail);
+        });
+    }
+}
 
-
-// let atlas;
-
-// export const init = (mapObj) => {
-// 	// let m = new M(mapObj);
-// 	// console.log(m);
-// 	// let map = L.control.atlasSearchBox().addTo(mapObj);
-// 	// console.log(map);
-// 	atlas = new Map(mapObj);
-// 	console.log(atlas);
-// }
-
-// Variable globale utilisée par autocomplete_callback
-// après une saisie de l'utilisateur.
-// export const addKeywords = (keywords) => {
-// 	atlas.searchbox.addKeywords(keywords);
-// }
+export default AtlasBase;

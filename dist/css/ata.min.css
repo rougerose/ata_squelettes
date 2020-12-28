@@ -876,9 +876,9 @@ img[height] {
 .mp-SearchBox.ui-front {
   z-index: 7;
 }
-@media (min-width: 41.6875em) {
+@media (min-width: 48em) {
   .mp-SearchBox {
-    width: 300px;
+    width: 400px;
   }
 }
 
@@ -894,8 +894,7 @@ img[height] {
 }
 
 .mp-SearchBox_Fulltext {
-  padding: 3px;
-  padding-left: 36px;
+  padding: 3px 6px 3px 36px;
 }
 
 .mp-SearchBox_GroupFulltext {
@@ -969,12 +968,14 @@ img[height] {
 }
 
 .mp-SearchBox_BtnCancel {
+  cursor: pointer;
   visibility: hidden;
   border-radius: 50%;
   transition: background-color 0.3s ease;
 }
 .is-focused .mp-SearchBox_BtnCancel {
   visibility: visible;
+  z-index: 6;
 }
 .mp-SearchBox_BtnCancel:hover {
   background-color: #ffc70f;
@@ -984,10 +985,11 @@ img[height] {
 }
 
 .mp-SearchBox_BtnSearch {
-  cursor: auto;
+  cursor: none;
 }
 .is-focused .mp-SearchBox_BtnSearch {
   visibility: hidden;
+  z-index: 5;
 }
 
 .mp-SearchBox_IconOptions {
@@ -1047,9 +1049,27 @@ img[height] {
 }
 
 .mp-Keywords {
-  font-size: 14px;
-  font-size: 0.875rem;
-  line-height: 1.0714285714;
+  position: relative;
+  display: flex;
+  font-size: 13px;
+  font-size: 0.8125rem;
+  line-height: 1.3846153846;
+}
+.mp-Keywords::before, .mp-Keywords::after {
+  position: absolute;
+  width: 6px;
+  z-index: 8;
+  flex: 0 0 auto;
+  content: "";
+  background-color: #fff;
+  top: 0;
+  bottom: 0;
+}
+.mp-Keywords::before {
+  left: 0;
+}
+.mp-Keywords::after {
+  right: 0;
 }
 
 .mp-Keywords_List {
@@ -1062,7 +1082,7 @@ img[height] {
   -ms-scroll-snap-type: x proximity;
       scroll-snap-type: x proximity;
 }
-.mp-Keywords_List::before, .mp-Keywords_List::after {
+.mp-Keywords_List::after {
   content: "";
   width: 6px;
   flex: 0 0 auto;
@@ -1071,17 +1091,23 @@ img[height] {
 .mp-Keywords_Item {
   display: flex;
   flex: 0 0 auto;
+  align-items: center;
   margin-right: 6px;
-  padding: 6px;
+  padding: 3px;
   border-radius: 0.5em;
   background-color: #ffc70f;
   color: #000;
 }
+.mp-Keywords_Item:first-child {
+  margin-left: 6px;
+}
+.mp-Keywords_Item:last-child {
+  margin-right: 0;
+}
 
 .mp-Keywords_Label {
   position: relative;
-  margin-right: 6px;
-  padding-left: 20px;
+  padding-left: 18px;
 }
 .mp-Keywords_Label::before {
   position: absolute;
@@ -1089,35 +1115,55 @@ img[height] {
   top: 50%;
   transform: translateY(-50%);
   content: "";
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background-image: url("../../images/icons/autocomplete-marker@2x.png");
   background-repeat: no-repeat;
+  background-size: cover;
 }
 .mp-Keywords_Label-city::before {
-  background-position: -18px 0;
+  background-position: -16px 0;
 }
 .mp-Keywords_Label-activity::before {
-  background-position: -36px 0;
+  background-position: -32px 0;
 }
 .mp-Keywords_Label-org::before {
   background-position: 0 0;
 }
 
-.mp-Keywords_BtnDelete {
+.mp-Keywords_BtnDelete,
+.mp-Keywords_BtnTooltip {
   display: flex;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
+  padding: 12px;
+  border-radius: 100%;
   background-color: #ffe285;
-  background-image: url("../../images/icons/icon-delete-32.svg");
-  background-size: 10px;
+  margin-left: 6px;
+  background-size: 12px;
   background-position: center;
   background-repeat: no-repeat;
-  transition: background-color 0.5s ease;
+  box-shadow: 0 0 0 0 rgba(255, 199, 15, 0);
+}
+
+.mp-Keywords_BtnDelete {
+  background-image: url("../../images/icons/icon-delete-32.svg");
+  box-shadow: 0 0 0 0 rgba(255, 199, 15, 0);
+  transform-origin: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 .mp-Keywords_BtnDelete:hover {
   background-color: #d9540d;
+  box-shadow: -1px -2px 3px 2px #d5a60b;
+  transform: rotate(-180deg);
+}
+
+.mp-Keywords_BtnTooltip {
+  background-image: url("../../images/icons/icon-ellipsis-32.svg");
+  background-size: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.mp-Keywords_BtnTooltip:hover {
+  transform: scale(1.05);
+  box-shadow: 1px 2px 3px 2px #d5a60b;
 }
 
 .mp-MarkerCluster {
@@ -1525,6 +1571,181 @@ img[height] {
   bottom: 0;
   transform: rotate(-90deg);
   transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/*
+Tippy.js : le module node ne fournit pas les fichiers scss.
+Ils sont ici copiés depuis le dépôt Github.
+Le thème utilisé ici est adapté de tippy.js/light-border.
+*/
+.tippy-box[data-animation=fade][data-state=hidden] {
+  opacity: 0;
+}
+
+[data-tippy-root] {
+  max-width: calc(100vw - 10px);
+}
+
+.tippy-box {
+  position: relative;
+  background-color: #333;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  outline: 0;
+  transition-property: transform, visibility, opacity;
+}
+.tippy-box[data-placement^=top] > .tippy-arrow {
+  bottom: 0;
+}
+.tippy-box[data-placement^=top] > .tippy-arrow::before {
+  bottom: -7px;
+  left: 0;
+  border-width: 8px 8px 0;
+  border-top-color: initial;
+  transform-origin: center top;
+}
+.tippy-box[data-placement^=bottom] > .tippy-arrow {
+  top: 0;
+}
+.tippy-box[data-placement^=bottom] > .tippy-arrow::before {
+  top: -7px;
+  left: 0;
+  border-width: 0 8px 8px;
+  border-bottom-color: initial;
+  transform-origin: center bottom;
+}
+.tippy-box[data-placement^=left] > .tippy-arrow {
+  right: 0;
+}
+.tippy-box[data-placement^=left] > .tippy-arrow::before {
+  border-width: 8px 0 8px 8px;
+  border-left-color: initial;
+  right: -7px;
+  transform-origin: center left;
+}
+.tippy-box[data-placement^=right] > .tippy-arrow {
+  left: 0;
+}
+.tippy-box[data-placement^=right] > .tippy-arrow::before {
+  left: -7px;
+  border-width: 8px 8px 8px 0;
+  border-right-color: initial;
+  transform-origin: center right;
+}
+.tippy-box[data-inertia][data-state=visible] {
+  transition-timing-function: cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+
+.tippy-arrow {
+  width: 16px;
+  height: 16px;
+  color: #333;
+}
+.tippy-arrow::before {
+  content: "";
+  position: absolute;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.tippy-content {
+  position: relative;
+  padding: 5px 9px;
+  z-index: 1;
+}
+
+.tippy-box[data-theme~=ata-light-border] {
+  background-color: white;
+  background-clip: padding-box;
+  border: 1px solid rgba(255, 199, 15, 0.4);
+  color: #333;
+  box-shadow: 0 4px 14px -2px rgba(255, 199, 15, 0.08);
+}
+.tippy-box[data-theme~=ata-light-border] > .tippy-backdrop {
+  background-color: white;
+}
+.tippy-box[data-theme~=ata-light-border] > .tippy-arrow::after,
+.tippy-box[data-theme~=ata-light-border] > .tippy-svg-arrow::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+.tippy-box[data-theme~=ata-light-border] > .tippy-arrow::after {
+  border-color: transparent;
+  border-style: solid;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=top] > .tippy-arrow::before {
+  border-top-color: white;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=top] > .tippy-arrow::after {
+  border-top-color: rgba(255, 199, 15, 0.5);
+  border-width: 7px 7px 0;
+  top: 17px;
+  left: 1px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=top] > .tippy-svg-arrow > svg {
+  top: 16px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=top] > .tippy-svg-arrow::after {
+  top: 17px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=bottom] > .tippy-arrow::before {
+  border-bottom-color: white;
+  bottom: 16px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=bottom] > .tippy-arrow::after {
+  border-bottom-color: rgba(255, 199, 15, 0.5);
+  border-width: 0 7px 7px;
+  bottom: 17px;
+  left: 1px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=bottom] > .tippy-svg-arrow > svg {
+  bottom: 16px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=bottom] > .tippy-svg-arrow::after {
+  bottom: 17px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=left] > .tippy-arrow::before {
+  border-left-color: white;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=left] > .tippy-arrow::after {
+  border-left-color: rgba(255, 199, 15, 0.5);
+  border-width: 7px 0 7px 7px;
+  left: 17px;
+  top: 1px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=left] > .tippy-svg-arrow > svg {
+  left: 11px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=left] > .tippy-svg-arrow::after {
+  left: 12px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=right] > .tippy-arrow::before {
+  border-right-color: white;
+  right: 16px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=right] > .tippy-arrow::after {
+  border-width: 7px 7px 7px 0;
+  right: 17px;
+  top: 1px;
+  border-right-color: rgba(255, 199, 15, 0.5);
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=right] > .tippy-svg-arrow > svg {
+  right: 11px;
+}
+.tippy-box[data-theme~=ata-light-border][data-placement^=right] > .tippy-svg-arrow::after {
+  right: 12px;
+}
+.tippy-box[data-theme~=ata-light-border] > .tippy-svg-arrow {
+  fill: white;
+}
+.tippy-box[data-theme~=ata-light-border] > .tippy-svg-arrow::after {
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCA2czEuNzk2LS4wMTMgNC42Ny0zLjYxNUM1Ljg1MS45IDYuOTMuMDA2IDggMGMxLjA3LS4wMDYgMi4xNDguODg3IDMuMzQzIDIuMzg1QzE0LjIzMyA2LjAwNSAxNiA2IDE2IDZIMHoiIGZpbGw9InJnYmEoMCwgOCwgMTYsIDAuMikiIC8+PC9zdmc+);
+  background-size: 16px 6px;
+  width: 16px;
+  height: 6px;
 }
 
 .spip-admin-float {

@@ -27,16 +27,18 @@
 	transform: translateY(-50%);
 	height: $searchbox-btn-size-mobile;
 	width: $searchbox-btn-size-mobile;
-	visibility: visible;
+    visibility: visible;
 }
 
 .mp-SearchBox_BtnCancel {
+    cursor: pointer;
 	visibility: hidden;
 	border-radius: 50%;
 	transition: background-color .3s ease;
 
 	.is-focused & {
-		visibility: visible;
+        visibility: visible;
+        z-index: $zindex-map + 1;
 	}
 
 	&:hover {
@@ -48,9 +50,9 @@
 }
 
 .mp-SearchBox_BtnSearch {
-	cursor: auto;
-
+    cursor: none;
 	.is-focused & {
-		visibility: hidden;
+        visibility: hidden;
+        z-index: $zindex-map;
 	}
 }

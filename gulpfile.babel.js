@@ -7,9 +7,10 @@ import rename from "gulp-rename";
 import size from "gulp-size";
 import del from "del";
 import browserSync from "browser-sync";
+import { rollup } from "rollup";
+import replace from "@rollup/plugin-replace";
 import babel from "@rollup/plugin-babel";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import { rollup } from "rollup";
 import { terser } from "rollup-plugin-terser";
 import gulpTerser from "gulp-terser-js";
 import gulpif from "gulp-if";
@@ -27,7 +28,7 @@ const options = {
 		js: {
 			src: [
 				"src/js/Ata/ata_init.js",
-				"src/js/Ata/ata_autocomplete_widget.js",
+				"src/js/Atlas/atlas_autocomplete_widget.js",
 			],
 			dest: "dist/js/",
 		},
@@ -104,20 +105,19 @@ const atlas = () => {
 	return rollup({
 		input: "src/js/Atlas/index.js",
 		plugins: [
-			nodeResolve(),
+            nodeResolve(),
+            replace({'process.env.NODE_ENV': JSON.stringify('development')}),
 			babel({ babelHelpers: "bundled" }),
 			process.env.NODE_ENV === "production" && terser(),
 		],
-		external: ["jquery", "leaflet"],
+		// external: ["jquery", "leaflet"],
 	}).then((bundle) => {
 		return bundle.write({
-			file: "dist/js/atlas.min.js",
-			name: "Atlas",
-			exports: "named",
-			format: "iife",
-			globals: { jquery: "$", leaflet: "L" },
-			esModule: false,
-		});
+            file: "dist/js/atlas.min.js",
+            format: "umd",
+            name: "Atlas",
+            // globals: { jquery: "$", leaflet: "L" },
+        });
 	});
 };
 
@@ -166,6 +166,7 @@ const jsLib = () => {
 
 export const jsTask = series(ata, atlas, js, jsLeaflet, jsLib);
 
+
 // Browsersync
 const server = browserSync.create();
 export const serve = (done) => {
@@ -184,7 +185,7 @@ export const reload = (done) => {
 export const watchFiles = () => {
 	watch("src/scss/**/*.scss", scss);
 	watch(
-		["src/js/Ata/**/*.js", "src/js/Atlas/*.js", "src/js/leaflet/*.js"],
+		["src/js/Ata/*.js", "src/js/Atlas/*.js", "src/js/leaflet/*.js"],
 		series(jsTask, reload)
 	);
 };
