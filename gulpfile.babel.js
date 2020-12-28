@@ -7,9 +7,10 @@ import rename from "gulp-rename";
 import size from "gulp-size";
 import del from "del";
 import browserSync from "browser-sync";
+import { rollup } from "rollup";
+import replace from "@rollup/plugin-replace";
 import babel from "@rollup/plugin-babel";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import { rollup } from "rollup";
 import { terser } from "rollup-plugin-terser";
 import gulpTerser from "gulp-terser-js";
 import gulpif from "gulp-if";
@@ -104,7 +105,8 @@ const atlas = () => {
 	return rollup({
 		input: "src/js/Atlas/index.js",
 		plugins: [
-			nodeResolve(),
+            nodeResolve(),
+            replace({'process.env.NODE_ENV': JSON.stringify('development')}),
 			babel({ babelHelpers: "bundled" }),
 			process.env.NODE_ENV === "production" && terser(),
 		],
@@ -112,11 +114,10 @@ const atlas = () => {
 	}).then((bundle) => {
 		return bundle.write({
             file: "dist/js/atlas.min.js",
-			format: "umd",
-			name: "Atlas",
-			// exports: "named",
-			// globals: { jquery: "$", leaflet: "L" },
-		});
+            format: "umd",
+            name: "Atlas",
+            // globals: { jquery: "$", leaflet: "L" },
+        });
 	});
 };
 
