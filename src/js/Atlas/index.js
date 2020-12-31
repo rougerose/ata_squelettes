@@ -9,7 +9,7 @@ class AtlasBase {
     }
 
     addKeyword(keyword) {
-        this.searchBox.addKeyword(keyword);
+        this.searchBox.keywords.addKeyword(keyword);
     }
 
     _initEvents() {

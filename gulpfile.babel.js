@@ -10,6 +10,7 @@ import browserSync from "browser-sync";
 import { rollup } from "rollup";
 import replace from "@rollup/plugin-replace";
 import babel from "@rollup/plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import gulpTerser from "gulp-terser-js";
@@ -106,6 +107,7 @@ const atlas = () => {
 		input: "src/js/Atlas/index.js",
 		plugins: [
             nodeResolve(),
+            commonjs(),
             replace({'process.env.NODE_ENV': JSON.stringify('development')}),
 			babel({ babelHelpers: "bundled" }),
 			process.env.NODE_ENV === "production" && terser(),

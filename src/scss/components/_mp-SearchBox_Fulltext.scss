@@ -1,5 +1,18 @@
 .mp-SearchBox_Fulltext {
-    padding: $spacing-unit-tiny / 2 $spacing-unit-tiny $spacing-unit-tiny / 2 $searchbox-padding-left;
+    transition: all 0.2s ease;
+
+    &[aria-hidden="true"] {
+        padding: 0 0 0 $spacing-unit-large;
+        visibility: hidden;
+        overflow: hidden;
+        height: 0;
+        // transition-delay: 0.1s;
+    }
+
+    &[aria-hidden="false"] {
+        padding: $spacing-unit-tiny / 2 $spacing-unit-tiny $spacing-unit-tiny / 2 $searchbox-padding-left;
+        visibility: visible;
+    }
 }
 
 .mp-SearchBox_GroupFulltext {
@@ -13,18 +26,19 @@
 	label {
 		position: absolute;
 		top: 50%;
-		z-index: $zindex-map + 1;
+		z-index: $zindex-map;
 		color: $color-form-label;
 		transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
 		transform: translateY(-50%);
-		@include font-size(14px, 1);
+        @include font-size(14px, 1);
+        pointer-events: none;
 	}
 
 	&.is-focused {
 		border-color: $color-ternary;
 
 		label {
-			color: $color-secondary;
+			color: $color-ternary;
 			transform: translateY(-120%);
 			@include font-size(11px, false);
 		}

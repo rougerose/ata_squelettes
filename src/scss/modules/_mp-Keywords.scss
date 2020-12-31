@@ -3,35 +3,39 @@
     display: flex;
     @include font-size(13px, $modifier: -1);
 
-    &::before,
-    &::after {
-        position: absolute;
-        width: $spacing-unit-tiny;
-        z-index: $zindex-searchbox + 1;
-        flex: 0 0 auto;
-        content: "";
-        background-color: $color-white;
-        top: 0;
-        bottom: 0;
-    }
+    // &-toSelect {}
 
-    &::before {
-        left: 0;
-    }
+    &-selected {
+        padding-left: $searchbox-padding-left;
 
-    &::after {
-        right: 0;
+        &::after {
+            position: absolute;
+            width: $spacing-unit-tiny;
+            z-index: $zindex-searchbox + 1;
+            flex: 0 0 auto;
+            content: "";
+            background-color: $color-white;
+            top: 0;
+            bottom: 0;
+        }
+
+        &::before {
+            left: 0;
+        }
+
+        &::after {
+            right: 0;
+        }
     }
 }
 
 .mp-Keywords_List {
 	list-style: none;
 	margin: 0;
-	padding: $spacing-unit-tiny 0;
+	padding: $spacing-unit-tiny 0 $spacing-unit-small;
 	display: flex;
 	flex-wrap: nowrap;
 	overflow: auto;
-	scroll-snap-type: x proximity;
 
 	&::after {
 		content: "";
@@ -47,15 +51,27 @@
 	margin-right: $spacing-unit-tiny;
 	padding: $spacing-unit-tiny / 2;
 	border-radius: 0.5em;
-	background-color: $color-keyword-bg;
     color: $color-black;
-
-    &:first-child {
-        margin-left: $spacing-unit-tiny;
-    }
+    transition: background-color 0.3s ease;
 
     &:last-child {
         margin-right: 0;
+    }
+
+    &-toSelect {
+        border: 1px solid $color-keyword-bg;
+
+        &:hover {
+        background-color: $color-keyword-bg;
+    }
+    }
+
+    &-selected {
+        background-color: $color-keyword-bg;
+
+        // &:first-child {
+        //     margin-left: $spacing-unit-tiny;
+        // }
     }
 }
 
@@ -92,7 +108,15 @@
 		&::before {
 			background-position: 0 0;
 		}
-	}
+    }
+
+    // &-toSelect {}
+
+    &-selected {
+        &:first-child {
+            margin-left: $spacing-unit-tiny;
+        }
+    }
 }
 
 .mp-Keywords_BtnDelete,

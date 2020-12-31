@@ -1,5 +1,5 @@
 // Options
-.mp-SearchBox_BtnOptions {
+.mp-SearchBox_BtnAdvanced {
 	position: absolute;
 	top: 10px;
   	left: $spacing-unit-tiny;
@@ -21,7 +21,6 @@
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	z-index: $zindex-map + 1;
 	right: $spacing-unit-tiny;
 	top: 50%;
 	transform: translateY(-50%);
@@ -51,8 +50,8 @@
 
 .mp-SearchBox_BtnSearch {
     cursor: none;
+    pointer-events: none;
 	.is-focused & {
         visibility: hidden;
-        z-index: $zindex-map;
 	}
 }

@@ -1,47 +1,127 @@
 import { config } from "./config";
-import tippy from "tippy.js";
+import { Tabs } from "./Tabs";
+import { Keywords } from "./Keywords";
 
 export class SearchBox {
     constructor(id) {
         this._container = document.getElementById(id);
-        this._keywordsValues = [];
         this._initLayout(this._container);
-        this._deleteListener = this._onclickDeleteBtn.bind(this);
+        this._advancedSearchIsOpen = false;
+
+        // Tabs : initialisation
+        this.tabs = new Tabs("tabs");
+
+        // Keywords : initialisation des critères de recherche
+        this.keywords = new Keywords(this._container);
+
     }
 
     _initLayout(container) {
         // Labels
         this._labels = container.querySelectorAll("label");
-        for (let index = 0; index < this._labels.length; index++) {
-            this._labels[index].classList.add("js-Searchbox_Label");
-        }
+        this._labels.forEach((label) => {
+            label.classList.add("js-Searchbox_Label");
+        });
 
         // Inputs text
-        this._inputsIdArray = [];
         this._inputs = container.querySelectorAll("input[type=text]");
-        for (let index = 0; index < this._inputs.length; index++) {
-            const input = this._inputs[index];
-            this._inputsIdArray[index] = input.dataset.id;
+        this._inputs.forEach((input, index) => {
             input.addEventListener("focus", this._handlerInputEvent);
             input.addEventListener("blur", this._handlerInputEvent);
-        }
+        });
 
-        // Cancel Buttons
-        this._cancelBtnsIdArray = [];
+        // Cancel Buttons (formulaires)
         this._cancelBtns = container.querySelectorAll("button[type=reset]");
-        for (let index = 0; index < this._cancelBtns.length; index++) {
-            const btn = this._cancelBtns[index];
-            const id = btn.dataset.relId;
-            this._cancelBtnsIdArray[index] = id;
-            const inputIndex = this._inputsIdArray.indexOf(id);
-            if (inputIndex !== -1) {
-                const input = this._inputs[inputIndex];
-                btn.addEventListener(
-                    "click",
-                    this._onclickCancelBtn.bind(input)
-                );
+        this._cancelBtns.forEach((btn, index) => {
+            const uid = btn.dataset.relId;
+            const input = container.querySelector("[data-id='" + uid + "']");
+            btn.addEventListener("click", this._onclickCancelBtn.bind(input));
+        });
+
+        // Advanced Search button
+        this._advancedSearchBtn = container.querySelector(
+            config.searchBox.btnAdvancedId
+        );
+        this._advancedSearchBtn.addEventListener("click", () => {
+            this._toggleSearchBoxPanels();
+        });
+
+        // Panels fulltext/advanced
+        this._panels = container.querySelectorAll(
+            "." + config.searchBox.panelClassName
+        );
+        if (!this._advancedSearchIsOpen) {
+            for (let index = 0; index < this._panels.length; index++) {
+                const panel = this._panels[index];
+                if (index == 0) {
+                    this._setHiddenState(panel, "false");
+                } else {
+                    this._setHiddenState(panel, "true");
+                }
             }
         }
+    }
+
+    _setHiddenState(element, hidden) {
+        element.setAttribute("aria-hidden", hidden);
+    }
+
+    _toggleSearchBoxPanels() {
+        // Quel panneau doit être affiché ?
+        let panelToShow = this._advancedSearchIsOpen ? 0 : 1;
+
+        if (this._advancedSearchIsOpen) {
+            // Fermer (état initial)
+            this._advancedSearchBtn.setAttribute("aria-expanded", "false");
+            this._advancedSearchIsOpen = false;
+        } else {
+            // Ouvrir
+            this._advancedSearchBtn.setAttribute("aria-expanded", "true");
+            this._advancedSearchIsOpen = true;
+        }
+
+        // sélectionner le panneau à fermer
+        const closePanel = this._panels[1 - panelToShow];
+        // et celui à ouvrir
+        const openPanel = this._panels[panelToShow];
+
+        // Animer l'un après l'autre
+        const close = new Promise((resolve, reject) => {
+            const onhide = (event) => {
+                this._toggleAriaHiddenState(closePanel, true);
+                this._toggleAriaBusyState(closePanel, false);
+                closePanel.removeEventListener("transitionend", onhide);
+            };
+            closePanel.addEventListener("transitionend", onhide);
+            closePanel.style.height =
+                closePanel.getBoundingClientRect().height + "px";
+            this._toggleAriaBusyState(closePanel, true);
+            closePanel.offsetHeight; // reflow
+            closePanel.style.height = "";
+            resolve();
+        });
+
+        close.then(() => {
+            const onshow = (event) => {
+                openPanel.style.height = "";
+                this._toggleAriaBusyState(openPanel, false);
+                openPanel.removeEventListener("transitionend", onshow);
+            };
+            this._toggleAriaBusyState(openPanel, true);
+            this._toggleAriaHiddenState(openPanel, false);
+            openPanel.addEventListener("transitionend", onshow);
+            openPanel.offsetHeight; // reflow
+            const scrollHeight = openPanel.scrollHeight;
+            openPanel.style.height = scrollHeight + "px";
+        }, openPanel);
+    }
+
+    _toggleAriaBusyState(element, bool) {
+        element.setAttribute("aria-busy", bool);
+    }
+
+    _toggleAriaHiddenState(element, bool) {
+        element.setAttribute("aria-hidden", bool);
     }
 
     _handlerInputEvent(event) {
@@ -58,165 +138,5 @@ export class SearchBox {
         const input = this;
         input.value = null;
         input.offsetParent.classList.remove("is-focused");
-    }
-
-    _onclickDeleteBtn(event) {
-        const btn = event.target;
-        btn.removeEventListener("click", this._deleteListener);
-        const keywordEl = btn.parentElement;
-        this.removeKeyword(keywordEl);
-    }
-
-    _emitSearchboxEvents(element, eventName, target) {
-        const event = new CustomEvent(eventName, { detail: target });
-        element.dispatchEvent(event);
-    }
-
-    _addMarkup(label, value) {
-        // <li>
-        const li = document.createElement("li");
-        li.className = config.keywords.liClassName;
-        li.dataset.value = value;
-
-        // <span>
-        const span = document.createElement("span");
-        const classStr = config.keywords.labelClassName;
-        // La clé permet de déterminer l'icone de la catégorie à afficher
-        const key = value.split(":");
-
-        let category;
-        switch (key[0]) {
-            case "id_association":
-                category = "-org";
-                break;
-            case "id_adresse":
-                category = "-city";
-                break;
-            case "id_mot":
-                category = "-activity";
-        }
-
-        span.className = classStr + " " + classStr + category;
-
-        // Tronquer un intitulé excédent un nombre de caractères défini
-        label = this._truncateLabel(label);
-        span.appendChild(document.createTextNode(label.text));
-
-        /*
-        Si le texte de l'intitulé est partiel, on ajoute un attribut alt.
-        Puis, ajout un bouton pour afficher un tooltip (avec la lib Tippy.js)
-        */
-        let tooltip = null;
-        if (label.alt.length > 0) {
-            span.setAttribute("data-tippy-content", label.alt);
-            tooltip = document.createElement("button");
-            tooltip.className = config.keywords.tooltipClassName;
-        }
-
-        // <button>
-        const btn = document.createElement("button");
-        btn.className = config.keywords.btnClassName;
-        btn.setAttribute("aria-label", "Supprimer ce critère de recherche");
-        btn.addEventListener("click", this._deleteListener);
-
-        /*
-        Ajouter le span, le bouton supprimer
-        et éventuellement le bouton tootip
-        à la balise li
-        */
-        li.appendChild(span);
-        if (tooltip) {
-            li.appendChild(tooltip);
-            tippy(tooltip, {
-                content: label.alt,
-                theme: "ata-light-border",
-                placement: "bottom",
-                hideOnClick: false,
-            });
-        }
-        li.appendChild(btn);
-
-        // Identifier le conteneur
-        const container = this._container.querySelector(
-            config.keywords.containerId
-        );
-
-        // Une liste est déjà présente ?
-        let ul = container.firstChild;
-        if (!ul) {
-            ul = document.createElement("ul");
-            ul.className = config.keywords.ulClassName;
-        } else {
-            // Todo : vérifier si message "Aucun résultat" est présent
-        }
-
-        ul.appendChild(li);
-        container.appendChild(ul);
-    }
-
-    _truncateLabel(label) {
-        // longueur maximum des intitulés de mots-clés
-        const maxLength = 15;
-        let alt = "";
-
-        if (label.length > maxLength) {
-            let parenthese = label.indexOf("(");
-            /**
-             * Si l'intitulé contient des parenthèses,
-             * c'est le texte avant la première parenthèse
-             * qui est conservé pour l'intitulé.
-             * Mais à condition qu'il respecte la longueur maximum.
-             * Sinon on ne garde dans l'intitulé que le nombre
-             * de caractères requis.
-             *
-             * L'intitulé complet est ajouté dans l'attribut alt du span.
-             */
-            if (parenthese !== -1 && parenthese < maxLength) {
-                alt = label;
-                label = label.slice(0, parenthese - 1);
-            } else {
-                alt = label;
-                label = label.slice(0, maxLength);
-            }
-        }
-        return (label = { text: label, alt: alt });
-    }
-
-    addKeyword(keyword) {
-        const label = keyword.label;
-        const value = keyword.value;
-
-        // Vérifier si le mot-clé n'a pas déjà été sélectionné
-        if (this._keywordsValues.indexOf(value) == -1) {
-            this._keywordsValues.push(value);
-            // Afficher le mot-clé saisi
-            const markup = this._addMarkup(label, value);
-            // Mettre à jour la carte
-            this._emitSearchboxEvents(
-                this._container,
-                "update",
-                this._keywordsValues
-            );
-        }
-    }
-
-    removeKeyword(keywordEl) {
-        const keyword = keywordEl.dataset.value;
-        const index = this._keywordsValues.indexOf(keyword);
-        if (index !== -1) {
-            this._keywordsValues.splice(index, 1);
-            // Si la liste est vide, supprimer <ul>
-            if (this._keywordsValues.length == 0) {
-                keywordEl.parentElement.remove();
-            } else {
-                keywordEl.remove();
-            }
-            // Mettre à jour la carte
-            this._emitSearchboxEvents(
-                this._container,
-                "update",
-                this._keywordsValues
-            );
-        }
     }
 }

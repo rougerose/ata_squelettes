@@ -1,0 +1,72 @@
+// .mp-Tabs {}
+
+.mp-Tabs_Header {
+    display: flex;
+}
+
+.mp-Tabs_HeaderBtn {
+    padding: $spacing-unit-tiny $spacing-unit-small $spacing-unit-tiny 0;
+    color: $color-form-label;
+    @include font-size(12px);
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+
+    &::after {
+        display: flex;
+        content: "";
+        width: 0;
+        height: 2px;
+        background-color: $color-form-searchBox-bg;
+        transition: width 0.15s ease, background-color 0.3s ease;
+    }
+
+    &[aria-selected="true"] {
+        color: $color-black;
+
+        &::after {
+            width: 100%;
+            background-color: $color-ternary;
+        }
+    }
+
+    &:hover {
+        color: $color-black;
+
+        &::after {
+            width: 100%;
+            background-color: $color-ternary;
+        }
+    }
+}
+
+// .mp-Tabs_Body {}
+
+.mp-Tab_Panel {
+    //   padding-bottom: $spacing-unit-small;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-name: toggleTabs;
+
+    &[aria-hidden="true"] {
+        // visibility: hidden;
+        // display: none;
+    }
+
+    &[aria-hidden="false"] {
+        // visibility: visible;
+        // display: block;
+    }
+}
+
+@keyframes toggleTabs {
+    from {
+        opacity: 0;
+        transform: translateY(5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}

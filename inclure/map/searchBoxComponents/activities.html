@@ -1,0 +1,9 @@
+<B_activities>
+    <div class="mp-Keywords mp-Keywords-toSelect">
+        <ul class="mp-Keywords_List">
+            <BOUCLE_activities(MOTS spip_associations){mots_liens.objet=association}{par titre}{id_groupe_racine=1}>
+                <li class="mp-Keywords_Item mp-Keywords_Item-toSelect" data-value="[id_mot:(#ID_MOT)]" data-label="[(#TITRE)|textebrut]"><span class="mp-Keywords_Label mp-Keywords_Label-activity">[(#TITRE)]</span></li>
+            </BOUCLE_activities>
+        </ul>
+    </div>
+</B_activities>
