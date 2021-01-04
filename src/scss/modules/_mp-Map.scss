@@ -2,11 +2,6 @@
 // mp-Map
 // ========================================
 
-@use "sass:map";
-// mq-px2em : fonction de conversion px -> em de sass-mq
-$maxHeight: mq-px2em(map.get($mq-breakpoints, mobileLandscape));
-
-
 .mp-Map {
 	position: relative;
 	// width: 100%;
