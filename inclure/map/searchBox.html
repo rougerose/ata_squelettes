@@ -6,37 +6,19 @@
             aria-expanded="false"
             aria-controls="advancedSearch"
             class="o-btn mp-SearchBox_BtnAdvanced">
-            (#INCLURE{fond=images/icons/icon-search-options-38.svg,
-            class="mp-SearchBox_IconAdvanced"})
+            (#INCLURE{fond=images/icons/icon-search-options-38.svg, class="mp-SearchBox_IconAdvanced"})
         </button>]
         <!-- FullText -->
-        [<div id="fulltextSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-fulltext" aria-hidden="false" aria-busy="false">
-            (#INCLURE{fond=inclure/map/searchBoxComponents/fulltext})
-        </div>]
-        <!-- Advanced -->
-        <div id="advancedSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-advanced" aria-hidden="true" aria-busy="false">
-            <!-- Tabs -->
-            <div id="tabs" class="mp-Tabs">
-                <div class="mp-Tabs_Header" role="tablist">
-                    <button id="mpTab1" class="o-btn mp-Tabs_HeaderBtn" aria-selected="true" aria-controls="mpPanel1" role="tab" tabindex="0">
-                        <:ata_squelettes:searchbox_titre_villes:>
-                    </button>
-                    <button id="mpTab2" class="o-btn mp-Tabs_HeaderBtn" aria-selected="false" aria-controls="mpPanel2" role="tab" tabindex="-1">
-                        <:ata_squelettes:searchbox_titre_activites:>
-                    </button>
-                </div>
-                <div class="mp-Tabs_Body">
-                    <div id="mpPanel1" class="mp-Tab_Panel" role="tabpanel" aria-labelledby="mpTab1" aria-hidden="false" tabindex="0">
-                        [(#INCLURE{fond=inclure/map/searchBoxComponents/towns})]
-                    </div>
-                    <div id="mpPanel2" class="mp-Tab_Panel" role="tabpanel" aria-labelledby="mpTab2" aria-hidden="true" tabindex="0" hidden="hidden">
-                        [(#INCLURE{fond=inclure/map/searchBoxComponents/activities})]
-                    </div>
-                </div>
-            </div>
+        <div id="fulltextSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-fulltext" aria-hidden="false" aria-label="<:ata_squelettes:label_panel_fulltext:>" aria-busy="false">
+            <INCLURE{fond=inclure/map/searchBoxComponents/fulltext}/>
         </div>
-        <!-- Display Keywords -->
-        <div id="js-Keywords" class="mp-Keywords mp-Keywords-selected"></div>
+        <!-- Advanced -->
+        <div id="advancedSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-advanced" aria-label="<:ata_squelettes:label_panel_advanced:>" aria-hidden="true" aria-busy="false">
+            <!-- Tabs -->
+            <INCLURE{fond=inclure/map/searchBoxComponents/tabs}/>
+        </div>
+        <!-- Keyword selected -->
+        <div id="KeywordSelected" class="mp-Keywords mp-Keywords-selected"></div>
 	</div>
 	[<script src="(#CHEMIN{dist/js/atlas_autocomplete_widget.min.js}|timestamp)" type="text/javascript"></script>]
 </div>

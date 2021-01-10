@@ -1,0 +1,12 @@
+<div id="Tab" class="mp-Tabs">
+    <ul role="tablist" class="mp-Tabs_Header" aria-label="Recherche avancée">
+        <li role="tab" class="mp-Tabs_Tab" data-open="true" aria-controls="tab_towns"><:ata_squelettes:searchbox_titre_villes:></li>
+        <li role="tab" class="mp-Tabs_Tab" aria-controls="tab_activities"><:ata_squelettes:searchbox_titre_activites:></li>
+    </ul>
+    <div id="tab_towns" class="mp-Tab_Panel" role="tabpanel" aria-labelledby="towns">
+        <INCLURE{fond=inclure/map/searchBoxComponents/towns} />
+    </div>
+    <div id="tab_activities" class="mp-Tab_Panel" role="tabpanel" aria-labelledby="activities">
+        <INCLURE{fond=inclure/map/searchBoxComponents/activities} />
+    </div>
+</div>
