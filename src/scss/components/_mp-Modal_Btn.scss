@@ -1,17 +1,17 @@
 
-$btnWidth: 32px;
-$btnHeight: 32px;
+$btnWidth: 28px;
+$btnHeight: 28px;
 
 .mp-Modal_BtnAction {
 	display: flex;
 	flex-shrink: 0;
 	width: $btnWidth;
-	height: $btnHeight;
+    height: $btnHeight;
+    margin-left: $spacing-unit-small;
 	border-radius: 50%;
-	margin-left: $spacing-unit;
 	box-shadow: 0 0 0 rgba($color-black, 0);
 	background-color: $color-white;
-	transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 
 	&:hover {
 		background-color: $color-yellow-500;
@@ -27,28 +27,28 @@ $btnHeight: 32px;
 	}
 
 	// dataset ajoutés par js
-	&[data-position="close"] {
-		path {
-			stroke: transparent;
-		}
-	}
+	// &[data-position="close"] {
+	// 	path {
+	// 		stroke: transparent;
+	// 	}
+	// }
 
-	&[data-position="preview"] {
-		path {
-			stroke: transparent;
-		}
-		path#bottomCaret {
-			stroke: $color-black;
-			transform: translateY(-7px);
-		}
-	}
+	// &[data-position="preview"] {
+	// 	path {
+	// 		stroke: transparent;
+	// 	}
+	// 	path#bottomCaret {
+	// 		stroke: $color-black;
+	// 		transform: translateY(-7px);
+	// 	}
+	// }
 
-	&[data-position="full"] {
-		path {
-			stroke: $color-black;
-			transform: translateY(0);
-		}
-	}
+	// &[data-position="full"] {
+	// 	path {
+	// 		stroke: $color-black;
+	// 		transform: translateY(0);
+	// 	}
+	// }
 }
 
 .mp-Modal_BtnBg {

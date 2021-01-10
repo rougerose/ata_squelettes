@@ -1,5 +1,3 @@
-
-
 .mp-Modal {
 	position: absolute;
 	width: 100%;
@@ -7,18 +5,34 @@
 	z-index: $zindex-modal-mobile;
 	left: 0;
 	top: 0;
-	transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	transform: translateY(100%);
+	// transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translateY(50%);
 
-
-	@include mq(l) {
+	@include mq(m) {
 		position: absolute;
 		left: 0;
 		top: 0;
 		z-index: $zindex-modal-desktop;
-		width: 300px;
+		width: 380px;
 		height: 100%;
-	}
+    }
+
+    &.is-opened,
+    &.is-opening {
+        transform: translateY(60%);
+    }
+
+    &.is-closed,
+    &.is-closing {
+        transform: translateY(100%);
+    }
+
+    &.is-opening,
+    &.is-closing {
+        transition-property: transform;
+        transition-duration: 1s;
+        transition-timing-function: ease-in-out;
+    }
 }
 
 @import "components/mp-Modal_Layout";
@@ -26,3 +40,11 @@
 @import "components/mp-Modal_Header";
 @import "components/mp-Modal_Body";
 @import "components/mp-Modal_Btn";
+
+// TEST
+#btnModal {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    z-index: 1000;
+}

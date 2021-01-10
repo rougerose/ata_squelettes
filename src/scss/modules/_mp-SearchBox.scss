@@ -13,7 +13,7 @@
 	}
 
 	@include mq(m) {
-		width: 400px;
+        width: ($ui-large-width - ($spacing-unit));
 	}
 }
 
