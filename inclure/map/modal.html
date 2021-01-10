@@ -1,14 +1,7 @@
-<div id="Modal" class="mp-Modal" data-position="">
+<div id="Modal" class="mp-Modal" data-position="" aria-hidden="false">
 	<div class="mp-Modal_Layout">
-		<article class="mp-Modal_Content">
-			<header class="mp-Modal_Header">
-				<div class="mp-Modal_HeaderContent"> </div>
-				<button id="ModalAction" class="o-btn mp-Modal_BtnAction">
-					[(#INCLURE{fond=images/icons/icon-modal-48.svg, class=mp-Modal_BtnBg})]
-				</button>
-			</header>
-			<div class="mp-Modal_Body">
-			</div>
-		</article>
+        <BOUCLE_gis(spip_gis_liens){id_gis}{objet=association}>
+            <INCLURE{fond=inclure/map/modalComponents/modal-association, id_gis, id_association=#ID_OBJET}/>
+        </BOUCLE_gis>
 	</div>
 </div>
