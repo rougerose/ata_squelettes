@@ -1,5 +1,4 @@
 import { config } from "./config";
-import { addEvent } from "../util/addEvent";
 import debounce from "lodash/debounce";
 import Tablist from "@accede-web/tablist";
 
@@ -8,8 +7,10 @@ export class AtlasBase {
         this.map = map;
         this.configMap();
 
-        this.__handleResize = this._handleResize.bind(this);
-        addEvent(window, "resize", debounce(this.__handleResize, 250));
+        this.handleResize = this._handleResize.bind(this);
+
+        // Ajouter gestionnaire sur window.onresize
+        window.addEventListener("resize", debounce(this.handleResize, 250));
 
         let container = document.getElementById(conf.containerId);
         let dispatch = conf.dispatch;
