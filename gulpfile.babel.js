@@ -38,13 +38,6 @@ const options = {
 				src: ["node_modules/imagesloaded/imagesloaded.pkgd.js"],
 				dest: "dist/js/lib/",
 			},
-			leaflet: {
-				src: [
-					"src/js/leaflet/L.Control.AtlasModal.js",
-					"src/js/leaflet/L.Control.AtlasSearchBox.js",
-				],
-				dest: "dist/js/leaflet/",
-			},
 		},
 	},
 	scss: {
@@ -141,15 +134,6 @@ const js = () => {
 		.pipe(dest(options.paths.js.dest));
 };
 
-// Plugins Leaflet
-// Les fichiers sont traités individuellement
-//! Pas de compression, ce sera fait par spip.
-const jsLeaflet = () => {
-	return src(options.paths.jsLib.leaflet.src)
-		.pipe(size({ title: "JSLeaflet", gzip: true, showFiles: true }))
-		.pipe(dest(options.paths.jsLib.leaflet.dest));
-};
-
 // JS Lib
 // Les fichiers sont traités individuellement
 const jsLib = () => {
@@ -167,7 +151,7 @@ const jsLib = () => {
 		.pipe(dest(options.paths.jsLib.all.dest));
 };
 
-export const jsTask = series(ata, atlas, js, jsLeaflet, jsLib);
+export const jsTask = series(ata, atlas, js, jsLib);
 
 
 // Browsersync
@@ -188,7 +172,7 @@ export const reload = (done) => {
 export const watchFiles = () => {
 	watch("src/scss/**/*.scss", scss);
 	watch(
-		["src/js/Ata/*.js", "src/js/Atlas/*.js", "src/js/leaflet/*.js"],
+		["src/js/Ata/*.js", "src/js/Atlas/*.js"],
 		series(jsTask, reload)
 	);
 };

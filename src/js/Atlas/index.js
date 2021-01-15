@@ -1,8 +1,8 @@
 import { AtlasBase } from "./AtlasBase";
 // Les modules ci-dessous sont appelés ici,
 // mais ils seront initialisés dans AtlasBase
-import { SearchBox } from "./SearchBox-t2";
-import { Keyword } from "./Keyword-test";
+import { SearchBox } from "./SearchBox";
+import { Keyword } from "./Keyword";
 import { KeywordSelected } from "./KeywordSelected";
 import { Modal } from "./Modal";
 
