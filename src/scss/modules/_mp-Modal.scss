@@ -1,38 +1,50 @@
 .mp-Modal {
-	position: absolute;
+    position: absolute;
+    visibility: visible;
 	width: 100%;
 	height: 100%;
 	z-index: $zindex-modal-mobile;
 	left: 0;
 	top: 0;
-	// transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
-	transform: translateY(50%);
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+	transform: translateY(100%);
 
 	@include mq(m) {
 		position: absolute;
 		left: 0;
-		top: 0;
+        top: 0;
+        bottom: 0;
 		z-index: $zindex-modal-desktop;
 		width: 380px;
-		height: 100%;
+        height: 100%;
+        transform: translateX(-100%);
     }
 
-    &.is-opened,
-    &.is-opening {
-        transform: translateY(60%);
+    &[aria-hidden="true"] {
+        visibility: hidden;
+        opacity: 0;
     }
 
-    &.is-closed,
-    &.is-closing {
-        transform: translateY(100%);
+    &[aria-hidden="false"] {
+        opacity: 1;
     }
 
-    &.is-opening,
-    &.is-closing {
-        transition-property: transform;
-        transition-duration: 1s;
-        transition-timing-function: ease-in-out;
-    }
+    // &.is-opened,
+    // &.is-opening {
+    //     transform: translateY(60%);
+    // }
+
+    // &.is-closed,
+    // &.is-closing {
+    //     transform: translateY(100%);
+    // }
+
+    // &.is-opening,
+    // &.is-closing {
+    //     transition-property: transform;
+    //     transition-duration: 1s;
+    //     transition-timing-function: ease-in-out;
+    // }
 }
 
 @import "components/mp-Modal_Layout";

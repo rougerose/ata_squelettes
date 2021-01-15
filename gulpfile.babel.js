@@ -82,45 +82,46 @@ export const cssMinify = () => {
 // Fichiers site (Ata)
 const ata = () => {
 	return rollup({
-		input: "src/js/Ata/index.js",
-		plugins: [
-			nodeResolve(),
-			babel({ babelHelpers: "bundled" }),
-			process.env.NODE_ENV === "production" && terser(),
-		],
-		external: ["jquery"],
-	}).then((bundle) => {
-		return bundle.write({
-			file: "dist/js/ata.min.js",
-			name: "Ata",
-			exports: "named",
-			format: "iife",
-			globals: { jquery: "$" },
-			esModule: false,
-		});
-	});
+        input: "src/js/Ata/index.js",
+        plugins: [
+            nodeResolve(),
+            babel({ babelHelpers: "bundled" }),
+            process.env.NODE_ENV === "production" && terser(),
+        ],
+        external: ["jquery"],
+    }).then((bundle) => {
+        return bundle.write({
+            file: "dist/js/ata.min.js",
+            name: "Ata",
+            exports: "named",
+            format: "iife",
+            globals: { jquery: "$" },
+            esModule: false,
+        });
+    });
 };
 
 // Fichiers site (Atlas)
 const atlas = () => {
 	return rollup({
-		input: "src/js/Atlas/index.js",
-		plugins: [
+        input: "src/js/Atlas/index.js",
+        plugins: [
             nodeResolve(),
             commonjs(),
-            replace({'process.env.NODE_ENV': JSON.stringify('development')}),
-			babel({ babelHelpers: "bundled" }),
-			process.env.NODE_ENV === "production" && terser(),
-		],
-		// external: ["jquery", "leaflet"],
-	}).then((bundle) => {
-		return bundle.write({
+            replace({ "process.env.NODE_ENV": JSON.stringify("development") }),
+            babel({ babelHelpers: "bundled" }),
+            process.env.NODE_ENV === "production" && terser(),
+        ],
+        external: ["jquery", "leaflet"],
+    }).then((bundle) => {
+        return bundle.write({
             file: "dist/js/atlas.min.js",
-            format: "umd",
-            name: "Atlas",
-            // globals: { jquery: "$", leaflet: "L" },
+            format: "iife",
+            name: "atlas",
+            esModule: false,
+            globals: { jquery: "$", leaflet: "L" },
         });
-	});
+    });
 };
 
 // JS individuels utilisés par le site.

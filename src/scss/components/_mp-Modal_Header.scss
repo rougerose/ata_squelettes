@@ -1,14 +1,10 @@
 .mp-Modal_Header {
 	display: flex;
 	flex-grow: 1;
-    padding: $spacing-unit-small;
-
-    @include mq(m) {
-        padding: $spacing-unit-small $spacing-unit $spacing-unit-small;
-    }
+    padding: $spacing-unit $spacing-unit-small $spacing-unit-small;
 }
 
 .mp-Modal_HeaderContent {
-	padding-top: 21px;
+	// padding-top: 21px;
 	flex-grow: 1;
 }

@@ -8,14 +8,18 @@
             class="o-btn mp-SearchBox_BtnAdvanced">
             (#INCLURE{fond=images/icons/icon-search-options-38.svg, class="mp-SearchBox_IconAdvanced"})
         </button>]
-        <!-- FullText -->
-        <div id="fulltextSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-fulltext" aria-hidden="false" aria-label="<:ata_squelettes:label_panel_fulltext:>" aria-busy="false">
-            <INCLURE{fond=inclure/map/searchBoxComponents/fulltext}/>
-        </div>
-        <!-- Advanced -->
-        <div id="advancedSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-advanced" aria-label="<:ata_squelettes:label_panel_advanced:>" aria-hidden="true" aria-busy="false">
-            <!-- Tabs -->
-            <INCLURE{fond=inclure/map/searchBoxComponents/tabs}/>
+        <div class="mp-SearchBox_Panels">
+            <!-- FullText -->
+            <div id="fulltextSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-fulltext" aria-hidden="false"
+                aria-label="<:ata_squelettes:label_panel_fulltext:>" aria-busy="false">
+                <INCLURE{fond=inclure/map/searchBoxComponents/fulltext} />
+            </div>
+            <!-- Advanced -->
+            <div id="advancedSearch" class="mp-SearchBox_Panel mp-SearchBox_Panel-advanced"
+                aria-label="<:ata_squelettes:label_panel_advanced:>" aria-hidden="true" aria-busy="false">
+                <!-- Tabs -->
+                <INCLURE{fond=inclure/map/searchBoxComponents/tabs} />
+            </div>
         </div>
         <!-- Keyword selected -->
         <div id="KeywordSelected" class="mp-Keywords mp-Keywords-selected"></div>

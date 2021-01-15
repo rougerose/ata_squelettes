@@ -15,7 +15,31 @@ $btnHeight: 28px;
 
 	&:hover {
 		background-color: $color-yellow-500;
-	}
+    }
+
+    &-toggle {
+
+        path {
+            transform-origin: center;
+            transition: transform 0.1s;
+        }
+
+        &.is-toggle-up {
+            path {
+                transform: rotate(180deg);
+            }
+        }
+
+        &.is-toggle-down {
+            path {
+                transform: rotate(0);
+            }
+        }
+
+        @include mq(m) {
+            visibility: hidden;
+        }
+    }
 
 	// classe ajouté par js, après transitionend
 	&.is-ready-to-animate {
@@ -25,30 +49,6 @@ $btnHeight: 28px;
 			animation: 0.3s ease 0.5s 1 color_change;
 		}
 	}
-
-	// dataset ajoutés par js
-	// &[data-position="close"] {
-	// 	path {
-	// 		stroke: transparent;
-	// 	}
-	// }
-
-	// &[data-position="preview"] {
-	// 	path {
-	// 		stroke: transparent;
-	// 	}
-	// 	path#bottomCaret {
-	// 		stroke: $color-black;
-	// 		transform: translateY(-7px);
-	// 	}
-	// }
-
-	// &[data-position="full"] {
-	// 	path {
-	// 		stroke: $color-black;
-	// 		transform: translateY(0);
-	// 	}
-	// }
 }
 
 .mp-Modal_BtnBg {

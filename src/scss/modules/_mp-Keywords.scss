@@ -3,6 +3,12 @@
     display: flex;
     @include font-size(13px, $modifier: -1);
 
+    /*
+        Variante toSelect/Selected
+        - toSelect : les mots-clés disponibles à la sélection depuis le panneau Activités.
+        - selected : les mots-clés sélectionnés par l'utilisateur.
+    */
+
     // &-toSelect {}
 
     &-selected {
@@ -35,7 +41,7 @@
 	padding: $spacing-unit-tiny 0 $spacing-unit-small;
 	display: flex;
 	flex-wrap: nowrap;
-	overflow: auto;
+    overflow: auto;
 
 	&::after {
 		content: "";
@@ -45,54 +51,63 @@
 }
 
 .mp-Keywords_Item {
+    position: relative;
 	display: flex;
     flex: 0 0 auto;
     align-items: center;
-	margin-right: $spacing-unit-tiny;
-	padding: $spacing-unit-tiny / 2;
+    margin-right: $spacing-unit-tiny;
+    padding: ($spacing-unit-tiny / 2);
 	border-radius: 0.5em;
     color: $color-black;
     transition: background-color 0.3s ease;
+    cursor:pointer;
+    animation: keywords-slidein 350ms backwards;
 
-    &:last-child {
-        margin-right: 0;
-    }
 
-    &-toSelect {
-        border: 1px solid $color-keyword-bg;
-
-        &:hover {
+    &[aria-selected="true"],
+    &.is-focused {
         background-color: $color-keyword-bg;
     }
-    }
 
-    &-selected {
-        background-color: $color-keyword-bg;
-
-        // &:first-child {
-        //     margin-left: $spacing-unit-tiny;
-        // }
-    }
-}
-
-.mp-Keywords_Label {
-	position: relative;
-	padding-left: 18px;
-
-	&::before {
-		position: absolute;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		content: "";
+    &::before {
+        margin-right: ($spacing-unit-tiny / 2);
+        content: "";
 		width: 16px;
 		height: 16px;
 		background-image: url("../../images/icons/autocomplete-marker@2x.png");
         background-repeat: no-repeat;
         background-size: cover;
-	}
+        background-position: 0 0;
+    }
 
-	&-city {
+    &:last-child {
+        margin-right: 0;
+    }
+
+    /*
+        Variante toSelect/Selected
+        - toSelect : les mots-clés disponibles à la sélection depuis le panneau Activités.
+        - selected : les mots-clés sélectionnés par l'utilisateur.
+    */
+
+    &-toSelect {
+        border: 1px solid $color-keyword-bg;
+
+        &:hover {
+            background-color: $color-keyword-bg;
+        }
+    }
+
+    &-selected {
+        background-color: $color-keyword-bg;
+    }
+
+    /*
+        Variante city/activity/org
+        permet d'afficher l'icone correspondant à la catégorie parente du mot-clé
+    */
+
+    &-city {
 		&::before {
 			background-position: -16px 0;
 		}
@@ -109,15 +124,64 @@
 			background-position: 0 0;
 		}
     }
-
-    // &-toSelect {}
-
-    &-selected {
-        &:first-child {
-            margin-left: $spacing-unit-tiny;
-        }
-    }
 }
+
+@keyframes keywords-slidein {
+ 0% {
+  opacity:0
+ }
+ 1% {
+  transform:translateX(260px)
+ }
+ 100% {
+  opacity:1;
+  transform:translateX(0)
+ }
+}
+
+// .mp-Keywords_Label {
+// 	position: relative;
+// 	padding-left: 18px;
+
+// 	&::before {
+// 		position: absolute;
+// 		left: 0;
+// 		top: 50%;
+// 		transform: translateY(-50%);
+// 		content: "";
+// 		width: 16px;
+// 		height: 16px;
+// 		background-image: url("../../images/icons/autocomplete-marker@2x.png");
+//         background-repeat: no-repeat;
+//         background-size: cover;
+// 	}
+
+// 	&-city {
+// 		&::before {
+// 			background-position: -16px 0;
+// 		}
+// 	}
+
+// 	&-activity {
+// 		&::before {
+// 		  background-position: -32px 0;
+// 		}
+// 	}
+
+// 	&-org {
+// 		&::before {
+// 			background-position: 0 0;
+// 		}
+//     }
+
+//     // &-toSelect {}
+
+//     &-selected {
+//         &:first-child {
+//             margin-left: $spacing-unit-tiny;
+//         }
+//     }
+// }
 
 .mp-Keywords_BtnDelete,
 .mp-Keywords_BtnTooltip {

@@ -1,28 +1,48 @@
 export const config = {
-    markers: {
-        size: {
-            xs: 34,
-            s: 44,
-            m: 54,
-            l: 64,
-            xl: 74,
-            xxl: 84,
-        },
+    windowBreakpoint: 768,
+    markerSize: {
+        xs: 34,
+        s: 44,
+        m: 54,
+        l: 64,
+        xl: 74,
+        xxl: 84,
     },
     searchBox: {
+        containerId: "SearchBox",
         btnAdvancedId: "#openAdvancedSearch",
         panelClassName: "mp-SearchBox_Panel",
     },
     keywords: {
-        containerId: "#js-Keywords",
+        containerClassName: "mp-Keywords-toSelect",
         ulClassName: "mp-Keywords_List",
-        liClassName: "mp-Keywords_Item mp-Keywords_Item-selected",
+        liClassName: {
+            main: "mp-Keywords_Item",
+            variant: "mp-Keywords_Item-selected",
+        },
         labelClassName: "mp-Keywords_Label",
-        btnDeleteClassName: "o-btn mp-Keywords_BtnDelete",
-        tooltipClassName: "o-btn mp-Keywords_BtnTooltip",
+        btnDeleteClassName: "mp-Keywords_BtnDelete",
+        tooltipClassName: "mp-Keywords_BtnTooltip",
         activities: {
             liClassName: "mp-Keywords_Item-toSelect",
             aClassName: "mp-Keywords_Label-activity",
+        },
+    },
+    queryKeywords: {
+        containerId: "js-Keywords",
+    },
+    modal: {
+        containerId: "Modal",
+        btnClassName: "mp-Modal_BtnAction",
+        headerClassName: "mp-Modal_HeaderContent",
+        bodyClassName: "mp-Modal_Body",
+        profile: {
+            headerClassName: "mp-OrgProfile_Header",
+            badge: {
+                imgClassName: "mp-OrgProfile_Logo",
+                figClassName: "mp-OrgProfile_Badge",
+            },
+            nameClassName: "mp-OrgProfile_Name",
         },
     },
 };

@@ -1,8 +1,13 @@
 <BOUCLE_compteur_associations(ASSOCIATIONS){gis}> </BOUCLE_compteur_associations>#SET{total, #TOTAL_BOUCLE}</B_compteur_associations>
-[(#SET{mapID, _atlas})]
-<div class="mp-Map">
-	[(#INCLURE{fond=modeles/carte_gis, objets=associations, point=non, id_map=#GET{mapID}, style=non, zoom=6, cluster=oui, clusterSpiderfyOnMaxZoom=oui, maxClusterRadius=50, limite=#GET{total, 500}})
-	<script type="text/javascript">var atlas; callback_map#GET{mapID} = function (map) { atlas = new Atlas(map); }</script>]
-	<INCLURE{fond=inclure/map/searchBox} />
-	<INCLURE{fond=inclure/map/modal} />
+
+[(#SET{mapID, _atlas})][(#SET{id_gis, #ENV{id_gis, false}})]
+<div id="atlas" class="mp-Map">
+    [(#INCLURE{fond=modeles/carte_gis, objets=associations, id_map=#GET{mapID}, style=non, zoom=6, cluster=oui, id_a_ouvrir=#GET{id_gis}, clusterSpiderfyOnMaxZoom=oui, maxClusterRadius=50, limite=#GET{total, 500}})]
+    <script type="text/javascript">
+        callback_map#GET{mapID}=function(map){ atlas.init(map); }
+    </script>
+    <INCLURE{fond=inclure/map/searchBox} />
+    <div id="Modal" class="mp-Modal" data-position="" aria-hidden="false">
+        <INCLURE{fond=inclure/map/modal, env, ajax=modal} />
+    </div>
 </div>
