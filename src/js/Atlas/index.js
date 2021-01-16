@@ -14,8 +14,10 @@ let state = {
     keywordsSelected: new Map(),
     modal: {
         action: "",
+        args: {},
         openId: "",
         position: "closed",
+        skel: "",
     },
 };
 

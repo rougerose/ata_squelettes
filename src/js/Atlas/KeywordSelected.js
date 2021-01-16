@@ -18,21 +18,26 @@ export class KeywordSelected {
         if (state.keywordsSelected.size !== this.state.keywordsSelected.size) {
             this.state = state;
             if (state.keywordsSelected.size > 0) {
-                // récupérer ou créer <ul>
-                let list = this.getUL();
-                // Avant d'afficher tous les mots-clés demandés,
-                // supprimer ceux déjà présents
-                let listItems = list.querySelectorAll("li");
-                for (let index = 0; index < listItems.length; index++) {
-                    this.removeKeyword(listItems[index], false);
-                }
-                //
-                for (const [key, val] of state.keywordsSelected) {
-                    let keyword = this.addKeyword(key, val);
-                    list.appendChild(keyword);
-                }
+                this.updateKeywordSelectedList();
             }
         }
+    }
+
+    updateKeywordSelectedList() {
+        // récupérer ou créer <ul>
+        let list = this.getUL();
+        // Avant d'afficher tous les mots-clés demandés,
+        // supprimer ceux déjà présents
+        let listItems = list.querySelectorAll("li");
+        for (let index = 0; index < listItems.length; index++) {
+            this.removeKeyword(listItems[index], false);
+        }
+        //
+        for (const [key, val] of this.state.keywordsSelected) {
+            let keyword = this.addKeyword(key, val);
+            list.appendChild(keyword);
+        }
+        this.dispatch({ type: "updateKeywordSelectedList" });
     }
 
     dispatchAction(action, keyword) {

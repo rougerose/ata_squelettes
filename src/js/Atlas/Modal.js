@@ -18,17 +18,17 @@ export class Modal {
     }
 
     async syncState(state) {
-        console.log(state);
+        // console.log(state);
         if (state.modal.action) {
             if (
                 state.modal.action === "open" &&
                 this.state.modal.position !== "closed"
             ) {
-                console.log("close");
+                // console.log("close");
                 await this.close();
                 this.open(state.modal.openId);
             } else if (state.modal.action === "open") {
-                console.log("open");
+                // console.log("open");
                 this.open(state.modal.openId);
             }
         } else if (
@@ -36,7 +36,7 @@ export class Modal {
             this.state.modal.position === "openedFull" &&
             state.searchboxHeight !== this.state.searchboxHeight
         ) {
-            console.log("update", state);
+            // console.log("update", state);
             this.updateLayout(state.searchboxHeight);
         }
         this.state = state;
@@ -111,11 +111,14 @@ export class Modal {
         let modal = this.getModal();
         await this.closeTransition(modal, this.memory.settings);
         this.unbindListeners(modal);
-        this.dispatch({ type: "updateModalPosition", position: "closed" });
+        this.dispatch({
+            type: "updateModalPosition",
+            position: "closed",
+        });
     }
 
     async handleOpen() {
-        // rechargement Ajax, sélectionner à nouveau le conteneur
+        // rechargement Ajax : sélectionner à nouveau le conteneur
         let modal = this.getModal();
         // Gestionnaires d'événements
         this.bindListeners(modal);

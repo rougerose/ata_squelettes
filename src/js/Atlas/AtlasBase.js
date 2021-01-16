@@ -51,7 +51,7 @@ export class AtlasBase {
         // ne sont pas encore disponibles.
         let onready = () => {
             this._handleClickMarker();
-            jQuery("#" + this.map._container.id).off("ready", onready);
+            // jQuery("#" + this.map._container.id).off("ready", onready);
         };
         jQuery("#" + this.map._container.id).on("ready", onready);
 
@@ -93,15 +93,24 @@ export class AtlasBase {
     }
 
     syncState(state) {
+        if (state.keywordsSelected.size !== this.state.keywordsSelected.size) {
+            //! state.keywordsSelected = 0 => ????
+            console.log("search");
+            this.searchCollection(state.keywordsSelected);
+        }
+
         // console.log("AB syncState state: ", state);
         //console.log("AB Syncstate this.state : ", this.state);
+
         this.state = state;
+
         for (let key in this.controls) {
             this.controls[key].syncState(state);
         }
     }
 
-    // Compléter les variables state nécessaires
+    // Compléter les variables state nécessaires.
+    // La fonction est appelée depuis atlas.init()
     setupState() {
         if (!this.state.windowWidth) {
             this.dispatch({
@@ -127,18 +136,18 @@ export class AtlasBase {
             let self = this;
             let handleClick = function (event) {
                 if (this.feature) {
-                    // console.log(this.feature, self);
                     self.dispatch({
                         type: "updateModalPosition",
                         action: "open",
                         openId: this.feature.id,
-                        position: self.state.modal.position
+                        position: self.state.modal.position,
+                        skel: "modalAssociation",
                     });
                 }
             };
             layer.on("click", handleClick);
             if (typeof layer.getChildCount !== "undefined") {
-                $.each(layer.getAllChildMarkers(), function (i, sublayer) {
+                jQuery.each(layer.getAllChildMarkers(), function (i, sublayer) {
                     sublayer.on("click", handleClick);
                 });
             }
@@ -163,6 +172,7 @@ export class AtlasBase {
     }
 
     handleAction(state, action) {
+        console.log("handleAction", action);
         let keywords = new Map(state.keywords);
         let keywordsSelected = new Map(state.keywordsSelected);
         switch (action.type) {
@@ -193,13 +203,17 @@ export class AtlasBase {
                 break;
             case "updateModalPosition":
                 action.action = action.action || "";
-                action.position = action.position || "";
+                action.args = action.args || {};
                 action.openId = action.openId || "";
+                action.position = action.position || "";
+                action.skel = action.skel || "";
                 state = Object.assign({}, state, {
                     modal: {
                         action: action.action,
+                        args: action.args,
                         openId: action.openId,
-                        position: action.position
+                        position: action.position,
+                        skel: action.skel,
                     },
                 });
                 break;
@@ -224,5 +238,78 @@ export class AtlasBase {
         this.dispatch({ type: "addKeyword", keyword: keyword });
     }
 
+    createQuery(keywords) {
+        let query = {
+            id_association: [],
+            id_mot: [],
+            id_adresse: [],
+            limit: this.map.options.json_points.limit,
+        };
 
+        // key = id_objet_spip:id
+        for (const [key] of keywords) {
+            const objet_spip = key.split(":");
+            const index = query[objet_spip[0]].length;
+            query[objet_spip[0]][index] = objet_spip[1];
+        }
+
+        return query;
+    }
+
+    searchCollection(keywords) {
+        const self = this;
+        const map = self.map;
+        const URL = "http.api/collectionjson/associations";
+        let query = self.createQuery(keywords);
+        query = jQuery.param(query);
+
+        let collection = jQuery.getJSON(URL, query);
+        collection.done(function (json) {
+            console.log("done", json);
+            let associations = { id_association: [] };
+            let items = json.collection.items;
+            for (const key in items) {
+                if (Object.hasOwnProperty.call(items, key)) {
+                    associations.id_association.push(items[key].data[0].value);
+                }
+            }
+            let args = {};
+            jQuery.extend(
+                true,
+                args,
+                map.options.json_points.env,
+                associations
+            );
+            args.objets = "associations_recherche";
+            args.limit = map.options.json_points.limit;
+            self.searchFeatures(map.options.json_points.url, args);
+        });
+
+        collection.fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+            console.log("Request Failed: " + err);
+        });
+    }
+
+    searchFeatures(url, args) {
+        const self = this;
+        const map = self.map;
+
+        jQuery.getJSON(url, args, (data) => {
+            if (data) {
+                map.removeAllMarkers();
+                map.parseGeoJson(data);
+                jQuery("#" + map._container.id).trigger("ready", map);
+                self.dispatch({
+                    type: updateModalPosition,
+                });
+
+                window.ajaxReload("modalTest", {
+                    // callback: cb,
+                    args: { id_association: args.id_association },
+                    history: false,
+                });
+            }
+        });
+    }
 }
