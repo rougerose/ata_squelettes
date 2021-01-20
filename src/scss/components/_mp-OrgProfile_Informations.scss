@@ -1,4 +1,5 @@
 .mp-OrgProfile_Informations {
+    overflow: hidden;
 	flex-grow: 1;
 	@include font-size(14px, $modifier:-1);
 
@@ -13,6 +14,8 @@
 	}
 
 	p {
-		margin-left: 1.33rem;
+        margin-left: 1.33rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
 	}
 }

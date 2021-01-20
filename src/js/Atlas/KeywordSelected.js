@@ -1,5 +1,5 @@
 import { config } from "./config";
-import tippy from "tippy.js";
+// import tippy from "tippy.js";
 
 // TODO : Ajouter un role Listbox sur le html + gestion du focus ?
 
@@ -10,8 +10,11 @@ export class KeywordSelected {
         this.container = container.querySelector("#KeywordSelected");
         this._deleteListener = this._deleteEvent.bind(this);
         this.container.addEventListener("animationstart", () => {
-            this.dispatch({ type: "updateSearchboxHeight", searchboxHeight: null });
-        })
+            this.dispatch({
+                type: "updateSearchboxHeight",
+                searchboxHeight: null,
+            });
+        });
     }
 
     syncState(state) {
@@ -70,7 +73,7 @@ export class KeywordSelected {
         // Si un tooltip est présent, supprimer l'instance tippy
         // et les gestionnaires d'événements associés.
         if (tippyBtn) {
-            tippyBtn._tippy.destroy();
+            // tippyBtn._tippy.destroy();
         }
         el.remove();
 
@@ -149,12 +152,12 @@ export class KeywordSelected {
         li.appendChild(span);
         if (tooltip) {
             li.appendChild(tooltip);
-            tippy(tooltip, {
-                content: label.alt,
-                theme: "ata-light-border",
-                placement: "bottom",
-                hideOnClick: false,
-            });
+            // tippy(tooltip, {
+            //     content: label.alt,
+            //     theme: "ata-light-border",
+            //     placement: "bottom",
+            //     hideOnClick: false,
+            // });
         }
         li.appendChild(btn);
 
@@ -176,15 +179,16 @@ export class KeywordSelected {
                 de caractères requis.
                 L'intitulé complet est ajouté dans l'attribut alt du span.
             */
-            let parenthese = label.indexOf("(");
-            if (parenthese !== -1 && parenthese < maxLength) {
-                alt = label;
-                label = label.slice(0, parenthese - 1);
-            } else {
-                alt = label;
-                label = label.slice(0, maxLength);
-            }
+            // let parenthese = label.indexOf("(");
+            // if (parenthese !== -1 && parenthese < maxLength) {
+            //     alt = label;
+            //     label = label.slice(0, parenthese - 1);
+            // } else {
+            //     alt = label;
+            //     label = label.slice(0, maxLength);
+            // }
         }
+
         return (label = { text: label, alt: alt });
     }
 }

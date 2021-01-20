@@ -28,23 +28,6 @@
     &[aria-hidden="false"] {
         opacity: 1;
     }
-
-    // &.is-opened,
-    // &.is-opening {
-    //     transform: translateY(60%);
-    // }
-
-    // &.is-closed,
-    // &.is-closing {
-    //     transform: translateY(100%);
-    // }
-
-    // &.is-opening,
-    // &.is-closing {
-    //     transition-property: transform;
-    //     transition-duration: 1s;
-    //     transition-timing-function: ease-in-out;
-    // }
 }
 
 @import "components/mp-Modal_Layout";
@@ -52,11 +35,3 @@
 @import "components/mp-Modal_Header";
 @import "components/mp-Modal_Body";
 @import "components/mp-Modal_Btn";
-
-// TEST
-#btnModal {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    z-index: 1000;
-}

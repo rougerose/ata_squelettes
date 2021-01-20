@@ -1,4 +1,5 @@
 import { config } from "./config";
+import { atlasLoadData, atlasParseGeoJson } from "./map";
 import debounce from "lodash/debounce";
 import Tablist from "@accede-web/tablist";
 
@@ -54,11 +55,6 @@ export class AtlasBase {
             // jQuery("#" + this.map._container.id).off("ready", onready);
         };
         jQuery("#" + this.map._container.id).on("ready", onready);
-
-        // Personnaliser les icones des clusters
-        if (this.map.options.cluster) {
-            this.map.options.clusterOptions.iconCreateFunction = this.clusterIcon;
-        }
     }
 
     // Clusters personnalisés
@@ -111,7 +107,7 @@ export class AtlasBase {
 
     // Compléter les variables state nécessaires.
     // La fonction est appelée depuis atlas.init()
-    setupState() {
+    setInitialState() {
         if (!this.state.windowWidth) {
             this.dispatch({
                 type: "updateWindowWidth",
@@ -132,25 +128,16 @@ export class AtlasBase {
     }
 
     _handleClickMarker() {
-        this.map.eachLayer((layer) => {
-            let self = this;
-            let handleClick = function (event) {
-                if (this.feature) {
-                    self.dispatch({
-                        type: "updateModalPosition",
-                        action: "open",
-                        openId: this.feature.id,
-                        position: self.state.modal.position,
-                        skel: "modalAssociation",
-                    });
-                }
-            };
-            layer.on("click", handleClick);
-            if (typeof layer.getChildCount !== "undefined") {
-                jQuery.each(layer.getAllChildMarkers(), function (i, sublayer) {
-                    sublayer.on("click", handleClick);
-                });
-            }
+        const self = this;
+        let cb = function (event) {
+            self.dispatch({
+                type: "openModal",
+                openId: this.feature.id,
+                modalId: "modalAssociation",
+            });
+        };
+        this.map.markerCluster.eachLayer((layer) => {
+            layer.on("click", cb);
         });
     }
 
@@ -172,53 +159,54 @@ export class AtlasBase {
     }
 
     handleAction(state, action) {
-        console.log("handleAction", action);
-        let keywords = new Map(state.keywords);
-        let keywordsSelected = new Map(state.keywordsSelected);
+        // console.log("handleAction", state, action);
+        const currentState = this.state;
+        let keywords;
+        let keywordsSelected;
         switch (action.type) {
             case "addKeyword":
+                keywords = new Map(state.keywords);
+                keywordsSelected = new Map(state.keywordsSelected);
                 keywords.set(action.keyword.value, action.keyword.label);
                 keywordsSelected.set(
                     action.keyword.value,
                     action.keyword.label
                 );
-                state = Object.assign({}, state, {
+
+                state = Object.assign({}, currentState, {
                     keywords: keywords,
                     keywordsSelected: keywordsSelected,
                 });
                 break;
             case "removeKeywordSelected":
+                keywords = new Map(state.keywords);
+                keywordsSelected = new Map(state.keywordsSelected);
                 keywords.delete(action.keyword.value);
                 keywordsSelected.delete(action.keyword.value);
-                state = Object.assign({}, state, {
+
+                state = Object.assign({}, currentState, {
                     keywords: keywords,
                     keywordsSelected: keywordsSelected,
                 });
                 break;
-            //? A garder ?
             case "openModal":
-                state = Object.assign({}, state, {
-                    modal: { action: "open", data: action.data },
+                action.action = "openModal";
+                action.modalId = action.modalId;
+                action.openId = action.openId || "";
+                action.args = action.args || {};
+
+                state = Object.assign({}, currentState, {
+                    modalAction: action.action,
+                    modalOpenId: action.openId,
+                    modalArgs: action.args,
+                    modalId: action.modalId,
                 });
                 break;
             case "updateModalPosition":
-                action.action = action.action || "";
-                action.args = action.args || {};
-                action.openId = action.openId || "";
-                action.position = action.position || "";
-                action.skel = action.skel || "";
-                state = Object.assign({}, state, {
-                    modal: {
-                        action: action.action,
-                        args: action.args,
-                        openId: action.openId,
-                        position: action.position,
-                        skel: action.skel,
-                    },
-                });
+                state = Object.assign({}, currentState, action);
                 break;
             case "updateWindowWidth":
-                state = Object.assign({}, state, {
+                state = Object.assign({}, currentState, {
                     windowWidth: action.windowWidth,
                 });
                 break;
@@ -226,7 +214,7 @@ export class AtlasBase {
                 if (!action.searchboxHeight) {
                     action.searchboxHeight = this.controls.SearchBox._getHeight();
                 }
-                state = Object.assign({}, state, {
+                state = Object.assign({}, currentState, {
                     searchboxHeight: action.searchboxHeight,
                 });
                 break;
@@ -300,15 +288,21 @@ export class AtlasBase {
                 map.removeAllMarkers();
                 map.parseGeoJson(data);
                 jQuery("#" + map._container.id).trigger("ready", map);
-                self.dispatch({
-                    type: updateModalPosition,
-                });
 
-                window.ajaxReload("modalTest", {
-                    // callback: cb,
-                    args: { id_association: args.id_association },
-                    history: false,
+                self.dispatch({
+                    type: "openModal",
+                    args: args,
+                    modalId: "modalRecherche",
                 });
+                // self.dispatch({
+                //     type: "updateModalPosition",
+                // });
+
+                // window.ajaxReload("modalRecherche", {
+                //     // callback: cb,
+                //     args: { id_association: args.id_association },
+                //     history: false,
+                // });
             }
         });
     }

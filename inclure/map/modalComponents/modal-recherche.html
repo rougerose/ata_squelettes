@@ -1,0 +1,27 @@
+<div class="mp-Modal_Layout">
+    <article class="mp-Modal_Content">
+        <header class="mp-Modal_Header">
+            <div class="mp-Modal_HeaderContent">
+                <!-- <div class="mp-OrgProfile_Header">
+                    <figure class="mp-OrgProfile_Badge">
+                        [<img class="mp-OrgProfile_Logo" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
+                    </figure>
+                    <div class="mp-OrgProfile_Name">
+                        <h1></h1>
+                    </div>
+                </div> -->
+            </div>
+            <button id="ModalToggle" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-toggle">
+                [(#INCLURE{fond=images/icons/icon-modal-caret-48.svg, class=mp-Modal_BtnBg})]
+            </button>
+            <button id="ModalClose" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-close">
+                [(#INCLURE{fond=images/icons/icon-modal-close-48.svg, class=mp-Modal_BtnBg})]
+            </button>
+        </header>
+        <div class="mp-Modal_Body">
+            <BOUCLE_assos(ASSOCIATIONS){id_association IN #ENV{id_association}}{par nom}>
+                <p>#NOM / #ID_ASSOCIATION</p>
+            </BOUCLE_assos>
+        </div>
+    </article>
+</div>
