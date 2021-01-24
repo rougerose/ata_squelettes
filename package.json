@@ -6,8 +6,18 @@
   "author": "christophe le drean <christophe@rouge-rose.net>",
   "license": "GPL v3",
   "private": true,
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env"
+      ]
+    ],
+    "plugins": ["babel-plugin-transform-async-to-promises"]
+  },
   "browserslist": [
-    "defaults"
+    "defaults",
+    ">0.25% in FR",
+    "not IE 11"
   ],
   "scripts": {
     "build": "NODE_ENV='production' gulp build",
