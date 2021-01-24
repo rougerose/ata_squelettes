@@ -8,7 +8,11 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
-	'ata_squelettes_titre' => 'ATA Squelettes',
+    'ata_squelettes_titre' => 'ATA Squelettes',
+
+    // C
+    'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" class="txt-Link">FRAAP</a>.',
+    'caption_membre_fraap_non' => '@nom@ n’est pas membre de la <a href="https://fraap.org" class="txt-Link">FRAAP</a>.',
 
 	// L
 	'label_effacer' => 'Effacer',
@@ -18,7 +22,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'label_panel_fulltext' => 'Recherche par lieu, ville, activité',
     'label_panel_advanced' => 'Recherche avancée',
 
-    // T
+    // S
     'searchbox_titre_activites' => 'Activités',
     'searchbox_titre_villes' => 'Villes',
+
+    // T
+    'texte_resultat_total' => '1 résultat',
+    'texte_resultats_total' => '@nb@ résultats',
+    'texte_bouton_afficher_resultats' => 'Afficher les résultats',
+    'texte_bouton_afficher_carte' => 'Afficher la carte',
 );

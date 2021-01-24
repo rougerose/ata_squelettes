@@ -12,13 +12,7 @@
 }
 
 .mp-Profile_WebLink {
-	color: $color-black;
-	border-bottom: 2px solid $color-ternary;
-	transition: color .3s ease;
-
-	&:hover {
-		color: $color-ternary !important;
-	}
+    display: inline-flex;
 }
 
 .mp-Profile_Social {
