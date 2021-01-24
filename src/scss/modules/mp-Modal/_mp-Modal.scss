@@ -7,9 +7,32 @@
 	left: 0;
 	top: 0;
 	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-	transform: translateY(100%);
+    transform: translateY(100%);
 
-	@include mq(m) {
+    &.show {
+        transform: translateY(0);
+    }
+
+    // Variantes
+    &-association {
+        z-index: $zindex-modal-mobile + 2;
+    }
+
+    &-recherche {
+        z-index: $zindex-modal-mobile;
+    }
+
+    // Visibilité
+    &[aria-hidden="true"] {
+        // visibility: hidden;
+        // opacity: 0;
+    }
+
+    &[aria-hidden="false"] {
+        // opacity: 1;
+    }
+
+    @include mq(m) {
 		position: absolute;
 		left: 0;
         top: 0;
@@ -18,20 +41,33 @@
 		width: 380px;
         height: 100%;
         transform: translateX(-100%);
-    }
 
-    &[aria-hidden="true"] {
-        visibility: hidden;
-        opacity: 0;
-    }
+        &-association {
+            z-index: $zindex-modal-desktop;
+        }
 
-    &[aria-hidden="false"] {
-        opacity: 1;
+        &-recherche {
+            z-index: $zindex-modal-desktop - 2;
+        }
     }
 }
 
-@import "mp-Modal_Layout";
+
+@import "mp-Modal_Inner";
+@import "mp-Modal_Scroll";
 @import "mp-Modal_Content";
-@import "mp-Modal_Header";
-@import "mp-Modal_Body";
 @import "mp-Modal_Btn";
+@import "mp-Modal_Bar";
+
+#btnTestModalRecherche {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    z-index: 1000;
+}
+#btnTestModalAsso {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+}

@@ -1,5 +1,6 @@
 .mp-Modal_Content {
+    position: relative;
 	display: flex;
-	flex-direction: column;
-	height: 100%;
+    flex-direction: column;
+    margin: $spacing-unit $spacing-unit-small $spacing-unit-small;
 }

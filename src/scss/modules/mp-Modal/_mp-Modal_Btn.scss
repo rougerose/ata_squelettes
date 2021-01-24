@@ -1,6 +1,11 @@
-
 $btnWidth: 28px;
 $btnHeight: 28px;
+
+.mp-Modal_Btns {
+    display: flex;
+    position: absolute;
+    right: 0;
+}
 
 .mp-Modal_BtnAction {
 	display: flex;

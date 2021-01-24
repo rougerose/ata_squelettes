@@ -1,27 +1,18 @@
-<div class="mp-Modal_Layout">
-    <article class="mp-Modal_Content">
-        <header class="mp-Modal_Header">
-            <div class="mp-Modal_HeaderContent">
-                <!-- <div class="mp-OrgProfile_Header">
-                    <figure class="mp-OrgProfile_Badge">
-                        [<img class="mp-OrgProfile_Logo" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
-                    </figure>
-                    <div class="mp-OrgProfile_Name">
-                        <h1></h1>
-                    </div>
-                </div> -->
-            </div>
-            <button id="ModalToggle" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-toggle">
-                [(#INCLURE{fond=images/icons/icon-modal-caret-48.svg, class=mp-Modal_BtnBg})]
-            </button>
-            <button id="ModalClose" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-close">
-                [(#INCLURE{fond=images/icons/icon-modal-close-48.svg, class=mp-Modal_BtnBg})]
-            </button>
-        </header>
-        <div class="mp-Modal_Body">
-            <BOUCLE_assos(ASSOCIATIONS){id_association IN #ENV{id_association}}{par nom}>
+#SET{total, ''}
+<div class="mp-Modal_Inner">
+    <div class="mp-Modal_Scroll">
+        <div class="mp-Modal_Content">
+            <BOUCLE_resultats(ASSOCIATIONS){id_association IN #ENV{id_association}}{par nom}>
                 <p>#NOM / #ID_ASSOCIATION</p>
-            </BOUCLE_assos>
+            </BOUCLE_resultats>[(#SET{total, #TOTAL_BOUCLE})]</B_resultats>
         </div>
-    </article>
+    </div>
+</div>
+<div class="mp-Modal_Bar">
+    <p class="mp-Modal_SearchResultsTotal">[(#GET{total}|singulier_ou_pluriel{ata_squelettes:texte_resultat_total,
+        ata_squelettes:texte_resultats_total})]</p>
+    <button class="o-btn mp-Modal_BtnViewToggle" data-modal-action="toggle"
+        data-text-toggle="<:ata_squelettes:texte_bouton_afficher_resultats:>">
+        <:ata_squelettes:texte_bouton_afficher_carte:>
+    </button>
 </div>
