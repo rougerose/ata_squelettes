@@ -1,0 +1,18 @@
+.mp-Profile_Header {
+    display: flex;
+    align-items: center;
+    padding-right: 80px;
+    margin-bottom: $spacing-unit-small;
+}
+
+.mp-Profile_Logo {
+    margin-right: $spacing-unit-small;
+    margin-bottom: 0;
+    flex: 0 0 60px;
+}
+
+.mp-Profile_Name {
+    margin-bottom: 0;
+    color: $color-purple-700;
+	@include font-size(18px, $modifier: -0.5);
+}

@@ -1,0 +1,21 @@
+.mp-Profile_Informations {
+    overflow: hidden;
+
+	h2 {
+        margin: $spacing-unit-small 0 $spacing-unit-tiny;
+        @include font-size(14px, $modifier:-1);
+        text-transform: uppercase;
+        color: $color-purple-700;
+
+		&::before {
+			content: "\002014";
+			margin-right: 0.33rem;
+			font-size: 1rem;
+		}
+	}
+
+	p {
+        margin-left: 1.33rem;
+        margin-bottom: $spacing-unit-small;
+	}
+}
