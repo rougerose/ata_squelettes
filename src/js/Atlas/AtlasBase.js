@@ -90,9 +90,13 @@ export class AtlasBase {
 
     syncState(state) {
         if (state.keywordsSelected.size !== this.state.keywordsSelected.size) {
-            //! state.keywordsSelected = 0 => ????
-            console.log("search");
-            this.searchCollection(state.keywordsSelected);
+            if (state.keywordsSelected.size !== 0) {
+                console.log("search");
+                this.searchCollection(state.keywordsSelected);
+            } else {
+                // recharger la carte dans son état initial
+                this.resetMap();
+            }
         }
 
         // console.log("AB syncState state: ", state);
@@ -131,7 +135,7 @@ export class AtlasBase {
         const self = this;
         let cb = function (event) {
             self.dispatch({
-                type: "openModal",
+                type: "addModalContent",
                 openId: this.feature.id,
                 modalId: "modalAssociation",
             });
@@ -159,10 +163,16 @@ export class AtlasBase {
     }
 
     handleAction(state, action) {
-        // console.log("handleAction", state, action);
-        const currentState = this.state;
+        // Conservé l'état actuel,
+        // sauf celui relatif aux modales qui est temporaire.
+        let currentState = this.state;
+        currentState.modalAction = "";
+        currentState.modalArgs = {};
+        currentState.modalOpenId = "";
+        currentState.modalId = "";
         let keywords;
         let keywordsSelected;
+
         switch (action.type) {
             case "addKeyword":
                 keywords = new Map(state.keywords);
@@ -189,8 +199,8 @@ export class AtlasBase {
                     keywordsSelected: keywordsSelected,
                 });
                 break;
-            case "openModal":
-                action.action = "openModal";
+            case "addModalContent":
+                action.action = "addModalContent";
                 action.modalId = action.modalId;
                 action.openId = action.openId || "";
                 action.args = action.args || {};
@@ -203,7 +213,17 @@ export class AtlasBase {
                 });
                 break;
             case "updateModalPosition":
-                state = Object.assign({}, currentState, action);
+                action.action = action.action || "";
+                action.modalId = action.modalId || "";
+                action.openId = action.openId || "";
+                action.args = action.args || {};
+
+                state = Object.assign({}, currentState, {
+                    modalAction: action.action,
+                    modalOpenId: action.openId,
+                    modalArgs: action.args,
+                    modalId: action.modalId,
+                });
                 break;
             case "updateWindowWidth":
                 state = Object.assign({}, currentState, {
@@ -224,6 +244,12 @@ export class AtlasBase {
 
     autocompleteAddKeyword(keyword) {
         this.dispatch({ type: "addKeyword", keyword: keyword });
+    }
+
+    resetMap() {
+        this.map.removeAllMarkers();
+        this.map.loadData();
+        this.dispatch({ type: "updateModalPosition", action: "closeModals" });
     }
 
     createQuery(keywords) {
@@ -290,7 +316,7 @@ export class AtlasBase {
                 jQuery("#" + map._container.id).trigger("ready", map);
 
                 self.dispatch({
-                    type: "openModal",
+                    type: "addModalContent",
                     args: args,
                     modalId: "modalRecherche",
                 });
