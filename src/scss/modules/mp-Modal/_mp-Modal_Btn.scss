@@ -67,6 +67,12 @@ $btnHeight: 28px;
 	}
 }
 
+.mp-Modal_BtnViewToggle {
+    @include mq(m) {
+        display: none;
+    }
+}
+
 @keyframes color_change {
 	from {
 		stroke: $color-yellow-500;
