@@ -133,12 +133,14 @@
 // mp : map
 @import "modules/mp-Map";
 @import "modules/mp-SearchBox";
+@import "modules/mp-SearchResultsList";
 @import "modules/mp-Tabs";
 @import "modules/mp-Autocomplete";
 @import "modules/mp-Keywords";
 @import "modules/mp-MarkerCluster";
 @import "modules/mp-Modal/mp-Modal";
 @import "modules/mp-Profile/mp-Profile";
+@import "modules/mp-ProfileResume";
 
 // libs
 @import "node_modules/hamburgers/_sass/hamburgers/hamburgers";

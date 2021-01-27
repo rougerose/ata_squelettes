@@ -4,8 +4,6 @@
 
 .mp-Map {
 	position: relative;
-	// width: 100%;
-	// height: 100%;
 	overflow: hidden;
 
 	.leaflet-container {
@@ -27,7 +25,18 @@
 	.leaflet-fade-anim .leaflet-tile,
 	.leaflet-zoom-anim .leaflet-zoom-animated {
 		will-change: auto !important;
-	}
+    }
+
+    // Surcharge des popup
+    .leaflet-popup-content {
+        text-align: center;
+        @include font-size(14px, $modifier: -1);
+
+        .title {
+            display: block;
+            color: $color-purple-700;
+        }
+    }
 
 	// Ajouter une transition sur les 4 div enfants de leaflet-control-container
 	// pour les déplacements de ces éléments en fonction de la position

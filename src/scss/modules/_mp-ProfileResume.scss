@@ -1,0 +1,31 @@
+
+.mp-ProfileResume {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include font-size(14px, $modifier:-1);
+}
+
+.mp-ProfileResume_Informations {
+    flex: 1;
+    margin-right: $spacing-unit-small;
+}
+
+.mp-ProfileResume_Name {
+    margin-bottom: 0;
+	@include font-size(16px, $modifier: -0.5);
+}
+
+.mp-ProfileResume_Address {
+    margin-bottom: 0;
+
+    > span {
+        display: block;
+    }
+}
+
+.mp-ProfileResume_Logo {
+    margin-bottom: 0;
+
+    flex: 0 0 60px;
+}
