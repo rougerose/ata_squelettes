@@ -58,7 +58,7 @@ export class AtlasBase {
                 const marker = this.memory.markers[id];
                 const latlng = marker._latlng;
                 const zoomValue = this.map.getZoom();
-                this.map.flyTo(latlng, zoomValue);
+                this.map.flyTo(latlng, zoomValue, {animate: true, duration: 0.5});
 
                 this.dispatch({
                     type: "addModalContent",
@@ -120,7 +120,7 @@ export class AtlasBase {
         }
 
         if (Object.keys(state.centerMarker).length > 0) {
-            this.centerOnMarker(state.centerMarker.coords, state.centerMarker.id);
+            this.centerOnMarker(state.centerMarker.id);
         }
 
         if (state.moveZoom !== "") {
@@ -167,12 +167,11 @@ export class AtlasBase {
             });
             self.dispatch({
                 type: "centerOnMarker",
-                coords: this.feature.geometry.coordinates,
                 id: this.feature.id,
             });
         };
         this.map.markerCluster.eachLayer((layer) => {
-            // garder en mémoire les markers afin de pouvoir les réutiliser
+            // garder en mémoire les marqueurs afin de pouvoir les réutiliser
             markers[layer.id] = layer;
             layer.on("click", cb);
         });
@@ -283,7 +282,7 @@ export class AtlasBase {
                 break;
             case "centerOnMarker":
                 state = Object.assign({}, currentState, {
-                    centerMarker: { coords: action.coords, id: action.id },
+                    centerMarker: { id: action.id },
                 });
                 break;
             case "moveZoom":
@@ -299,13 +298,13 @@ export class AtlasBase {
         this.dispatch({ type: "addKeyword", keyword: keyword });
     }
 
-    centerOnMarker(coords, id) {
+    centerOnMarker(id) {
         const marker = this.memory.markers[id];
         const self = this;
         this.map.markerCluster.zoomToShowLayer(marker, function () {
             const zoomValue = self.map.getZoom();
             const latlng = marker._latlng;
-            self.map.flyTo(latlng, zoomValue);
+            self.map.flyTo(latlng, zoomValue, {animate: true, duration: 0.5});
             marker.openPopup();
         });
     }
