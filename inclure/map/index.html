@@ -2,15 +2,16 @@
 
 [(#SET{mapID, _atlas})][(#SET{id_gis, #ENV{id_gis, false}})]
 <div id="atlas" class="mp-Map">
-    [(#INCLURE{fond=modeles/carte_gis, objets=associations, id_map=#GET{mapID}, point=oui, tooltip=non,  style=non, zoom=6, id_a_ouvrir=#GET{id_gis}, cluster=oui, maxClusterRadius=50, clusterSpiderfyOnMaxZoom=oui, limite=#GET{total, 500}})]
+    [(#INCLURE{fond=modeles/carte_gis, objets=associations, id_map=#GET{mapID}, point=oui,  style=non, zoom=6, maxZoom=16, id_a_ouvrir=#GET{id_gis}, cluster=oui, maxClusterRadius=50, clusterSpiderfyOnMaxZoom=oui, limite=#GET{total, 500}})]
     <script type="text/javascript">
         callback_map#GET{mapID}=function(map){ atlas.init(map); }
     </script>
     <INCLURE{fond=inclure/map/searchBox} />
-    <div id="ModalAssociation" class="mp-Modal" data-modal="modalAssociation" aria-hidden="true">
+    <div id="modalAssociation" class="mp-Modal mp-Modal-association" data-modal="modalAssociation" aria-hidden="true">
         <INCLURE{fond=inclure/map/modalComponents/modal-association, env, ajax=modalAssociation} />
     </div>
-    <div id="ModalRecherche" class="mp-Modal" data-modal="modalRecherche" aria-hidden="true">
+    <div id="modalRecherche" class="mp-Modal mp-Modal-recherche" data-modal="modalRecherche" aria-hidden="true">
         <INCLURE{fond=inclure/map/modalComponents/modal-recherche, env, ajax=modalRecherche} />
     </div>
 </div>
+#FILTRE{trim}

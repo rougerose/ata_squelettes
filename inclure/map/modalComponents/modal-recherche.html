@@ -2,17 +2,52 @@
 <div class="mp-Modal_Inner">
     <div class="mp-Modal_Scroll">
         <div class="mp-Modal_Content">
-            <BOUCLE_resultats(ASSOCIATIONS){id_association IN #ENV{id_association}}{par nom}>
-                <p>#NOM / #ID_ASSOCIATION</p>
-            </BOUCLE_resultats>[(#SET{total, #TOTAL_BOUCLE})]</B_resultats>
+            <B_resultats>
+            <ul class="mp-SearchResultsList">
+                <BOUCLE_resultats(ASSOCIATIONS){id_association IN #ENV{id_association}}{par nom}>
+                    <BOUCLE_gis(GIS){id_association}>[(#SET{id_gis, #ID_GIS})][(#SET{lat, #LAT})][(#SET{lon, #LON})]</BOUCLE_gis>
+                    <li class="mp-SearchResultsList_Item" data-id-gis="[(#GET{id_gis})]" data-lat="#GET{lat}" data-lon="#GET{lon}">
+                        <div class="mp-ProfileResume">
+                            <div class="mp-ProfileResume_Informations">
+                                <h1 class="mp-ProfileResume_Name">#NOM</h1>
+                                <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
+                                    <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#ID_ASSOCIATION}>
+                                        [(#CATEGORIE|=={metropolitan_region}|oui) #SET{region, #ISO_TITRE}]
+                                        [(#CATEGORIE|=={metropolitan_department}|oui) #SET{departement, #ISO_TITRE}]
+                                    </BOUCLE_territoires>
+                                    <p class="mp-ProfileResume_Address">
+                                        [<span>(#VOIE)</span>]
+                                        [<span>(#COMPLEMENT)</span>]
+                                        [<span>[(#CODE_POSTAL) ](#VILLE)</span>]
+                                        <span>[(#GET{departement}) &#8226; ][(#GET{region})]</span>
+                                    </p>
+                                </BOUCLE_adresse>
+                            </div>
+                            [(#LOGO_ASSOCIATION|oui)
+                                [(#SET{logoAsso, [(#LOGO_ASSOCIATION|image_passe_partout{75,75}|image_reduire{75,75})] })]
+                                [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+                            ][(#LOGO_ASSOCIATION|non)
+                                [(#SET{logoAsso,
+                                [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{75,75}|image_reduire{75,75})]})]
+                                [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+                            ]<figure class="mp-ProfileResume_Logo">
+                                [<img class="mp-ProfileResume_LogoImg" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
+                            </figure>
+                        </div>
+                    </li>
+                </BOUCLE_resultats>
+            </ul>
+                [(#SET{total, #TOTAL_BOUCLE})]
+            </B_resultats>
         </div>
     </div>
 </div>
 <div class="mp-Modal_Bar">
-    <p class="mp-Modal_SearchResultsTotal">[(#GET{total}|singulier_ou_pluriel{ata_squelettes:texte_resultat_total,
+    <p class="mp-Modal_SearchResultsInfos">[(#GET{total}|singulier_ou_pluriel{ata_squelettes:texte_resultat_total,
         ata_squelettes:texte_resultats_total})]</p>
     <button class="o-btn mp-Modal_BtnViewToggle" data-modal-action="toggle"
-        data-text-toggle="<:ata_squelettes:texte_bouton_afficher_resultats:>">
-        <:ata_squelettes:texte_bouton_afficher_carte:>
+        data-text-toggle="<:ata_squelettes:texte_bouton_afficher_carte:>">
+        <:ata_squelettes:texte_bouton_afficher_resultats:>
     </button>
 </div>
+#FILTRE{trim}
