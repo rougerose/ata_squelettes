@@ -36,6 +36,7 @@ export class Keyword {
                 }
             }
         }
+        this.state = state;
     }
 
     dispatchAction(action, keyword) {

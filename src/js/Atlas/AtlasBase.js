@@ -1,5 +1,4 @@
 import { config } from "./config";
-import { atlasLoadData, atlasParseGeoJson } from "./map";
 import debounce from "lodash/debounce";
 import Tablist from "@accede-web/tablist";
 
@@ -8,9 +7,8 @@ export class AtlasBase {
         this.map = map;
         this.configMap();
 
-        this.handleResize = this._handleResize.bind(this);
-
         // Ajouter gestionnaire sur window.onresize
+        this.handleResize = this._handleResize.bind(this);
         window.addEventListener("resize", debounce(this.handleResize, 250));
 
         let container = document.getElementById(conf.containerId);
@@ -19,6 +17,7 @@ export class AtlasBase {
         this.state = state;
         this.dispatch = dispatch;
         this.container = container;
+        this.memory = {};
 
         // Activer les modules "controls"
         this.controls = {};
@@ -55,6 +54,11 @@ export class AtlasBase {
             // jQuery("#" + this.map._container.id).off("ready", onready);
         };
         jQuery("#" + this.map._container.id).on("ready", onready);
+
+        // Personnaliser les icones des clusters
+        if (this.map.options.cluster) {
+            this.map.options.clusterOptions.iconCreateFunction = this.clusterIcon;
+        }
     }
 
     // Clusters personnalisés
@@ -91,16 +95,22 @@ export class AtlasBase {
     syncState(state) {
         if (state.keywordsSelected.size !== this.state.keywordsSelected.size) {
             if (state.keywordsSelected.size !== 0) {
-                console.log("search");
                 this.searchCollection(state.keywordsSelected);
+                this.state = state;
             } else {
                 // recharger la carte dans son état initial
                 this.resetMap();
+                this.state = state;
             }
         }
 
-        // console.log("AB syncState state: ", state);
-        //console.log("AB Syncstate this.state : ", this.state);
+        if (Object.keys(state.centerMarker).length > 0) {
+            this.centerOnMarker(state.centerMarker.coords, state.centerMarker.id);
+        }
+
+        if (state.moveZoom !== "") {
+            this.moveZoom(state.moveZoom);
+        }
 
         this.state = state;
 
@@ -133,16 +143,25 @@ export class AtlasBase {
 
     _handleClickMarker() {
         const self = this;
+        let markers = {};
         let cb = function (event) {
             self.dispatch({
                 type: "addModalContent",
                 openId: this.feature.id,
                 modalId: "modalAssociation",
             });
+            self.dispatch({
+                type: "centerOnMarker",
+                coords: this.feature.geometry.coordinates,
+                id: this.feature.id,
+            });
         };
         this.map.markerCluster.eachLayer((layer) => {
+            // garder en mémoire les markers afin de pouvoir les réutiliser
+            markers[layer.id] = layer;
             layer.on("click", cb);
         });
+        this.memory.markers = markers;
     }
 
     _getWindowWidth() {
@@ -163,13 +182,22 @@ export class AtlasBase {
     }
 
     handleAction(state, action) {
-        // Conservé l'état actuel,
-        // sauf celui relatif aux modales qui est temporaire.
+        // Corriger un écart entre les listes de mots-clés.
+        // La liste keywords est celle qui est à jour
+        // (en l'occurence qu'il n'y a plus aucun mot-clé sélectionné).
+        if (state.keywords.size == 0 && state.keywordsSelected.size > 0) {
+            state.keywordsSelected = new Map();
+        }
+        // Conserver en mémoire l'état actuel, et le distribuer à tous les
+        // modules enfants, sauf celui relatif aux modales qui est temporaire.
         let currentState = this.state;
         currentState.modalAction = "";
         currentState.modalArgs = {};
         currentState.modalOpenId = "";
         currentState.modalId = "";
+        currentState.centerMarker = {};
+        currentState.moveZoom = "";
+
         let keywords;
         let keywordsSelected;
 
@@ -238,12 +266,49 @@ export class AtlasBase {
                     searchboxHeight: action.searchboxHeight,
                 });
                 break;
+            case "centerOnMarker":
+                state = Object.assign({}, currentState, {
+                    centerMarker: { coords: action.coords, id: action.id },
+                });
+                break;
+            case "moveZoom":
+                state = Object.assign({}, currentState, {
+                    moveZoom: action.height
+                });
+                break;
         }
         return state;
     }
 
     autocompleteAddKeyword(keyword) {
         this.dispatch({ type: "addKeyword", keyword: keyword });
+    }
+
+    centerOnMarker(coords, id) {
+        // const latLngs = L.GeoJSON.coordsToLatLng(coords);
+        const marker = this.memory.markers[id];
+        // console.log(latLngs);
+        this.map.markerCluster.zoomToShowLayer(marker, function () {
+            marker.openPopup();
+        });
+        // this.map.markerCluster.eachLayer((layer) => {
+        //     if (layer.id == id) {
+        //        this.map.markerCluster.zoomToShowLayer(layer, function () {});
+        //    }
+        // });
+
+
+
+        // this.map.setView(latLngs);
+
+        // const latLngs = [ L.GeoJSON.coordsToLatLng(coords) ];
+        // const bounds = L.latLngBounds(latLngs);
+        // this.map.fitBounds(bounds, {maxZoom: 10});
+    }
+
+    moveZoom(height) {
+        const zoomControl = this.map.zoomControl.getContainer();
+        zoomControl.style.transform = "translateY(" + height + "px)";
     }
 
     resetMap() {
@@ -260,7 +325,7 @@ export class AtlasBase {
             limit: this.map.options.json_points.limit,
         };
 
-        // key = id_objet_spip:id
+        // la syntaxe key est la forme suivante : "id_objet_spip:identifiant_numerique"
         for (const [key] of keywords) {
             const objet_spip = key.split(":");
             const index = query[objet_spip[0]].length;
@@ -279,7 +344,6 @@ export class AtlasBase {
 
         let collection = jQuery.getJSON(URL, query);
         collection.done(function (json) {
-            console.log("done", json);
             let associations = { id_association: [] };
             let items = json.collection.items;
             for (const key in items) {
@@ -301,6 +365,7 @@ export class AtlasBase {
 
         collection.fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
+            // TODO gestion erreur
             console.log("Request Failed: " + err);
         });
     }
@@ -312,6 +377,7 @@ export class AtlasBase {
         jQuery.getJSON(url, args, (data) => {
             if (data) {
                 map.removeAllMarkers();
+                // map.options.autocenterandzoom = true;
                 map.parseGeoJson(data);
                 jQuery("#" + map._container.id).trigger("ready", map);
 
@@ -320,15 +386,6 @@ export class AtlasBase {
                     args: args,
                     modalId: "modalRecherche",
                 });
-                // self.dispatch({
-                //     type: "updateModalPosition",
-                // });
-
-                // window.ajaxReload("modalRecherche", {
-                //     // callback: cb,
-                //     args: { id_association: args.id_association },
-                //     history: false,
-                // });
             }
         });
     }

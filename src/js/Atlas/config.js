@@ -33,10 +33,9 @@ export const config = {
     },
     modal: {
         setTabIndex: true,
-        dataModal: "modal",
         openedClass: "is-opened",
         closedClass: "is-closed",
-
+        bottomBarClass: "mp-Modal_Bar",
         containerId: "Modal",
         btnClassName: "mp-Modal_BtnAction",
         headerClassName: "mp-Modal_HeaderContent",

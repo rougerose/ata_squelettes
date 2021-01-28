@@ -24,6 +24,7 @@ export class KeywordSelected {
                 this.updateKeywordSelectedList();
             }
         }
+        this.state = state;
     }
 
     updateKeywordSelectedList() {

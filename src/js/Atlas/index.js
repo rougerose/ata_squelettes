@@ -16,8 +16,8 @@ let state = {
     modalArgs: {},
     modalOpenId: "",
     modalId: "",
-    modalAssociation: "closed",
-    modalRecherche: "closed",
+    centerMarker: {},
+    moveZoom: "",
 };
 
 let init = (leafletmap) => {

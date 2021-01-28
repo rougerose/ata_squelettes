@@ -1,11 +1,5 @@
 import { config } from "./config";
 
-function arrayRemove(arr, value) {
-    return arr.filter(function (ele) {
-        return ele != value;
-    });
-}
-
 // TODO : repositionner le zoom de Leaflet en mode Preview
 
 export class Modal {
@@ -15,8 +9,6 @@ export class Modal {
         this.atlasContainer = container;
         this.modals = {};
         this.memory = {
-            // openedModals: [],
-            // closedModals: [],
             modalAssociation: {
                 position: "",
                 btns: [],
@@ -36,24 +28,29 @@ export class Modal {
                 },
             },
             previewHeight: "",
+            bottomBarHeight: "",
             working: false,
         };
 
         this.setUpModal();
-        this._handlerClick = this.handlerClick.bind(this);
-        // this._handleCloseBtn = this.handleCloseBtn.bind(this);
-        // this._handleToggleBtn = this.handleToggleBtn.bind(this);
+        this._handlerClickBtns = this.handlerClickBtns.bind(this);
+        this._handlerClickList = this.handlerClickList.bind(this);
     }
 
     syncState(state) {
         if (state.modalAction === "addModalContent") {
-            this.state = state;
             this.addContent(state);
         } else if (state.modalAction === "closeModals") {
-            this.state = state;
             this.closeAllModals();
+        } else if (
+            state.windowWidth === "desktop" &&
+            state.windowWidth === this.state.windowWidth &&
+            state.searchboxHeight !== this.state.searchoxHeight &&
+            (this.state.modalAssociation === "openedFull" ||
+                this.state.modalRecherche === "openedFull")
+        ) {
+            this.updateLayout(state.searchboxHeight);
         }
-
 
         this.state = state;
     }
@@ -73,7 +70,10 @@ export class Modal {
         /* Fermer la modale si elle est déjà ouverte */
         if (this.memory[modalId].position !== "closed") {
             await this.close(modalId, true);
-            this.unbindListeners(modalId);
+        }
+
+        if (modalId === "modalRecherche" && this.memory.modalAssociation.position !== "closed") {
+            await this.close("modalAssociation", true);
         }
 
         /* Charger le contenu via ajaxReload et ouvrir via le callback */
@@ -88,9 +88,14 @@ export class Modal {
             /* Position et transitions */
             this.setPosition(modalId);
 
-            if (modalId === "modalRecherche" && this.state.windowWidth === "mobile") {
+            if (
+                modalId === "modalRecherche" &&
+                this.state.windowWidth === "mobile"
+            ) {
+                // Ouvrir seulement la barre en bas de fenêtre
                 this.toggleVisibility(modalId);
             } else {
+                // Ouvrir la modale
                 this.open(modalId, true);
             }
         };
@@ -103,56 +108,108 @@ export class Modal {
     }
 
     closeAllModals() {
+        this.memory.working = true;
         for (const key in this.modals) {
             const modalId = this.modals[key].id;
             if (this.memory[modalId].position !== "closed") {
                 this.close(modalId, true);
             }
         }
+        if (this.state.windowWidth === "mobile") {
+            this.memory.bottomBarHeight = "";
+            this.dispatch({
+                type: "moveZoom",
+                height: 0,
+            });
+        }
+        this.memory.working = false;
     }
 
     async close(modalId, bool) {
         let modal = this.modals[modalId];
         let toggleAria = typeof bool === "undefined" ? true : bool;
+        let moveZoom;
 
-        if (!toggleAria && modalId === "modalRecherche" && this.state.windowWidth === "mobile") {
+        if (
+            !toggleAria &&
+            modalId === "modalRecherche" &&
+            this.state.windowWidth === "mobile"
+        ) {
             modal = modal.firstElementChild.firstElementChild;
             toggleAria = false;
         }
 
         this.memory.working = true;
+
         await this.closeTransition(
             modal,
             this.memory[modalId].transitions.transitionOff,
             toggleAria
         );
-        this.memory.working = false;
+
         if (toggleAria) {
             this.memory[modalId].position = "closed";
+            this.unbindListeners(modalId);
+
+            if (this.state.windowWidth === "mobile" && this.memory.modalRecherche.position === "closed") {
+                this.dispatch({
+                    type: "moveZoom",
+                    height: 0,
+                });
+            }
         } else {
             this.memory[modalId].position = "visible";
         }
+
+        this.memory.working = false;
+
+        return modal;
     }
 
     async open(modalId, bool) {
         let modal = this.modals[modalId];
-        let transition;
         let toggleAria = typeof bool === "undefined" ? true : bool;
+        let transition, btnToggleClass, moveZoom;
 
         // Selon la modale et la largeur de la fenêtre, le bloc à manipuler n'est pas le même.
-        if (modalId === "modalRecherche" && this.state.windowWidth === "mobile") {
+        if (
+            modalId === "modalRecherche" &&
+            this.state.windowWidth === "mobile"
+        ) {
             modal = modal.firstElementChild.firstElementChild;
             toggleAria = false;
+            moveZoom = this.memory.bottomBarHeight;
         }
 
         if (this.memory[modalId].position === "openedPreview") {
             transition = this.memory[modalId].transitions.transitionOnPreview;
+            btnToggleClass = "is-toggle-up";
+            if (this.memory.modalRecherche.position === "closed") {
+                moveZoom = this.memory.previewHeight;
+            }
         } else {
             transition = this.memory[modalId].transitions.transitionOn;
+            btnToggleClass = "is-toggle-down";
         }
 
         this.memory.working = true;
+
         await this.openTransition(modal, transition, toggleAria);
+
+        this.memory[modalId].btns.forEach((btn) => {
+            btn.classList.add("is-ready-to-animate");
+            if (btn.dataset.modalAction === "toggle") {
+                btn.classList.add(btnToggleClass);
+            }
+        });
+
+        if (typeof moveZoom !== "undefined") {
+            this.dispatch({
+                type: "moveZoom",
+                height: moveZoom,
+            });
+        }
+
         this.memory.working = false;
 
         return modal;
@@ -167,28 +224,9 @@ export class Modal {
         } else {
             modal.setAttribute("aria-hidden", "false");
             this.memory[modalId].position = "visible";
+            this.dispatch({ type: "moveZoom", height: this.memory.bottomBarHeight });
         }
     }
-
-    // async handleOpenModal(modalId, position) {
-    //     // Ajouter les gestionnaires d'événements
-    //     const modal = this.atlasContainer.querySelector("#" + modalId);
-    //     this.bindListeners(modal);
-
-    //     // ouvrir
-    //     let r = await this.openTransition(modal, position);
-    //     console.log(r);
-    //     // animation des boutons d'action
-
-    //     // dispatch open
-
-    //     // et update memory
-    //     this.memory.openedModals.push(modalId);
-    //     let closedModals = this.memory.closedModals;
-    //     if (closedModals.length > 0) {
-    //         this.memory.closedModals = arrayRemove(closedModals, modalId);
-    //     }
-    // }
 
     bindListeners(modalId) {
         const modal = this.modals[modalId];
@@ -196,40 +234,47 @@ export class Modal {
         this.memory[modalId].btns = btns;
 
         btns.forEach((btn) => {
-            btn.addEventListener("click", this._handlerClick);
+            btn.addEventListener("click", this._handlerClickBtns);
             btn.setAttribute("tabindex", "0");
+
+            if (modalId === "modalAssociation") {
+                this.setAnimationBtn(btn);
+            }
         });
 
-        // if (modalId === "modalAssociation") {
-        //     btns.forEach((btn) => {
-        //         this.setAnimationBtn(btn);
-        //         btn.setAttribute("tabindex", "0");
-        //         if (btn.id === "ModalToggle") {
-        //             btn.addEventListener("click", this._handleToggleBtn);
-        //         }
-        //         if (btn.id === "ModalClose") {
-        //             btn.addEventListener("click", this._handleCloseBtn);
-        //         }
-        //     });
-        // } else {
-        //     btns[0].addEventListener("click", this._handleToggleBtn);
-        // }
+        if (modalId === "modalRecherche") {
+            const list = modal.querySelectorAll("li");
+            this.memory[modalId].list = list;
+            list.forEach((item) => {
+                item.addEventListener("click", this._handlerClickList);
+            });
+        }
     }
 
     unbindListeners(modalId) {
         const btns = this.memory[modalId].btns;
         btns.forEach((btn) => {
-            btn.removeEventListener("click", this._handlerClick);
+            btn.removeEventListener("click", this._handlerClickBtns);
             btn.setAttribute("tabindex", "-1");
         });
+
+        const list = this.memory[modalId].list;
+        if (typeof list !== "undefined" && list.length > 0) {
+            list.forEach((item) => {
+                item.removeEventListener("click", this._handlerClickList);
+            });
+        }
     }
 
     ///\\\
+    calcBottomBarHeight(modal) {
+        const bottomBar = modal.querySelector("." + config.modal.bottomBarClass);
+        return -Math.abs(bottomBar.offsetHeight);
+    }
 
     calcPreviewHeight(modal) {
-        const body = modal.querySelector("." + config.modal.bodyClassName);
-        const previewHeight =
-            modal.parentElement.offsetHeight - (body.offsetTop + 36);
+        const body = modal.querySelector("article h2");
+        const previewHeight = -Math.abs(body.nextElementSibling.offsetTop + 36);
         return previewHeight;
     }
 
@@ -238,7 +283,8 @@ export class Modal {
         return modals;
     }
 
-    handlerClick(event) {
+    handlerClickBtns(event) {
+        const btn = event.target;
         const modal = event.target.closest("[data-modal]");
         const modalId = modal.id;
         const action = event.target.dataset.modalAction;
@@ -249,7 +295,16 @@ export class Modal {
             if (this.memory.working) {
                 return;
             }
-            // position "visible" = seule la barre est visible.
+
+            // Manipuler le texte du bouton
+            if (btn.getAttribute("data-text-toggle") == btn.innerHTML) {
+                btn.innerHTML = btn.getAttribute("data-text-original");
+            } else {
+                btn.setAttribute("data-text-original", btn.innerHTML);
+                btn.innerHTML = btn.getAttribute("data-text-toggle");
+            }
+
+            // Si position "visible", alors seule la barre en bas de la fenêtre est visible.
             // sinon position "openedFull".
             if (position === "visible") {
                 this.memory[modalId].position = "openedFull";
@@ -258,36 +313,35 @@ export class Modal {
                 this.memory[modalId].position = "visible";
                 this.close(modalId, false);
             }
-            // if (position === "closed") {
-            //     // this.open(modalId);
-            // } else {
-            //     this.close(modalId);
-            // }
+        } else if (modal.id === "modalAssociation") {
+            if (this.memory.working) {
+                return;
+            }
+
+            if (action === "toggle" && position === "openedPreview") {
+                this.memory[modalId].position = "openedFull";
+                this.open(modalId, false);
+            } else {
+                this.close(modalId, true);
+            }
         }
     }
 
-    // handleCloseBtn(event) {
-    //     const modalId = event.target.id;
-    //     this.close(modalId);
-    // }
-
-    // handleToggleBtn(event) {
-    //     const btn = event.target;
-    //     const modal = btn.closest("[data-modal]");
-    //     const modalId = modal.id;
-    //     let action = { type: "updateModalPosition" };
-
-    //     if (modalId === "modalRecherche") {
-    //         let position = this.memory.modalRecherche.position;
-
-    //         if (position === "openedFull") {
-    //             this.close(modalId, false);
-    //         } else {
-    //             // Enregistrer la position demandée
-    //             // this.handleOpenModal(modalId, "openedFull");
-    //         }
-    //     }
-    // }
+    handlerClickList(event) {
+        const li = event.target.closest("[data-id-gis]");
+        if (li) {
+            this.dispatch({
+                type: "addModalContent",
+                openId: li.dataset.idGis,
+                modalId: "modalAssociation",
+            });
+            this.dispatch({
+                type: "centerOnMarker",
+                coords: [li.dataset.lon, li.dataset.lat],
+                id: li.dataset.idGis,
+            });
+        }
+    }
 
     openTransition(el, transition, bool) {
         return new Promise((resolve) => {
@@ -340,16 +394,16 @@ export class Modal {
             this.updateLayout(this.state.searchboxHeight);
             position = "openedFull";
             transitions = this.setStyleTransitions(this.state.windowWidth);
-        } else if (
-            modalId === "modalAssociation" &&
-            this.state.windowWidth === "mobile"
-        ) {
-            position = "openedPreview";
-            this.memory.previewHeight = this.calcPreviewHeight(modal);
-            transitions = this.setStyleTransitions(this.state.windowWidth);
         } else {
-            position = "openedFull";
-            transitions = this.setStyleTransitions(this.state.windowWidth);
+            if (modalId === "modalAssociation") {
+                position = "openedPreview";
+                this.memory.previewHeight = this.calcPreviewHeight(modal);
+                transitions = this.setStyleTransitions(this.state.windowWidth);
+            } else {
+                position = "openedFull";
+                transitions = this.setStyleTransitions(this.state.windowWidth);
+                this.memory.bottomBarHeight = this.calcBottomBarHeight(modal);
+            }
         }
 
         this.memory[modalId].position = position;
@@ -394,14 +448,13 @@ export class Modal {
                     // TODO prendre en compte un état ouvert si id_gis est présent dans l'url.
                 } else {
                     modal.setAttribute("aria-hidden", "true");
-                    modal.classList.add(config.modal.closedClass);
+                    // modal.classList.add(config.modal.closedClass);
                     this.setTabIndex(modal, true);
                     this.memory[modalId].position = "closed";
                 }
             });
         }
     }
-
 
     /*
     Si la fenêtre du navigateur est en position "desktop",
@@ -413,6 +466,5 @@ export class Modal {
             let innerDiv = this.modals[key].firstElementChild.firstElementChild;
             innerDiv.style.paddingTop = value + "px";
         }
-
     }
 }
