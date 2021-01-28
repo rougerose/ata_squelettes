@@ -38,7 +38,7 @@
 .mp-Keywords_List {
 	list-style: none;
 	margin: 0;
-	padding: $spacing-unit-tiny 0 $spacing-unit-small;
+	padding: $spacing-unit-tiny 0 8px;
 	display: flex;
 	flex-wrap: nowrap;
     overflow: auto;
@@ -47,7 +47,11 @@
 		content: "";
 		width: $spacing-unit-tiny;
 		flex: 0 0 auto;
-	}
+    }
+
+    .mp-Keywords-selected & {
+        padding-top: 0;
+    }
 }
 
 .mp-Keywords_Item {
@@ -139,58 +143,13 @@
  }
 }
 
-// .mp-Keywords_Label {
-// 	position: relative;
-// 	padding-left: 18px;
-
-// 	&::before {
-// 		position: absolute;
-// 		left: 0;
-// 		top: 50%;
-// 		transform: translateY(-50%);
-// 		content: "";
-// 		width: 16px;
-// 		height: 16px;
-// 		background-image: url("../../images/icons/autocomplete-marker@2x.png");
-//         background-repeat: no-repeat;
-//         background-size: cover;
-// 	}
-
-// 	&-city {
-// 		&::before {
-// 			background-position: -16px 0;
-// 		}
-// 	}
-
-// 	&-activity {
-// 		&::before {
-// 		  background-position: -32px 0;
-// 		}
-// 	}
-
-// 	&-org {
-// 		&::before {
-// 			background-position: 0 0;
-// 		}
-//     }
-
-//     // &-toSelect {}
-
-//     &-selected {
-//         &:first-child {
-//             margin-left: $spacing-unit-tiny;
-//         }
-//     }
-// }
-
-.mp-Keywords_BtnDelete,
-.mp-Keywords_BtnTooltip {
+.mp-Keywords_BtnDelete {
     display: flex;
-    padding: $spacing-unit-small;
+    padding: 10px;
     border-radius: 100%;
     background-color: $color-keyword-delete-bg;
     margin-left: $spacing-unit-tiny;
-    background-size: $spacing-unit-small;
+    background-size: 10px;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: 0 0 0 0 rgba($color-yellow-500, 0);
@@ -204,19 +163,8 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 
 	&:hover {
-        background-color: $color-orange-600;
+        background-color: $color-yellow-200;
         box-shadow: -1px -2px 3px 2px rgba($color-yellow-600, 1);
         transform: rotate(-180deg);
 	}
-}
-
-.mp-Keywords_BtnTooltip {
-    background-image: url("../../images/icons/icon-ellipsis-32.svg");
-	background-size: 16px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-    &:hover {
-        transform: scale(1.05);
-        box-shadow: 1px 2px 3px 2px rgba($color-yellow-600, 1);
-    }
 }
