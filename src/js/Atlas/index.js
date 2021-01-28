@@ -12,11 +12,12 @@ let state = {
     searchboxHeight: null,
     keywords: new Map(),
     keywordsSelected: new Map(),
-    modal: {
-        action: "",
-        openId: "",
-        position: "closed",
-    },
+    modalAction: "",
+    modalArgs: {},
+    modalOpenId: "",
+    modalId: "",
+    centerMarker: {},
+    moveZoom: "",
 };
 
 let init = (leafletmap) => {
@@ -30,7 +31,7 @@ let init = (leafletmap) => {
     };
     atlas = new AtlasBase(leafletmap, state, conf);
     // compléter state.windowWidht et state.searchboxHeight
-    atlas.setupState();
+    atlas.setInitialState();
 }
 
 const addKeyword = (keyword) => {

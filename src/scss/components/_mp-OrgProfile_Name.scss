@@ -1,9 +1,0 @@
-.mp-OrgProfile_Name {
-	display: flex;
-	flex-direction: column;
-
-	h1 {
-		color: $color-purple-600;
-		@include font-size(18px, $modifier: -0.5);
-	}
-}

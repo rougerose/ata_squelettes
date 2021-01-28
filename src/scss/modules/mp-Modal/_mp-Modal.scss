@@ -1,0 +1,53 @@
+.mp-Modal {
+    position: absolute;
+    visibility: visible;
+	width: 100%;
+	height: 100%;
+    z-index: $zindex-modal-mobile;
+    bottom: -100%;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+
+    // Variantes
+    &-association {
+        z-index: $zindex-modal-mobile + 2;
+    }
+
+    &-recherche {
+        z-index: $zindex-modal-mobile;
+    }
+
+    // Visibilité
+    &[aria-hidden="true"] {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &[aria-hidden="false"] {
+        opacity: 1;
+    }
+
+    @include mq(m) {
+		position: absolute;
+		left: 0;
+        top: 0;
+        bottom: 0;
+		z-index: $zindex-modal-desktop;
+		width: 380px;
+        // height: 100%;
+        transform: translateX(-100%);
+
+        &-association {
+            z-index: $zindex-modal-desktop;
+        }
+
+        &-recherche {
+            z-index: $zindex-modal-desktop - 2;
+        }
+    }
+}
+
+@import "mp-Modal_Inner";
+@import "mp-Modal_Scroll";
+@import "mp-Modal_Content";
+@import "mp-Modal_Btn";
+@import "mp-Modal_Bar";

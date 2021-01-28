@@ -32,6 +32,10 @@ export const config = {
         containerId: "js-Keywords",
     },
     modal: {
+        setTabIndex: true,
+        openedClass: "is-opened",
+        closedClass: "is-closed",
+        bottomBarClass: "mp-Modal_Bar",
         containerId: "Modal",
         btnClassName: "mp-Modal_BtnAction",
         headerClassName: "mp-Modal_HeaderContent",

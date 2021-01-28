@@ -17,7 +17,7 @@
         &::after {
             position: absolute;
             width: $spacing-unit-tiny;
-            z-index: $zindex-searchbox + 1;
+            // z-index: $zindex-searchbox + 1;
             flex: 0 0 auto;
             content: "";
             background-color: $color-white;

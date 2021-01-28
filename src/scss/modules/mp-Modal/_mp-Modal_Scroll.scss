@@ -1,0 +1,15 @@
+.mp-Modal_Scroll {
+    height: 100%;
+    overflow: auto;
+    margin: $spacing-unit 0 0;
+
+    // Empêcher la bottom bar de masquer le dernier élément
+    // de la liste du contenu.
+    &::after {
+        content: "";
+        display: block;
+        height: 0;
+        width: 100%;
+        margin-bottom: 48px;
+    }
+}

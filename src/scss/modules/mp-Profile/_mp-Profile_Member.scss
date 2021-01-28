@@ -1,0 +1,18 @@
+.mp-Profile_Member {
+    margin: $spacing-unit-small 0;
+    padding: $spacing-unit-small 0;
+    border: 1px solid $color-gray-200;
+    border-width: 1px 0;
+}
+
+.mp-Profile_MemberLogo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+// .mp-Profile_MemberLogoImg {}
+
+.mp-Profile_MemberLogoCaption {
+    padding-left: $spacing-unit-small;
+}

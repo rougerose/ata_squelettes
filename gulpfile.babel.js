@@ -151,7 +151,7 @@ const jsLib = () => {
 		.pipe(dest(options.paths.jsLib.all.dest));
 };
 
-export const jsTask = series(ata, atlas, js, jsLib);
+export const jsTask = series(ata, atlas, js);
 
 
 // Browsersync

@@ -1,6 +1,11 @@
-
 $btnWidth: 28px;
 $btnHeight: 28px;
+
+.mp-Modal_Btns {
+    display: flex;
+    position: absolute;
+    right: $spacing-unit-small;
+}
 
 .mp-Modal_BtnAction {
 	display: flex;
@@ -9,12 +14,14 @@ $btnHeight: 28px;
     height: $btnHeight;
     margin-left: $spacing-unit-small;
 	border-radius: 50%;
-	box-shadow: 0 0 0 rgba($color-black, 0);
 	background-color: $color-white;
     transition: background-color 0.3s ease;
 
 	&:hover {
-		background-color: $color-yellow-500;
+        background-color: $color-ternary;
+        circle {
+            stroke: $color-ternary;
+        }
     }
 
     &-toggle {
@@ -53,20 +60,38 @@ $btnHeight: 28px;
 
 .mp-Modal_BtnBg {
 	width: $btnWidth;
-	height: $btnHeight;
+    height: $btnHeight;
+    pointer-events: none;
 
 	circle {
 		stroke-width: 2.5;
-		stroke: $color-black;
+		stroke: $color-gray-200;
 		transition: stroke-dashoffset 0.3s 0s;
 	}
 }
 
+.mp-Modal_BtnViewToggle {
+    border: 2px solid $color-ternary;
+    border-radius: 0.5em;
+    padding: $spacing-unit-tiny;
+    background-color: $color-white;
+    @include font-size(14px, $modifier: -1);
+    transition: background 0.3s ease;
+
+    @include mq(m) {
+        display: none;
+    }
+
+    &:hover {
+        background-color: $color-ternary;
+    }
+}
+
 @keyframes color_change {
 	from {
-		stroke: $color-yellow-500;
+		stroke: $color-black;
 	}
 	to {
-		stroke: $color-black;
+		stroke: $color-gray-200;
 	}
 }

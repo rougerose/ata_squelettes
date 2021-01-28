@@ -1,84 +1,88 @@
-<BOUCLE_modal_association(ASSOCIATIONS){id_gis}{id_association}>
-    [(#SET{asso, #NOM})]
-    [(#LOGO_ASSOCIATION|oui)
-        [(#SET{logoAsso, [(#LOGO_ASSOCIATION|image_passe_partout{75,75}|image_reduire{75,75})] })]
-        [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
-    ][(#LOGO_ASSOCIATION|non)
-        [(#SET{logoAsso, [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{75,75}|image_reduire{75,75})]})]
-        [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
-    ][(#MEMBRE_FRAAP|=={0}|oui)
-        [(#SET{logoMembre, [(#CHEMIN{images/icons/ata-membreFraap-off@2x.png}|balise_img|image_passe_partout{65,65}|image_reduire{65,65})]})]
-        [(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
-    ][(#MEMBRE_FRAAP|=={1}|oui)
-        [(#SET{logoMembre, [(#CHEMIN{images/icons/ata-membreFraap-on@2x.png}|balise_img|image_passe_partout{65,65}|image_reduire{65,65})]})]
-        [(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
-    ]<article class="mp-Modal_Content mp-OrgProfile">
-        <header class="mp-Modal_Header">
-            <div class="mp-Modal_HeaderContent">
-                <div class="mp-OrgProfile_Header">
-                    <figure class="mp-OrgProfile_Badge">
-                        [<img class="mp-OrgProfile_Logo" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
-                    </figure>
-                    <div class="mp-OrgProfile_Name">
-                        <h1>#NOM</h1>
-                    </div>
-                </div>
+<div class="mp-Modal_Inner">
+    <div class="mp-Modal_Scroll">
+        <div class="mp-Modal_Content">
+            <div class="mp-Modal_Btns">
+                <button id="ModalToggle" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-toggle" data-modal-action="toggle">
+                    [(#INCLURE{fond=images/icons/icon-modal-caret-48.svg, class=mp-Modal_BtnBg})]
+                </button>
+                <button id="ModalClose" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-close" data-modal-action="close">
+                    [(#INCLURE{fond=images/icons/icon-modal-close-48.svg, class=mp-Modal_BtnBg})]
+                </button>
             </div>
-            <button id="ModalToggle" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-toggle">
-                [(#INCLURE{fond=images/icons/icon-modal-caret-48.svg, class=mp-Modal_BtnBg})]
-            </button>
-            <button id="ModalClose" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-close">
-                [(#INCLURE{fond=images/icons/icon-modal-close-48.svg, class=mp-Modal_BtnBg})]
-            </button>
-        </header>
-        <div class="mp-Modal_Body">
-            <div class="mp-OrgProfile_Body">
-                <section class="mp-OrgProfile_Informations">
-                    <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
-                        <h2>Adresse</h2>
-                        <BOUCLE_pays(PAYS){code=#PAYS}>[(#SET{pays,#NOM})]</BOUCLE_pays>
-                        <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#ENV{id_association}}>
-                            [(#CATEGORIE|=={metropolitan_region}|oui) #SET{region, #ISO_TITRE}]
-                            [(#CATEGORIE|=={metropolitan_department}|oui) #SET{departement, #ISO_TITRE}]
-                        </BOUCLE_territoires>
-                        <p class="mp-OrgProfile_Address">
-                            [<span>(#VOIE)</span>]
-                            [<span>(#COMPLEMENT)</span>]
-                            [<span>[(#CODE_POSTAL) ](#VILLE)</span>]
-                            <span>[(#GET{departement}) &#8226; ][(#GET{region})]</span>
-                        </p>
-                    </BOUCLE_adresse>
-                    <B_activites>
-                        <h2>Activités</h2>
-                        <ul class="mp-OrgProfile_List">
-                            <BOUCLE_activites(MOTS){id_association}{id_groupe_racine=1}{par titre}>
-                                <li class="mp-OrgProfile_ListItem">[(#TITRE)][ (#DESCRIPTIF|textebrut)]</li>
-                            </BOUCLE_activites>
-                        </ul>
-                    </B_activites>
-                    <h2>En ligne</h2>
-                    [<p class="mp-OrgProfile_Online">
-                        <a class="mp-OrgProfile_WebLink" href="(#URL_SITE|url_absolue)">[(#URL_SITE|url_absolue)]</a>
-                    </p>]
-                    <B_rezos>
-                        <p class="mp-OrgProfile_Online mp-OrgProfile_Online-social">
-                            <BOUCLE_rezos(DATA){liste facebook, twitter, instagram}>
-                                <BOUCLE_rezo(REZOSOCIOS){type_rezo=#VALEUR}{id_association}>
-                                    <a class="mp-OrgProfile_SocialLink mp-OrgProfile_SocialLink-#VALEUR mp-OrgProfile_SocialLink-on" href="[(#VALEUR|rezosocios_url{#NOM_COMPTE})]" title="[(#GET{asso}|textebrut)] sur [(#VALEUR)]"> </a>
-                                </BOUCLE_rezo>
-                                    <span class="mp-OrgProfile_SocialLink mp-OrgProfile_SocialLink-off mp-OrgProfile_SocialLink-#VALEUR"> </span>
-                                <//B_rezo>
-                            </BOUCLE_rezos>
-                        </p>
-                    </B_rezos>
-                </section>
-                [<section class="mp-OrgProfile_BagdeContainer">
-                    <figure class="mp-OrgProfile_Badge mp-OrgProfile_Badge-membreFraap">
-                        <img class="mp-OrgProfile_LogoMembreFraap" src="(#GET{srcMembre})" class="mp-OrProfile_FraapLogo" alt="">
-                    </figure>
-                </section>]
-            </div>
+            <BOUCLE_gis(spip_gis_liens){id_gis}{objet=association}>
+                <BOUCLE_modal_association(ASSOCIATIONS){id_gis}{id_association=#ID_OBJET}>
+                    [(#SET{asso, #NOM})]
+                    [(#LOGO_ASSOCIATION|oui)
+                        [(#SET{logoAsso, [(#LOGO_ASSOCIATION|image_passe_partout{75,75}|image_reduire{75,75})] })]
+                        [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+                    ][(#LOGO_ASSOCIATION|non)
+                        [(#SET{logoAsso,
+                        [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{75,75}|image_reduire{75,75})]})]
+                        [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+                    ][(#MEMBRE_FRAAP|=={0}|oui)
+                        [(#SET{logoMembre,
+                        [(#CHEMIN{images/icons/ata-membreFraap-off@2x.png}|balise_img|image_passe_partout{77,77})]})]
+                        [(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
+                    ][(#MEMBRE_FRAAP|=={1}|oui)
+                        [(#SET{logoMembre,
+                        [(#CHEMIN{images/icons/ata-membreFraap-on@2x.png}|balise_img|image_passe_partout{77,77})]})]
+                        [(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
+                    ]<article class="mp-Profile">
+                        <header class="mp-Profile_Header">
+                            <figure class="mp-Profile_Logo">
+                                [<img class="mp-Profile_LogoImg" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
+                            </figure>
+                            <h1 class="mp-Profile_Name">#NOM</h1>
+                        </header>
+                        <div class="mp-Profile_Body">
+                            <section class="mp-Profile_Informations">
+                                <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
+                                    <h2>Adresse</h2>
+                                    <BOUCLE_pays(PAYS){code=#PAYS}>[(#SET{pays,#NOM})]</BOUCLE_pays>
+                                    <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#ENV{id_association}}>
+                                        [(#CATEGORIE|=={metropolitan_region}|oui) #SET{region, #ISO_TITRE}]
+                                        [(#CATEGORIE|=={metropolitan_department}|oui) #SET{departement, #ISO_TITRE}]
+                                    </BOUCLE_territoires>
+                                    <p class="mp-Profile_Address">
+                                        [<span>(#VOIE)</span>]
+                                        [<span>(#COMPLEMENT)</span>]
+                                        [<span>[(#CODE_POSTAL) ](#VILLE)</span>]
+                                        <span>[(#GET{departement}) &#8226; ][(#GET{region})]</span>
+                                    </p>
+                                </BOUCLE_adresse>
+                                <B_activites>
+                                    <h2>Activités</h2>
+                                    <ul class="mp-Profile_List">
+                                        <BOUCLE_activites(MOTS){id_association}{id_groupe_racine=1}{par titre}>
+                                            <li class="mp-Profile_ListItem">[(#TITRE)][ (#DESCRIPTIF|textebrut)]</li>
+                                        </BOUCLE_activites>
+                                    </ul>
+                                </B_activites>
+                                <h2>En ligne</h2>
+                                [<p class="mp-Profile_Online"><a class="mp-Profile_WebLink txt-Link" href="(#URL_SITE|url_absolue)">[(#URL_SITE|url_absolue)]</a></p>]
+                                <B_rezos>
+                                    <p class="mmp-Profile_Online mp-Profile_Online-social">
+                                        <BOUCLE_rezos(DATA){liste facebook, twitter, instagram}>
+                                            <BOUCLE_rezo(REZOSOCIOS){type_rezo=#VALEUR}{id_association}>
+                                                <a class="mp-Profile_Social mp-Profile_Social-#VALEUR mp-Profile_Social-on" href="[(#VALEUR|rezosocios_url{#NOM_COMPTE})]" title="[(#GET{asso}|textebrut)] sur [(#VALEUR)]"> </a>
+                                            </BOUCLE_rezo>
+                                                <span class="mp-Profile_Social mp-Profile_Social-off mp-Profile_Social-#VALEUR"> </span>
+                                            <//B_rezo>
+                                        </BOUCLE_rezos>
+                                    </p>
+                                </B_rezos>
+                            </section>
+                            [<section class="mp-Profile_Member">
+                                <figure class="mp-Profile_MemberLogo">
+                                    <img class="mp-Profile_MemberLogoImg" src="(#GET{srcMembre})" alt="">
+                                    <figcaption class="mp-Profile_MemberLogoCaption">[(#MEMBRE_FRAAP|=={1}|?{<:ata_squelettes:caption_membre_fraap_oui{nom=#NOM}:>, <:ata_squelettes:caption_membre_fraap_non{nom=#NOM}:>})]</figcaption>
+                                </figure>
+                            </section>]
+                        </div>
+                    </article>
+                </BOUCLE_modal_association>
+            </BOUCLE_gis>
         </div>
-    </article>
-</BOUCLE_modal_association>
+    </div>
+</div>
 #FILTRE{trim}
