@@ -1,9 +1,9 @@
 <form method="post" onsubmit="return false;">
-    [(#SET{params, #ARRAY{limite, 5}|json_encode|attribut_html})]
+    [(#SET{params, #ARRAY{limite, 10}|json_encode|attribut_html})]
     [(#SET{dataid, #VAL{1}|uniqid})]
-    [(#SET{attributs, value="" data-id="[(#GET{dataid})]" data-selecteur="atlas_fulltext" data-select-php="oui" data-select-callback="autocomplete_callback" data-select-params="[(#GET{params})]"})]
+    [(#SET{attributs, value="" data-id="[(#GET{dataid})]" data-selecteur="atlas_towns" data-select-php="oui" data-select-callback="autocomplete_callback" data-select-params="[(#GET{params})]"})]
     <div class="editer-groupe mp-SearchBox_GroupFulltext">
-        [(#SAISIE{input, fulltext, label=<:ata_squelettes:label_fulltext:>, class=mp-SearchBox_InputFulltext, attributs=#GET{attributs}})]
+        [(#SAISIE{input, villes, label=<:ata_squelettes:label_recherche_ville:>, class=mp-SearchBox_InputFulltext, attributs=#GET{attributs}})]
         [<div class="o-btn mp-SearchBox_BtnSearch">
             (#INCLURE{fond=images/icons/icon-search-32.svg, class=mp-SearchBox_IconSearch})
         </div>]

@@ -16,7 +16,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// L
 	'label_effacer' => 'Effacer',
-	'label_fulltext' => 'Rechercher (lieu, ville, activité)',
+    'label_recherche_fulltext' => 'Rechercher (lieu, ville, activité)',
+    'label_recherche_ville' => 'Rechercher par ville',
 	'label_icon_search_options' => 'Afficher la recherche avancée',
     'label_icon_search' => 'Rechercher',
     'label_panel_fulltext' => 'Recherche par lieu, ville, activité',
