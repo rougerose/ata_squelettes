@@ -52,21 +52,19 @@ export class AtlasBase {
         let onready = () => {
             this._handleClickMarker();
             // Si un marker est appelé explicitement à l'ouverture :
-            // - ajuster la carte au centre et ouvrir modalAssociation
+            // - ajuster la carte au centre
+            // - et ouvrir modalAssociation
             if (this.map.options.openId) {
                 const id = this.map.options.openId;
-                const marker = this.memory.markers[id];
-                const latlng = marker._latlng;
-                const zoomValue = this.map.getZoom();
-                this.map.flyTo(latlng, zoomValue, {animate: true, duration: 0.5});
-
+                console.log(this.memory.markers);
+                this.centerOnMarker(id);
                 this.dispatch({
                     type: "addModalContent",
                     openId: this.map.options.openId,
                     modalId: "modalAssociation",
                 });
             }
-            // jQuery("#" + this.map._container.id).off("ready", onready);
+            jQuery("#" + this.map._container.id).off("ready", onready);
         };
         jQuery("#" + this.map._container.id).on("ready", onready);
 
@@ -380,9 +378,14 @@ export class AtlasBase {
         jQuery.getJSON(url, args, (data) => {
             if (data) {
                 map.removeAllMarkers();
-                // map.options.autocenterandzoom = true;
+                // centrer la carte sur les marqueurs correspondant à la recherche
+                // relancer le gestionnaire de click sur les marqueurs.
+                let coords = [];
+                coords = data.features.map(feature => feature.geometry.coordinates.slice().reverse());
+                const bounds = L.latLngBounds(coords);
                 map.parseGeoJson(data);
-                jQuery("#" + map._container.id).trigger("ready", map);
+                map.fitBounds(bounds);
+                self._handleClickMarker();
 
                 self.dispatch({
                     type: "addModalContent",
