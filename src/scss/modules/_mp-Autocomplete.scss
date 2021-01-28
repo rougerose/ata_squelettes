@@ -8,6 +8,10 @@
 		@include font-size(14px, $modifier: -1);
 		border: 0;
         box-shadow: 0 4px 4px rgba($color-black, 0.25);
+        max-height: 300px;
+        max-height: 70vh;
+        overflow-y: auto;
+        overflow-x: hidden;
 	}
 }
 
