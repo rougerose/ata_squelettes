@@ -144,13 +144,6 @@
 
 // libs
 @import "node_modules/hamburgers/_sass/hamburgers/hamburgers";
-/*
-Tippy.js : le module node ne fournit pas les fichiers scss.
-Ils sont ici copiés depuis le dépôt Github.
-Le thème utilisé ici est adapté de tippy.js/light-border.
-*/
-@import "theme/tippyjs/tippy";
-@import "theme/tippyjs/ata-light-border";
 
 // CMS : styles spécifiques à SPIP
 @import "modules/cms_spip-admin";
