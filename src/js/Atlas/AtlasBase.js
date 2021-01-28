@@ -51,6 +51,21 @@ export class AtlasBase {
         // ne sont pas encore disponibles.
         let onready = () => {
             this._handleClickMarker();
+            // Si un marker est appelé explicitement à l'ouverture :
+            // - ajuster la carte au centre et ouvrir modalAssociation
+            if (this.map.options.openId) {
+                const id = this.map.options.openId;
+                const marker = this.memory.markers[id];
+                const latlng = marker._latlng;
+                const zoomValue = this.map.getZoom();
+                this.map.flyTo(latlng, zoomValue);
+
+                this.dispatch({
+                    type: "addModalContent",
+                    openId: this.map.options.openId,
+                    modalId: "modalAssociation",
+                });
+            }
             // jQuery("#" + this.map._container.id).off("ready", onready);
         };
         jQuery("#" + this.map._container.id).on("ready", onready);
@@ -285,25 +300,14 @@ export class AtlasBase {
     }
 
     centerOnMarker(coords, id) {
-        // const latLngs = L.GeoJSON.coordsToLatLng(coords);
         const marker = this.memory.markers[id];
-        // console.log(latLngs);
+        const self = this;
         this.map.markerCluster.zoomToShowLayer(marker, function () {
+            const zoomValue = self.map.getZoom();
+            const latlng = marker._latlng;
+            self.map.flyTo(latlng, zoomValue);
             marker.openPopup();
         });
-        // this.map.markerCluster.eachLayer((layer) => {
-        //     if (layer.id == id) {
-        //        this.map.markerCluster.zoomToShowLayer(layer, function () {});
-        //    }
-        // });
-
-
-
-        // this.map.setView(latLngs);
-
-        // const latLngs = [ L.GeoJSON.coordsToLatLng(coords) ];
-        // const bounds = L.latLngBounds(latLngs);
-        // this.map.fitBounds(bounds, {maxZoom: 10});
     }
 
     moveZoom(height) {
