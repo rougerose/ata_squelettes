@@ -1,7 +1,5 @@
 import { config } from "./config";
 
-// TODO : repositionner le zoom de Leaflet en mode Preview
-
 export class Modal {
     constructor(state, { container, dispatch }) {
         this.state = state;
@@ -65,6 +63,7 @@ export class Modal {
         } else if (state.modalArgs) {
             args = { id_association: state.modalArgs.id_association };
             history = false;
+            console.log(state.modalArgs.id_association);
         }
 
         /* Fermer la modale si elle est déjà ouverte */

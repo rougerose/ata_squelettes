@@ -39,12 +39,22 @@
             </ul>
                 [(#SET{total, #TOTAL_BOUCLE})]
             </B_resultats>
+                [(#REM)<!-- Aucun résultat --> ]
+                [(#ENV{id_association}|table_valeur{0}|=={0}|oui)
+                    <div class="ct-Message ct-Message-warning">
+                        <p><:ata_squelettes:texte_resultat_aucun:></p>
+                    </div>
+                ]
+            <//B_resultats>
         </div>
     </div>
 </div>
 <div class="mp-Modal_Bar">
-    <p class="mp-Modal_SearchResultsInfos">[(#GET{total}|singulier_ou_pluriel{ata_squelettes:texte_resultat_total,
-        ata_squelettes:texte_resultats_total})]</p>
+    <p class="mp-Modal_SearchResultsInfos">
+        [(#GET{total}|singulier_ou_pluriel{ata_squelettes:texte_resultat_total_singulier,
+        ata_squelettes:texte_resultats_total_pluriel})]
+        [(#ENV{id_association}|table_valeur{0}|=={0}|oui)<:ata_squelettes:texte_resultat_total_zero:>]
+    </p>
     <button class="o-btn mp-Modal_BtnViewToggle" data-modal-action="toggle"
         data-text-toggle="<:ata_squelettes:texte_bouton_afficher_carte:>">
         <:ata_squelettes:texte_bouton_afficher_resultats:>

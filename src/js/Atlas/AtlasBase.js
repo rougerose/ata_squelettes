@@ -302,7 +302,11 @@ export class AtlasBase {
         this.map.markerCluster.zoomToShowLayer(marker, function () {
             const zoomValue = self.map.getZoom();
             const latlng = marker._latlng;
-            self.map.flyTo(latlng, zoomValue, {animate: true, duration: 0.5});
+            console.log("flyto");
+            self.map.flyTo(latlng, zoomValue, {
+                animate: true,
+                duration: 0.5,
+            });
             marker.openPopup();
         });
     }
@@ -344,8 +348,8 @@ export class AtlasBase {
         query = jQuery.param(query);
 
         let collection = jQuery.getJSON(URL, query);
+        let associations = { id_association: [] };
         collection.done(function (json) {
-            let associations = { id_association: [] };
             let items = json.collection.items;
             for (const key in items) {
                 if (Object.hasOwnProperty.call(items, key)) {
@@ -365,9 +369,14 @@ export class AtlasBase {
         });
 
         collection.fail(function (jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
-            // TODO gestion erreur
-            console.log("Request Failed: " + err);
+            associations.id_association.push(0);
+            // var err = textStatus + ", " + error;
+            // console.log("Request Failed: " + err);
+            self.dispatch({
+                type: "addModalContent",
+                args: associations,
+                modalId: "modalRecherche",
+            });
         });
     }
 

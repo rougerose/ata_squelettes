@@ -27,9 +27,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'searchbox_titre_activites' => 'Activités',
     'searchbox_titre_villes' => 'Villes',
 
-    // T
-    'texte_resultat_total' => '1 résultat',
-    'texte_resultats_total' => '@nb@ résultats',
+	// T
+	'texte_resultat_aucun' => 'Aucun résultat.<br/>Veuillez modifier vos critères de recherche.',
+    'texte_resultat_total_zero' => '0 résultat',
+    'texte_resultat_total_singulier' => '1 résultat',
+    'texte_resultats_total_pluriel' => '@nb@ résultats',
     'texte_bouton_afficher_resultats' => 'Afficher les résultats',
     'texte_bouton_afficher_carte' => 'Afficher la carte',
 );
