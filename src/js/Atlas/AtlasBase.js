@@ -56,7 +56,6 @@ export class AtlasBase {
             // - et ouvrir modalAssociation
             if (this.map.options.openId) {
                 const id = this.map.options.openId;
-                console.log(this.memory.markers);
                 this.centerOnMarker(id);
                 this.dispatch({
                     type: "addModalContent",
@@ -302,7 +301,6 @@ export class AtlasBase {
         this.map.markerCluster.zoomToShowLayer(marker, function () {
             const zoomValue = self.map.getZoom();
             const latlng = marker._latlng;
-            console.log("flyto");
             self.map.flyTo(latlng, zoomValue, {
                 animate: true,
                 duration: 0.5,
