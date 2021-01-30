@@ -296,15 +296,30 @@ export class AtlasBase {
     }
 
     centerOnMarker(id) {
-        const marker = this.memory.markers[id];
         const self = this;
+        const marker = this.memory.markers[id];
+
         this.map.markerCluster.zoomToShowLayer(marker, function () {
-            const zoomValue = self.map.getZoom();
             const latlng = marker._latlng;
-            self.map.flyTo(latlng, zoomValue, {
-                animate: true,
-                duration: 0.5,
-            });
+
+            /* Afficher le marqueur à un niveau de zoom *minimum*,
+            (plutôt qu'un zoom *maximum* qui est la valeur calculée par défaut
+            avec .flyToBounds() et méthodes plus ou moins similaires).
+            Solution un peu "tricky", disponible ici
+            https://github.com/Leaflet/Leaflet.markercluster/issues/954 */
+            const clusterBounds = marker.__parent.getBounds();
+            const zoomLevel = self.map.getBoundsZoom(clusterBounds);
+            // console.log(zoomLevel);
+
+            // Ajouter un padding en version desktop
+            if (self.state.windowWidth === "desktop") {
+                const searchboxWidth = self.controls.SearchBox.getWidth();
+                const bounds = L.latLngBounds([latlng]);
+                const options = { paddingTopLeft: [searchboxWidth, 10], maxZoom: zoomLevel };
+                self.map.fitBounds(bounds, options);
+            } else {
+                self.map.setView(latlng, zoomLevel);
+            }
             marker.openPopup();
         });
     }
@@ -318,6 +333,11 @@ export class AtlasBase {
         this.map.removeAllMarkers();
         this.map.loadData();
         this.dispatch({ type: "updateModalPosition", action: "closeModals" });
+        let onready = () => {
+            this._handleClickMarker();
+
+        };
+        jQuery("#" + this.map._container.id).on("ready", onready);
     }
 
     createQuery(keywords) {

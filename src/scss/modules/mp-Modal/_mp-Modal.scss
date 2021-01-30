@@ -31,9 +31,10 @@
 		left: 0;
         top: 0;
         bottom: 0;
-		z-index: $zindex-modal-desktop;
-		width: 380px;
-        // height: 100%;
+        z-index: $zindex-modal-desktop;
+        width: 40%;
+        max-width: $ui-width-large;
+		// width: $ui-width-large;
         transform: translateX(-100%);
 
         &-association {

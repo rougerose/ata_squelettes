@@ -14,7 +14,9 @@
 	}
 
 	@include mq(m) {
-        width: ($ui-large-width - ($spacing-unit));
+        width: calc(40% - #{$spacing-unit});
+        max-width: $ui-width-large - $spacing-unit;
+        // width: ($ui-width-large - ($spacing-unit));
         z-index: $zindex-searchbox-desktop;
 
         &.ui-front {

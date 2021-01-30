@@ -13,6 +13,10 @@ export class SearchBox {
         return this._container.offsetHeight;
     }
 
+    getWidth() {
+        return this._container.offsetWidth;
+    }
+
     updateHeight(value) {
         let height = value || this._getHeight();
         this.dispatch({
