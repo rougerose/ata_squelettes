@@ -11,8 +11,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'ata_squelettes_titre' => 'ATA Squelettes',
 
     // C
-    'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" class="txt-Link">FRAAP</a>.',
-    'caption_membre_fraap_non' => '@nom@ n’est pas membre de la <a href="https://fraap.org" class="txt-Link">FRAAP</a>.',
+    'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
+    'caption_membre_fraap_non' => '@nom@ n’est pas membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
 
 	// L
 	'label_effacer' => 'Effacer',

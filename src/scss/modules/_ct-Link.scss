@@ -1,0 +1,9 @@
+.ct-Link {
+    color: $color-black;
+	border-bottom: 2px solid $color-ternary;
+	transition: color .3s ease;
+
+    &:hover {
+        color: $color-ternary !important;
+    }
+}
