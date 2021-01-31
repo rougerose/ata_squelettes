@@ -12,7 +12,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
     // C
     'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
-    'caption_membre_fraap_non' => '@nom@ n’est pas membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
+    'caption_membre_fraap_non' => '@nom@ n&rsquo;est pas membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
 
 	// L
 	'label_effacer' => 'Effacer',
