@@ -19,5 +19,9 @@ $inuit-wrapper-width: 1200px !default;
 
 	&--flexible {
 		max-width: 100%;
-	}
+    }
+
+    &--content {
+        max-width: 800px;
+    }
 }

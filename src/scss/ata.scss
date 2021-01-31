@@ -143,7 +143,10 @@
 @import "modules/mp-ProfileResume";
 
 // content
+@import "modules/ct-Main";
+@import "modules/ct-Link";
 @import "modules/ct-Message";
+@import "modules/ct-Profile";
 
 // libs
 @import "node_modules/hamburgers/_sass/hamburgers/hamburgers";
