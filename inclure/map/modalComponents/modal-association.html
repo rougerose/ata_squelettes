@@ -59,9 +59,9 @@
                                     </ul>
                                 </B_activites>
                                 <h2>En ligne</h2>
-                                [<p class="mp-Profile_Online"><a class="mp-Profile_WebLink txt-Link" href="(#URL_SITE|url_absolue)">[(#URL_SITE|url_absolue)]</a></p>]
+                                [<p class="mp-Profile_Online"><a class="mp-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)">[(#URL_SITE|url_absolue)]</a></p>]
                                 <B_rezos>
-                                    <p class="mmp-Profile_Online mp-Profile_Online-social">
+                                    <p class="mp-Profile_Online mp-Profile_Online-social">
                                         <BOUCLE_rezos(DATA){liste facebook, twitter, instagram}>
                                             <BOUCLE_rezo(REZOSOCIOS){type_rezo=#VALEUR}{id_association}>
                                                 <a class="mp-Profile_Social mp-Profile_Social-#VALEUR mp-Profile_Social-on" href="[(#VALEUR|rezosocios_url{#NOM_COMPTE})]" title="[(#GET{asso}|textebrut)] sur [(#VALEUR)]"> </a>

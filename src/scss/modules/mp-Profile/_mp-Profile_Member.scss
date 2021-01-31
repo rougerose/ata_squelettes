@@ -1,8 +1,24 @@
 .mp-Profile_Member {
     margin: $spacing-unit-small 0;
     padding: $spacing-unit-small 0;
-    border: 1px solid $color-gray-200;
-    border-width: 1px 0;
+    position: relative;
+
+    &::before,
+    &::after {
+        content: "";
+        height: 1px;
+        background: linear-gradient(90deg, $color-white 0%, $color-gray-300 50%, $color-white 100%);
+        width: 100%;
+        position: absolute;
+    }
+
+    &::before {
+        top: 0;
+    }
+
+    &::after {
+        bottom: 0;
+    }
 }
 
 .mp-Profile_MemberLogo {
