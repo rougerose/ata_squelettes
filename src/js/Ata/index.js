@@ -8,8 +8,10 @@ export const init = () => {
     handleClickNav(navTriggers);
 
     // NavOverlay : animation des élements de liste à l'ouverture
-    const navOverlay = document.querySelector("nav.st-NavOverlay");
-    const navOverlayItems = navOverlay.querySelectorAll(".st-NavOverlay_Item");
+    const navOverlay = document.querySelector(config.header.navOverlay);
+    const navOverlayItems = navOverlay.querySelectorAll(
+        "." + config.header.navOverlayItemsClass
+    );
     navOverlayItems.forEach((item, index) => {
         item.style.transitionDelay = (index + 2) / 10 + "s";
     });
