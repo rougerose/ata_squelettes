@@ -1,1 +1,0 @@
-- Préciser dans Readme : surcharge de javascript/gis.js.html : afin d'ajouter inclusion de leaflet-modal.js avant leaflet.gis.js
