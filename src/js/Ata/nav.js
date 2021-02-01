@@ -42,8 +42,3 @@ const navState = () => {
 
 	return state;
 };
-
-// export let navInit = () => {
-// 	let navTriggers = document.querySelectorAll(config.header.navTriggerHook);
-// 	handleClickEvent(navTriggers);
-// }
