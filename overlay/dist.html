@@ -16,14 +16,9 @@
 				<a href="#URL_SITE_SPIP" class="st-NavOverlay_SiteLink st-NavOverlay_Slogan">#SLOGAN_SITE_SPIP</a>
 			</div>
 			<div class="st-NavOverlay_Body">
-				<ul class="st-NavOverlay_List">
-					<BOUCLE_rubriques(RUBRIQUES){racine}{par num titre}{statut IN prepa, publie}>
-						#SET{i_total, #TOTAL_BOUCLE}
-						<li class="st-NavOverlay_Item" [style="transition-delay:(#COMPTEUR_BOUCLE|plus{2}|div{10})s;"]><a href="#URL_RUBRIQUE">[(#TITRE)]</a></li>
-					</BOUCLE_rubriques>
-				</ul>
+                [(#INCLURE{fond=inclure/menu, env, identifiant=navigation_overlay})]
 				[(#PLUGIN{sociaux}|oui)
-					#INCLURE{fond=inclure/nav/rezos}]
+					#INCLURE{fond=inclure/nav/overlay_social, i_total=1}]
 			</div>
 		</nav>
 	</div>
