@@ -1,10 +1,11 @@
-<div class="st-Footer_NavSocialList">
+[(#SET{rezo,[(#PIPELINE{sociaux_lister,#ARRAY{args,#ARRAY{skel,#SQUELETTE,date,#ENV**{date}},data,#ARRAY}})]})]
+<ul class="st-Footer_NavSocialList">
     <BOUCLE_contact(ARTICLES){page=contact}>
-        <a href="[(#URL_PAGE_UNIQUE{contact})]" class="st-Footer_NavSocialItem"><span class="name">[(#TITRE)]</span></a>
+        <li class="st-Footer_NavSocialItem"><a href="[(#URL_PAGE_UNIQUE{contact})]" class="st-Footer_NavSocialItem"><span class="name">[(#TITRE)]</span></a></li>
     </BOUCLE_contact>
-    [(#SET{rezo,[(#PIPELINE{sociaux_lister,#ARRAY{args,#ARRAY{skel,#SQUELETTE,date,#ENV**{date}},data,#ARRAY}})]})]
     <BOUCLE_rezos(DATA){source tableau,#GET{rezo}}>
         [(#CONFIG{sociaux/#CLE}|oui)
-        <a href="[(#CLE|=={mail}|oui)mailto:][(#CLE|=={skype}|oui)callto:]#CONFIG{sociaux/#CLE}" class="st-Footer_NavSocialList #CLE[(#CLE|in_array{#LISTE{rss,mail,whatsapp,skype}}|non)spip_out external]">[(#CONFIG{sociaux/css}|oui)<span class="socicon socicon-#CLE"></span>]<span class="name">[(#VALEUR)]</span></a>]
+            <li><a href="[(#CLE|=={mail}|oui)mailto:][(#CLE|=={skype}|oui)callto:]#CONFIG{sociaux/#CLE}" class="st-Footer_NavSocialList">#VALEUR</a></li>
+        ]
     </BOUCLE_rezos>
-</div>
+</ul>
