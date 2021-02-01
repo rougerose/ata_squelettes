@@ -48,7 +48,7 @@
 
 .ct-ArticleResume_Date {
     margin-bottom: $spacing-unit-small;
-    @include font-size(16px, $modifier: 1);
+    @include font-size(16px, $modifier: 2);
     color: rgba($color-black, 0.95);
 }
 
