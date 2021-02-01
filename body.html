@@ -1,8 +1,12 @@
-<body class="st-Doc[ (#ENV{type-page})][ (#ENV{composition})]">
+[(#SET{composition_atlas, ''})][
+    (#ENV{type-page}|=={sommaire}|oui) #SET{composition_atlas, ' '}][
+    (#GET{composition_atlas}|non)
+        [(#ENV{composition}|=={atlas}|oui) #SET{composition_atlas, ' '}]
+]<body class="st-Doc[ (#GET{composition_atlas}|oui)st-Doc-atlas]">
 	<header class="st-Header" data-section role="banner">
 		<INCLURE{fond=header/#ENV{type-page}, env} />
 	</header>
-	<main data-section class="st-Main">
+	<main data-section class="st-Main[ (#GET{composition_atlas}|oui)st-Main-atlas]">
         <INCLURE{fond=content/#ENV{type-page}, env} />
 	</main>
 	<INCLURE{fond=footer/#ENV{type-page}, env} />

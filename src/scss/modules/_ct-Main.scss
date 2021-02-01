@@ -1,3 +1,7 @@
 .ct-Main {
     padding-top: $spacing-unit-large;
+
+    @include mq(m) {
+        margin-bottom: $spacing-unit-large;
+    }
 }
