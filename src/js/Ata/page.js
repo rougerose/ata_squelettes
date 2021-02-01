@@ -1,4 +1,4 @@
-import { config } from "../ata_config";
+import { config } from "./config";
 
 // Animation des sections (header, main and footer)
 // ================================================

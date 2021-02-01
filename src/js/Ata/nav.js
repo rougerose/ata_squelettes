@@ -1,8 +1,8 @@
-import { config } from "../ata_config";
+import { config } from "./config";
 
 // Nav_Trigger : click event
 // ==================================
-let handleClickEvent = (nodeList) => {
+export const handleClickNav = (nodeList) => {
 	let total = nodeList.length;
 	for (let i = 0; i < total; i++) {
 		const trigger = nodeList[i];
@@ -27,10 +27,10 @@ let handleClickEvent = (nodeList) => {
 	}
 }
 
-let navState = () => {
-	let body = document.body;
+const navState = () => {
+	const body = document.body;
+	const navStateClass = config.header.navStateClass;
 	let state;
-	let navStateClass = config.header.navStateClass;
 
 	if (body.classList.contains(navStateClass)) {
 		body.classList.remove(navStateClass);
@@ -43,7 +43,7 @@ let navState = () => {
 	return state;
 };
 
-export let navInit = () => {
-	let navTriggers = document.querySelectorAll(config.header.navTriggerHook);
-	handleClickEvent(navTriggers);
-}
+// export let navInit = () => {
+// 	let navTriggers = document.querySelectorAll(config.header.navTriggerHook);
+// 	handleClickEvent(navTriggers);
+// }
