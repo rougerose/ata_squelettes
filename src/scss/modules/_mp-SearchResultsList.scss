@@ -6,6 +6,12 @@
 }
 
 .mp-SearchResultsList_Item {
-    padding: $spacing-unit-small 0;
+    padding: $spacing-unit-small;
     border-bottom: 1px solid $color-gray-200;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $color-gray-200;
+    }
 }

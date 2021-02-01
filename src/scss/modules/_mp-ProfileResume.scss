@@ -1,4 +1,3 @@
-
 .mp-ProfileResume {
     display: flex;
     justify-content: space-between;
@@ -13,7 +12,7 @@
 
 .mp-ProfileResume_Name {
     margin-bottom: 0;
-	@include font-size(16px, $modifier: -0.5);
+    @include font-size(16px, $modifier: -0.5);
 }
 
 .mp-ProfileResume_Address {
