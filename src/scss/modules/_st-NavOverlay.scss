@@ -87,7 +87,22 @@
 			transform: none;
 			opacity: 1;
 			transition: all 1s ease 1s;
-		}
+        }
+
+        a {
+            border-bottom: 2px solid transparent;
+            transition: border .3s ease;
+
+            &:hover {
+                border-color: $color-black;
+            }
+        }
+
+        &.active {
+            a {
+                border-color: $color-black;
+            }
+        }
 	}
 
 	// Social List

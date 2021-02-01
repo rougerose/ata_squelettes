@@ -67,7 +67,22 @@
 }
 
 .st-Nav_Item {
-	margin-left: $spacing-unit-small;
+    margin-left: $spacing-unit-small;
+
+    a {
+        border-bottom: 2px solid transparent;
+	    transition: border .3s ease;
+
+        &:hover {
+            border-color: $color-ternary;
+        }
+    }
+
+    &.active {
+        a {
+            border-color: $color-ternary;
+        }
+    }
 }
 
 .st-Nav_Trigger {
