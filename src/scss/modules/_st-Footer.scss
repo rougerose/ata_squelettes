@@ -4,6 +4,17 @@
     padding-top: $spacing-unit-large;
     padding: $spacing-unit-large 0 $spacing-unit;
     color: $color-gray-800;
+    transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+
+	.js & {
+		transform: translateY(20%);
+		opacity: 0;
+
+		&.is-visible {
+			opacity: 1;
+			transform: none;
+		}
+	}
 
     @include mq(m) {
         display: block;
