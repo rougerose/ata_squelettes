@@ -1,7 +1,0 @@
-<div class="st-NavOverlay_SocialList" [style="transition-delay:(#GET{i_total}|plus{1}|plus{2}|div{10})s;"]>
-	[(#SET{rezo,[(#PIPELINE{sociaux_lister,#ARRAY{args,#ARRAY{skel,#SQUELETTE,date,#ENV**{date}},data,#ARRAY}})]})]
-	<BOUCLE_rezos(DATA){source tableau,#GET{rezo}}>
-		[(#CONFIG{sociaux/#CLE}|oui)
-		<a href="[(#CLE|=={mail}|oui)mailto:][(#CLE|=={skype}|oui)callto:]#CONFIG{sociaux/#CLE}" class="st-NavOverlay_SocialItem #CLE[(#CLE|in_array{#LISTE{rss,mail,whatsapp,skype}}|non)spip_out external]">[(#CONFIG{sociaux/css}|oui)<span class="socicon socicon-#CLE"></span>]<span class="name">[(#VALEUR)]</span></a>]
-	</BOUCLE_rezos>
-</div>
