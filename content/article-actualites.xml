@@ -1,0 +1,5 @@
+<composition>
+    <nom>Article Actualités</nom>
+    <description>Composition <strong>par défaut</strong> pour les articles de la rubrique Actualités</description>
+    <icon>images/objet-liste-contenus-dates.png</icon>
+</composition>

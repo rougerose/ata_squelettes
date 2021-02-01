@@ -1,0 +1,96 @@
+// Grille
+
+.ct-Article {
+    display: grid;
+    grid-gap: $spacing-unit-small;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    @include mq(m) {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+}
+
+.ct-Article_Layout {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: 3 / span 8;
+    }
+
+    @include mq(l) {
+        grid-column: 4 / span 6;
+    }
+}
+
+.ct-Article_LayoutNews {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: 4 / 13;
+    }
+
+    @include mq(l) {
+        grid-column: 4 / span 6;
+    }
+}
+
+.ct-Article_LayoutNews-date {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: span 3;
+    }
+}
+
+// Contenu
+
+.ct-Article_Header {
+    margin-bottom: $spacing-unit-large;
+}
+
+.ct-Article_Titre {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: $color-purple-700;
+    @include font-size(28px);
+
+    @include mq(m) {
+        @include font-size(34px);
+    }
+}
+
+.ct-Article_Soustitre {
+    margin: $spacing-unit-small 0 0;
+    @include font-size(18px);
+    color: $color-purple-700;
+
+    @include mq(m) {
+        @include font-size(20px);
+    }
+}
+
+.ct-Article_Date {
+    @include font-size(15px, $line-height: 1.6);
+    color: $color-purple-800;
+
+    @include mq(m) {
+        padding-top: $spacing-unit-small;
+    }
+}
+
+.ct-Article_Chapo {
+    margin-bottom: $spacing-unit-large;
+    @include font-size(18px, $modifier: 0.5);
+
+    @include mq(m) {
+        @include font-size(20px, $modifier: 0.5);
+    }
+}
+
+.ct-Article_Texte {
+    @include font-size(16px, $modifier: 0.5);
+
+    @include mq(m) {
+        @include font-size(18px, $modifier: 0.5);
+    }
+}

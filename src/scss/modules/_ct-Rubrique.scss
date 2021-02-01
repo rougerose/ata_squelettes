@@ -1,0 +1,48 @@
+// Grille
+
+.ct-Rubrique {
+    padding-bottom: $spacing-unit-large;
+}
+
+.ct-Rubrique_Grid {
+    display: grid;
+    grid-gap: $spacing-unit-small;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-bottom: $spacing-unit;
+
+    @include mq(m) {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+}
+
+.ct-Rubrique_Header {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: 4 / span 9;
+    }
+}
+
+
+
+// Contenu
+
+.ct-Rubrique_Titre {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: $color-purple-700;
+    @include font-size(28px);
+
+    @include mq(m) {
+        @include font-size(30px);
+    }
+}
+
+// .ct-Rubrique_Body {}
+
+.ct-Rubrique_Articles {
+    list-style: none;
+    margin: 0;
+}
+
+// .ct-Rubrique_Article {}
