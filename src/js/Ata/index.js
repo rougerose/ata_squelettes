@@ -26,5 +26,5 @@ export const init = () => {
             let section = pageSections[i];
             section.classList.add(sectionClass);
         }
-    }, 800);
+    }, 500);
 }
