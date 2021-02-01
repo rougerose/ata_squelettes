@@ -1,5 +1,4 @@
 import { config } from "./config";
-// import tippy from "tippy.js";
 
 // TODO : Ajouter un role Listbox sur le html + gestion du focus ?
 
@@ -68,14 +67,6 @@ export class KeywordSelected {
 
     removeKeyword(el, removeParent) {
         const parent = el.parentNode;
-        const tippyBtn = el.querySelector(
-            "." + config.keywords.tooltipClassName
-        );
-        // Si un tooltip est présent, supprimer l'instance tippy
-        // et les gestionnaires d'événements associés.
-        if (tippyBtn) {
-            // tippyBtn._tippy.destroy();
-        }
         el.remove();
 
         if (removeParent && !parent.firstElementChild) {
@@ -130,17 +121,7 @@ export class KeywordSelected {
         // span
         const span = document.createElement("span");
         span.className = config.keywords.labelClassName;
-        label = this._truncateLabel(label);
-        span.appendChild(document.createTextNode(label.text));
-
-        // Si le texte de l'intitulé est partiel, on ajoute un attribut alt.
-        // Puis, ajout un bouton pour afficher un tooltip (avec la lib Tippy.js)
-        let tooltip = null;
-        if (label.alt.length > 0) {
-            span.setAttribute("data-tippy-content", label.alt);
-            tooltip = document.createElement("button");
-            tooltip.className = "o-btn " + config.keywords.tooltipClassName;
-        }
+        span.appendChild(document.createTextNode(label));
 
         // <button>
         const btn = document.createElement("button");
@@ -149,47 +130,10 @@ export class KeywordSelected {
         btn.addEventListener("click", this._deleteListener);
 
         // Ajouter à la balise li :
-        // le span, le bouton supprimer et éventuellement le bouton tootip
+        // le span, le bouton supprimer
         li.appendChild(span);
-        if (tooltip) {
-            li.appendChild(tooltip);
-            // tippy(tooltip, {
-            //     content: label.alt,
-            //     theme: "ata-light-border",
-            //     placement: "bottom",
-            //     hideOnClick: false,
-            // });
-        }
         li.appendChild(btn);
 
         return li;
-    }
-
-    // Tronquer un intitulé excédent un nombre de caractères défini
-    _truncateLabel(label) {
-        // longueur maximum des intitulés de mots-clés
-        const maxLength = 15;
-        let alt = "";
-
-        if (label.length > maxLength) {
-            /*  Si l'intitulé contient des parenthèses,
-                c'est le texte avant la première parenthèse
-                qui est conservé pour l'intitulé.
-                Mais à condition qu'il respecte la longueur maximum.
-                Sinon on ne garde dans l'intitulé que le nombre
-                de caractères requis.
-                L'intitulé complet est ajouté dans l'attribut alt du span.
-            */
-            // let parenthese = label.indexOf("(");
-            // if (parenthese !== -1 && parenthese < maxLength) {
-            //     alt = label;
-            //     label = label.slice(0, parenthese - 1);
-            // } else {
-            //     alt = label;
-            //     label = label.slice(0, maxLength);
-            // }
-        }
-
-        return (label = { text: label, alt: alt });
     }
 }
