@@ -6,6 +6,16 @@
     color: $color-gray-800;
     transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
 
+    a {
+        color: $color-gray-800;
+        border-bottom: 2px solid transparent;
+	    transition: border .3s ease;
+
+        &:hover {
+            border-color: $color-ternary;
+        }
+    }
+
 	.js & {
 		transform: translateY(20%);
 		opacity: 0;
@@ -113,12 +123,12 @@
     margin-bottom: $spacing-unit-small;
 }
 
-.st-Footer_NavList {
+.st-Footer_NavList,
+.st-Footer_NavSocialList {
     list-style: none;
     margin: 0;
 }
 
-.st-Footer_NavSocialList {
-    display: flex;
-    flex-direction: column;
-}
+// .st-Footer_NavItem {}
+
+// .st-Footer_NavSocialList {}
