@@ -111,7 +111,7 @@ export class AtlasBase {
                 this.state = state;
             }
         }
-        console.log(state);
+
         if (Object.keys(state.centerMarker).length > 0) {
             this.centerOnMarker(state.centerMarker.id);
         }
