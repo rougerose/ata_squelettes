@@ -9,6 +9,7 @@ export const config = {
         xxl: 84,
     },
     searchBox: {
+        id: "#SearchBox",
         btnAdvancedId: "#openAdvancedSearch",
         panelClassName: "mp-SearchBox_Panel",
     },
