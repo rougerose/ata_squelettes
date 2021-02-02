@@ -30,8 +30,6 @@ let init = (leafletmap) => {
         },
     };
     atlas = new AtlasBase(leafletmap, state, conf);
-    // compléter state.windowWidht et state.searchboxHeight
-    atlas.setInitialState();
 }
 
 const addKeyword = (keyword) => {
