@@ -3,7 +3,7 @@ import { config } from "./config";
 export class SearchBox {
     constructor(state, { container, dispatch }) {
         this.state = state;
-        this._container = container.querySelector("#SearchBox");
+        this._container = container.querySelector(config.searchBox.id);
         this._advancedSearchIsOpen = false;
         this.dispatch = dispatch;
         this._initLayout(this._container);
@@ -116,5 +116,10 @@ export class SearchBox {
 
     syncState(state) {
         this.state = state;
+        if (this.state.searchboxHeight === null) {
+            let height = this._getHeight();
+            this.state.searchboxHeight = height;
+            this.updateHeight(height);
+        }
     }
 }
