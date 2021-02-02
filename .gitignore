@@ -6,3 +6,4 @@ yarn.*
 yarn-error.log
 *.diff
 fabrique_ata_associations.php
+dist/webfonts/
