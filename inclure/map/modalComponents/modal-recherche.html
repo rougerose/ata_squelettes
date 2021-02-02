@@ -41,7 +41,7 @@
             </B_resultats>
                 [(#REM)<!-- Aucun résultat --> ]
                 [(#ENV{id_association}|table_valeur{0}|=={0}|oui)
-                    <div class="ct-Message ct-Message-warning">
+                    <div class="ct-Message ct-Message-warning ct-Message-modal">
                         <p><:ata_squelettes:texte_resultat_aucun:></p>
                     </div>
                 ]

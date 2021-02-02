@@ -8,6 +8,10 @@
         border: 1px solid $color-orange-600;
     }
 
+    &-modal {
+        margin: 0 $spacing-unit-small;
+    }
+
     > p {
         margin-bottom: 0;
         @include font-size(14px, $modifier:-1);
