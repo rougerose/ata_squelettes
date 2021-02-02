@@ -50,11 +50,9 @@ export class AtlasBase {
             this.setInitialState();
             this._handleClickMarker();
             // Si un marker est appelé explicitement à l'ouverture :
-            // - ajuster la carte au centre
-            // - et ouvrir modalAssociation
+            // ouvrir modalAssociation
             if (this.map.options.openId) {
                 const id = this.map.options.openId;
-                this.centerOnMarker(id);
                 this.dispatch({
                     type: "addModalContent",
                     openId: this.map.options.openId,
@@ -113,7 +111,7 @@ export class AtlasBase {
                 this.state = state;
             }
         }
-
+        console.log(state);
         if (Object.keys(state.centerMarker).length > 0) {
             this.centerOnMarker(state.centerMarker.id);
         }
@@ -302,7 +300,6 @@ export class AtlasBase {
             https://github.com/Leaflet/Leaflet.markercluster/issues/954 */
             const clusterBounds = marker.__parent.getBounds();
             const zoomLevel = self.map.getBoundsZoom(clusterBounds);
-            console.log(zoomLevel, zoom);
 
             // Ajouter un padding en version desktop
             if (self.state.windowWidth === "desktop") {
@@ -315,8 +312,7 @@ export class AtlasBase {
                     paddingTopLeft: [searchboxWidth, 10],
                     maxZoom: zoomLevel,
                 };
-                self.map.setView(latlng, zoom);
-                // self.map.fitBounds(bounds, options);
+                self.map.fitBounds(bounds, options);
             } else {
                 self.map.setView(latlng, zoomLevel);
             }
