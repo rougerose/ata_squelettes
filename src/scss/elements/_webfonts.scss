@@ -1,0 +1,31 @@
+// Regular
+@font-face {
+    font-family: "Triangle";
+    src: url("../webfonts/EuclidTriangle-Regular-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-Regular-WebS.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Italic
+@font-face {
+    font-family: "Triangle";
+    src: url("../webfonts/EuclidTriangle-RegularItalic-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-RegularItalic-WebS.woff") format("woff");
+    font-weight: normal;
+    font-style: italic;
+}
+
+// Bold
+@font-face {
+    font-family: "Triangle";
+    src: url("../webfonts/EuclidTriangle-Bold-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-Bold-WebS.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+}
+
+// BoldItalic
+@font-face {
+    font-family: "Triangle";
+    src: url("../webfonts/EuclidTriangle-BoldItalic-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-BoldItalic-WebS.woff") format("woff");
+    font-weight: bold;
+    font-style: italic;
+}
