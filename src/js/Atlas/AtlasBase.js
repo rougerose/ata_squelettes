@@ -11,22 +11,19 @@ export class AtlasBase {
         this.handleResize = this._handleResize.bind(this);
         window.addEventListener("resize", debounce(this.handleResize, 250));
 
-        let container = document.getElementById(conf.containerId);
-        let dispatch = conf.dispatch;
-        let controls = conf.controls;
+        this.container = document.getElementById(conf.containerId);
+        this.dispatch = conf.dispatch;
         this.state = state;
-        this.dispatch = dispatch;
-        this.container = container;
         this.memory = {};
 
         // Activer les modules "controls"
-        this.controls = {};
-        controls.forEach((Control) => {
-            this.controls[Control.name] = new Control(state, {
-                container,
-                dispatch,
-            });
-        });
+        const controlModules = conf.controls;
+        const container = this.container;
+        const dispatch = this.dispatch;
+
+        this.controls = controlModules.map(
+            (controlModule) => new controlModule(state, { container, dispatch })
+        );
 
         // Activer Tablist @accede-web/tablist
         const list = this.container.querySelector("#Tab ul[role='tablist']");
@@ -50,6 +47,7 @@ export class AtlasBase {
         // car le module est chargé lors de l'événement "load" et les marqueurs
         // ne sont pas encore disponibles.
         let onready = () => {
+            this.setInitialState();
             this._handleClickMarker();
             // Si un marker est appelé explicitement à l'ouverture :
             // - ajuster la carte au centre
@@ -125,25 +123,18 @@ export class AtlasBase {
         }
 
         this.state = state;
-
-        for (let key in this.controls) {
-            this.controls[key].syncState(state);
+        for (let ctrl of this.controls) {
+            ctrl.syncState(state);
         }
     }
 
-    // Compléter les variables state nécessaires.
-    // La fonction est appelée depuis atlas.init()
+    // Compléter state.windowWidth
     setInitialState() {
-        if (!this.state.windowWidth) {
-            this.dispatch({
+        const self = this;
+        if (!self.state.windowWidth) {
+            self.dispatch({
                 type: "updateWindowWidth",
-                windowWidth: this._getWindowWidth(),
-            });
-        }
-        if (!this.state.searchboxHeight) {
-            this.dispatch({
-                type: "updateSearchboxHeight",
-                searchboxHeight: this.controls.SearchBox._getHeight(),
+                windowWidth: self._getWindowWidth(),
             });
         }
     }
@@ -271,7 +262,8 @@ export class AtlasBase {
                 break;
             case "updateSearchboxHeight":
                 if (!action.searchboxHeight) {
-                    action.searchboxHeight = this.controls.SearchBox._getHeight();
+                    // Si null, elle sera mise à jour via searchbox.syncState
+                    action.searchboxHeight = null;
                 }
                 state = Object.assign({}, currentState, {
                     searchboxHeight: action.searchboxHeight,
@@ -284,7 +276,7 @@ export class AtlasBase {
                 break;
             case "moveZoom":
                 state = Object.assign({}, currentState, {
-                    moveZoom: action.height
+                    moveZoom: action.height,
                 });
                 break;
         }
@@ -298,6 +290,7 @@ export class AtlasBase {
     centerOnMarker(id) {
         const self = this;
         const marker = this.memory.markers[id];
+        const zoom = this.map.getZoom();
 
         this.map.markerCluster.zoomToShowLayer(marker, function () {
             const latlng = marker._latlng;
@@ -309,14 +302,21 @@ export class AtlasBase {
             https://github.com/Leaflet/Leaflet.markercluster/issues/954 */
             const clusterBounds = marker.__parent.getBounds();
             const zoomLevel = self.map.getBoundsZoom(clusterBounds);
-            // console.log(zoomLevel);
+            console.log(zoomLevel, zoom);
 
             // Ajouter un padding en version desktop
             if (self.state.windowWidth === "desktop") {
-                const searchboxWidth = self.controls.SearchBox.getWidth();
+                const searchbox = self.container.querySelector(
+                    config.searchBox.id
+                );
+                const searchboxWidth = searchbox.offsetWidth;
                 const bounds = L.latLngBounds([latlng]);
-                const options = { paddingTopLeft: [searchboxWidth, 10], maxZoom: zoomLevel };
-                self.map.fitBounds(bounds, options);
+                const options = {
+                    paddingTopLeft: [searchboxWidth, 10],
+                    maxZoom: zoomLevel,
+                };
+                self.map.setView(latlng, zoom);
+                // self.map.fitBounds(bounds, options);
             } else {
                 self.map.setView(latlng, zoomLevel);
             }
@@ -335,7 +335,6 @@ export class AtlasBase {
         this.dispatch({ type: "updateModalPosition", action: "closeModals" });
         let onready = () => {
             this._handleClickMarker();
-
         };
         jQuery("#" + this.map._container.id).on("ready", onready);
     }
@@ -408,7 +407,9 @@ export class AtlasBase {
                 // centrer la carte sur les marqueurs correspondant à la recherche
                 // relancer le gestionnaire de click sur les marqueurs.
                 let coords = [];
-                coords = data.features.map(feature => feature.geometry.coordinates.slice().reverse());
+                coords = data.features.map((feature) =>
+                    feature.geometry.coordinates.slice().reverse()
+                );
                 const bounds = L.latLngBounds(coords);
                 map.parseGeoJson(data);
                 map.fitBounds(bounds);
