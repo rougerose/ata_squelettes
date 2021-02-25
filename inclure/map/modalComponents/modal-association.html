@@ -39,9 +39,10 @@
                                 <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
                                     <h2>Adresse</h2>
                                     <BOUCLE_pays(PAYS){code=#PAYS}>[(#SET{pays,#NOM})]</BOUCLE_pays>
-                                    <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#ENV{id_association}}>
-                                        [(#CATEGORIE|=={metropolitan_region}|oui) #SET{region, #ISO_TITRE}]
-                                        [(#CATEGORIE|=={metropolitan_department}|oui) #SET{departement, #ISO_TITRE}]
+                                    <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#_adresse:ID_ASSOCIATION}>
+                                        [(#CATEGORIE|match{_region}|oui) #SET{region, #ISO_TITRE}][
+                                        (#CATEGORIE|match{_territorial_collectivity}|oui) #SET{region, #ISO_TITRE}][
+                                        (#CATEGORIE|match{_department}|oui) #SET{departement, #ISO_TITRE}]
                                     </BOUCLE_territoires>
                                     <p class="mp-Profile_Address">
                                         [<span>(#VOIE)</span>]
