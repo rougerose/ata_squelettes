@@ -47,6 +47,10 @@
 		}
 	}
 
+    .leaflet-bar {
+        border: 1px solid $color-ternary;
+    }
+
 	// la classe de la carte générée par le plugin GIS n'est pas modifiable
 	.carte_gis {
 		width: 100%;
@@ -61,4 +65,9 @@
 			height: calc(100vh - #{$headerHeight-mobile});
 		}
 	}
+
+    // easy-button
+    .easy-button-button {
+        padding: 4px;
+    }
 }

@@ -43,6 +43,22 @@ export class AtlasBase {
         // ... et du zoom
         L.Control.Zoom.prototype.options.position = "bottomright";
 
+        // Bouton Ajout d'une association
+        const addOrgBtn = L.easyButton({
+            position: "bottomright",
+            states: [
+                {
+                    icon: '<span class="mp-ControlAddBtn"> </span>',
+                    onClick: function () {
+                        location.href =
+                            "https://docs.google.com/forms/d/e/1FAIpQLSeqPAskYeF53O0XjDHMQ-FkKlYDGyg6VfXn_mZNgYRvhm1E3w/formResponse";
+                    },
+                },
+            ],
+        });
+        addOrgBtn.button.title = "Ajouter une association";
+        addOrgBtn.addTo(this.map);
+
         // Ajouter un gestionnaire de click sur chaque marqueur, mais après "ready"
         // car le module est chargé lors de l'événement "load" et les marqueurs
         // ne sont pas encore disponibles.
@@ -321,7 +337,9 @@ export class AtlasBase {
     }
 
     moveZoom(height) {
-        const zoomControl = this.map.zoomControl.getContainer();
+        /* Viser le container "bas droite" pour que la transition s'applique
+        à l'ensemble des boutons */
+        const zoomControl = this.map.zoomControl.getContainer().parentElement;
         zoomControl.style.transform = "translateY(" + height + "px)";
     }
 
