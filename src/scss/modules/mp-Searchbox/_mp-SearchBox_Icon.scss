@@ -1,6 +1,7 @@
 // Options //
 .mp-SearchBox_IconAdvanced {
 	stroke: $color-form-label;
+    transition: stroke 0.3s ease;
 }
 
 // Rechercher et Annuler //

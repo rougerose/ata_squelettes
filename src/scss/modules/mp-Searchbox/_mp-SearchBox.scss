@@ -31,7 +31,7 @@
 	margin-top: $spacing-unit-tiny;
 	@include font-size(15px, $modifier: -1);
 	background-color: $color-form-searchBox-bg;
-    box-shadow: 0 4px 4px rgba($color-black, 0.25);
+    box-shadow: 0 4px 4px rgba($color-purple-900, 0.25);
 
     @include mq(m) {
         z-index: $zindex-searchbox-desktop + 1;

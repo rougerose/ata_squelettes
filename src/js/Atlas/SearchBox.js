@@ -74,10 +74,12 @@ export class SearchBox {
         if (this._advancedSearchIsOpen) {
             // Fermer (état initial)
             this._advancedSearchBtn.setAttribute("aria-expanded", "false");
+            this._advancedSearchBtn.classList.remove("is-open");
             this._advancedSearchIsOpen = false;
         } else {
             // Ouvrir
             this._advancedSearchBtn.setAttribute("aria-expanded", "true");
+            this._advancedSearchBtn.classList.add("is-open");
             this._advancedSearchIsOpen = true;
         }
         // sélectionner le panneau à fermer

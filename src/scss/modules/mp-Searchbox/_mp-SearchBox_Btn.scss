@@ -1,13 +1,25 @@
 // Options
 .mp-SearchBox_BtnAdvanced {
-	position: absolute;
-	top: 10px;
-  	left: $spacing-unit-tiny;
-  	z-index: $zindex-map + 1;
-  	height: $searchbox-btn-options-size;
-  	width: $searchbox-btn-options-size;
-  	background-color: $color-form-searchBox-bg;
-	transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10px;
+    left: $spacing-unit-tiny;
+    z-index: $zindex-map + 1;
+    height: $searchbox-btn-options-size;
+    width: $searchbox-btn-options-size;
+    background-color: $color-form-searchBox-bg;
+
+    &:hover,
+    &.is-open {
+        .mp-SearchBox_IconAdvanced {
+            stroke: $color-ternary;
+        }
+    }
+
+    // &.is-open {
+    //     .mp-SearchBox_IconAdvanced {
+    //         stroke: $color-ternary;
+    //     }
+    // }
 }
 
 // Rechercher et Annuler
@@ -17,41 +29,41 @@
 // Remarque: le "bouton" Rechercher est en réalité un div
 .mp-SearchBox_BtnSearch,
 .mp-SearchBox_BtnCancel {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	right: $spacing-unit-tiny;
-	top: 50%;
-	transform: translateY(-50%);
-	height: $searchbox-btn-size-mobile;
-	width: $searchbox-btn-size-mobile;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: $spacing-unit-tiny;
+    top: 50%;
+    transform: translateY(-50%);
+    height: $searchbox-btn-size-mobile;
+    width: $searchbox-btn-size-mobile;
     visibility: visible;
 }
 
 .mp-SearchBox_BtnCancel {
     cursor: pointer;
-	visibility: hidden;
-	border-radius: 50%;
-	transition: background-color .3s ease;
+    visibility: hidden;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
 
-	.is-focused & {
+    .is-focused & {
         visibility: visible;
         z-index: $zindex-map + 1;
-	}
+    }
 
-	&:hover {
-		background-color: $color-ternary;
-		svg {
-			stroke: $color-black;
-		}
-	}
+    &:hover {
+        background-color: $color-ternary;
+        svg {
+            stroke: $color-black;
+        }
+    }
 }
 
 .mp-SearchBox_BtnSearch {
     cursor: none;
     pointer-events: none;
-	.is-focused & {
+    .is-focused & {
         visibility: hidden;
-	}
+    }
 }
