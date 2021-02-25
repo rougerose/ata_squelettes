@@ -1,0 +1,23 @@
+<BOUCLE_rss_association(ASSOCIATIONS){id_association}>
+    <item[ xml:lang="(#LANG)"]>
+        <title>[(#NOM|supprimer_tags|texte_backend)]</title>
+        <link>[(#URL_ASSOCIATION|url_absolue)]</link>
+        [<guid isPermaLink="true">(#URL_ASSOCIATION|url_absolue|texte_backend)</guid>]
+        [<dc:date>(#DATE|date_iso)</dc:date>]
+        <dc:format>text/html</dc:format>
+        [<dc:language>(#LANG)</dc:language>]
+        <BOUCLE_rss_mots(MOTS){id_association}{id_groupe_racine=1}{par titre}>
+            [<dc:subject>(#TITRE|texte_backend)[ (#DESCRIPTIF|texte_backend)]</dc:subject>]
+        </BOUCLE_rss_mots>
+        <content:encoded>
+            <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
+                <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#_adresse:ID_ASSOCIATION}>
+                    [(#CATEGORIE|match{_region}|oui) #SET{region, #ISO_TITRE}]
+                    [(#CATEGORIE|match{_territorial_collectivity}|oui) #SET{region, #ISO_TITRE}]
+                    [(#CATEGORIE|match{_department}|oui) #SET{departement, #ISO_TITRE}]
+                </BOUCLE_territoires>
+                [(#VOIE) ][(#COMPLEMENT) ][(#CODE_POSTAL) ][(#VILLE) ][(#GET{departement}) &#8226; ][(#GET{region})]
+            </BOUCLE_adresse>
+        </content:encoded>
+    </item>
+</BOUCLE_rss_association>
