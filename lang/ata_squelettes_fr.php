@@ -14,6 +14,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
     'caption_membre_fraap_non' => '@nom@ n&rsquo;est pas membre de la <a href="https://fraap.org" class="ct-Link">FRAAP</a>.',
 
+	// D
+	'documents_article_titre_singulier' => "Document associé",
+  	'documents_article_liste_titre_pluriel' => "Documents associés",
+
 	// L
 	'label_effacer' => 'Effacer',
     'label_recherche_fulltext' => 'Rechercher (lieu, ville, activité)',

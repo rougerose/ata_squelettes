@@ -78,20 +78,141 @@
     }
 }
 
-.ct-Article_Chapo {
-    margin-bottom: $spacing-unit-large;
-    @include font-size(18px, $modifier: 0.5);
-
-    @include mq(m) {
-        @include font-size(20px, $modifier: 0.5);
-    }
-}
-
 .ct-Article_Texte {
     @include font-size(16px, $modifier: 0.5);
 
-    @include mq(m) {
+    // Variante Chapeau
+    &-chapo {
+        margin-bottom: $spacing-unit-large;
         @include font-size(18px, $modifier: 0.5);
+
+        @include mq(m) {
+            @include font-size(20px, $modifier: 0.5);
+        }
+    }
+
+    // Images
+    .spip_document_image {
+        img {
+            max-width: 100%;
+            height: 100%;
+        }
+    }
+
+    /*
+        Styles du contenu issu de Spip (#TEXTE, #CHAPO, #NOTES, etc.)
+    */
+
+    // Intertitres
+    h2, h3, h4, h5, h6 {
+        margin-top: $spacing-unit;
+        font-weight: normal;
+        color: $color-purple-700;
+    }
+
+    h2 {
+        @include font-size(28px);
+        margin-top: $spacing-unit-large;
+    }
+
+    // Paragraphes
+    p {
+        margin-top: $spacing-unit;
+        margin-bottom: $spacing-unit-small;
+    }
+
+    // Listes
+    li {
+        &::marker {
+            color: $color-purple-700;
+        }
+    }
+
+    // Tableaux
+    table {
+        width: 100%;
+        @include font-size(15px);
+    }
+
+    caption {
+        color: $color-purple-700;
+        font-weight: bold;
+        border-bottom: 1px solid $color-gray-400;
+    }
+
+    th,
+    td {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    tr {
+        border-bottom: 1px solid $color-gray-400;
+
+        &:last-child {
+            border-width: 2px;
+        }
+    }
+
+    thead {
+        tr {
+            border-bottom: 2px solid $color-gray-400;
+            text-align: left;
+        }
+    }
+
+    // Blockquote
+    blockquote {
+        border-left: 1px solid $color-orange-600;
+        margin-left: 1em;
+        padding-left: 1em;
+        @include font-size(15px);
+
+        @include mq(m) {
+            margin-left: 2em;
+            padding-left: 2em;
+        }
+    }
+
+    // <hr>
+    hr {
+        margin: $spacing-unit-large 0;
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, $color-white 0%, $color-purple-700 50%, $color-white 100%);
+    }
+
+    // Liens
+    a {
+        color: $color-black;
+        border-bottom: 2px solid $color-ternary;
+        transition: color .3s ease;
+
+        &:hover {
+            color: $color-ternary;
+        }
+    }
+}
+
+.ct-Article_Notes {
+    margin-top: $spacing-unit-large + $spacing-unit;
+
+    &::before {
+        display: block;
+        margin-bottom: $spacing-unit-large;
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            $color-white 0%,
+            $color-purple-700 50%,
+            $color-white 100%
+        );
+    }
+
+    p {
+        @include font-size(15px, $modifier: -0.5);
     }
 }
 

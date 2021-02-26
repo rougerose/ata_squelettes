@@ -1,0 +1,105 @@
+$mq-document: 480px;
+
+.ct-Document {
+    margin-top: $spacing-unit-large + $spacing-unit;
+
+    &::before {
+        display: block;
+        margin-bottom: $spacing-unit-large;
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            $color-white 0%,
+            $color-purple-700 50%,
+            $color-white 100%
+        );
+    }
+}
+
+.ct-Document_Intertitre {
+    font-weight: normal;
+    color: $color-purple-700;
+    @include font-size(22px);
+}
+
+.ct-Document_Doc {
+    margin: $spacing-unit-small 0;
+}
+
+.ct-Document_Lien {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid $color-gray-400;
+    border-radius: 4px;
+    padding: $spacing-unit-small;
+    transition: all 0.5s ease;
+
+    &:hover {
+        background-color: $color-ternary;
+        border-color: $color-ternary;
+
+        .ct-Document_Icon {
+            border-right-color: $color-yellow-600;
+        }
+
+        img {
+            mix-blend-mode: multiply;
+        }
+    }
+
+    @include mq($mq-document) {
+      flex-direction: row;
+    }
+}
+
+.ct-Document_Icon {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 $spacing-unit-small;
+    transition: border-color 0.5s ease;
+
+    img {
+        transition: all 0.5s ease;
+    }
+
+    @include mq($mq-document) {
+        border-right: 1px dotted $color-gray-400;
+        margin: 0 $spacing-unit 0 0;
+        width: 150px;
+        padding: $spacing-unit;
+    }
+}
+
+.ct-Document_Infos {
+    flex: 1 1 0;
+    text-align: center;
+    color: $color-gray-900;
+
+    @include mq($mq-document) {
+        text-align: left;
+    }
+
+}
+
+.ct-Document_Titre {
+    margin-bottom: 0;
+    @include font-size(14px, $modifier: -1);
+}
+
+.ct-Document_Descriptif {
+    margin-bottom: 0;
+    @include font-size(14px, $modifier: -1);
+}
+
+.ct-Document_Credits {
+    display: block;
+}
+
+.ct-Document_Metas {
+    margin-bottom: 0;
+    @include font-size(14px, $modifier: -1);
+    color: $color-gray-700;
+}

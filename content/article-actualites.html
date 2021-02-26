@@ -12,11 +12,17 @@
                         [<p class="ct-Article_Soustitre">(#SOUSTITRE)</p>]
                     </header>
                     <div class="ct-Article_Body">
-                        [<div class="ct-Article_Chapo">
+                        [<div class="ct-Article_Texte ct-Article_Texte-chapo">
                             (#CHAPO)
                         </div>]
                         [<div class="ct-Article_Texte">
-                            (#TEXTE)
+                            (#TEXTE|image_reduire{570,0})
+                        </div>]
+
+                        [(#INCLURE{fond=inclure/liste/article-documents,id_article,id_rubrique='',env})]
+
+                        [<div class="ct-Article_Notes">
+                            (#NOTES)
                         </div>]
                     </div>
                 </div>

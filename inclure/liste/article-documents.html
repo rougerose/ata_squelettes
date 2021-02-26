@@ -1,0 +1,31 @@
+[(#REM)
+    <!-- On peut arriver avec id_article ou id_rubrique. On les réaffecte sur objet, id_objet.  -->
+][(#ENV{id_article}|oui)[(#VAL{article}|setenv{objet})][(#ENV{id_article}|setenv{id_objet})]]
+[(#ENV{id_rubrique}|oui)[(#VAL{rubrique}|setenv{objet})][(#ENV{id_rubrique}|setenv{id_objet})]]
+[(#REM)
+    <!--
+        Seuls les documents de type fichiers sont affichés.
+        Les images sont destinées au texte.
+     -->
+]
+<B_documents_joints>
+	<div class="ct-Article_Annexes ct-Document">
+        <h2 class="ct-Document_Intertitre">[(#TOTAL_BOUCLE|singulier_ou_pluriel{ata_squelettes:documents_article_titre_singulier,ata_squelettes:documents_article_liste_titre_pluriel})]</h2>
+		<BOUCLE_documents_joints(DOCUMENTS){objet?}{id_objet?}{media!=image}{par rang_lien, num titre, date}>
+            <div class="ct-Document_Doc">
+                <a href="[(#URL_DOCUMENT)]" type="#MIME_TYPE" class="ct-Document_Lien">
+                    <div class="ct-Document_Icon">
+                        [(#LOGO_DOCUMENT|image_reduire{102,0}|inserer_attribut{alt, #TITRE|sinon{''}})]
+                    </div>
+                    <div class="ct-Document_Infos">
+                        [<h3 class="ct-Document_Titre">(#TITRE)</h3>]
+                        [<p class="ct-Document_Descriptif">
+                            (#DESCRIPTIF|PtoBR)[ <span class="ct-Document_Credits">(#CREDITS)</span>]
+                        </p>]
+                        <p class="ct-Document_Metas">[(#DATE|affdate)][ | (#EXTENSION|strtoupper) - [(#TAILLE|taille_en_octets)]]</p>
+                    </div>
+                </a>
+            </div>
+		</BOUCLE_documents_joints>
+	</div>
+</B_documents_joints>

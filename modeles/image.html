@@ -1,0 +1,31 @@
+[(#REM)
+
+	Modele pour les images
+
+    ATA :
+        - surcharge pour supprimer le style width appliqué sur figure
+        - la méthode de calcul de la variable image est modifiée
+
+]
+<BOUCLE_image (DOCUMENTS) {media=image} {id_document=#ENV{id,#ENV{id_document}}} {inclus=image} {mode?} {tout}>
+[(#SET{autolien,#LARGEUR|>={800}|ou{#HAUTEUR|>={800}}|oui})]
+[(#ENV{largeur}|ou{#ENV{hauteur}}|?{
+    [(#SET{image, #FICHIER|image_reduire{#ENV{largeur, 10000}, #ENV{hauteur, 10000}}|extraire_attribut{src}})],
+    [(#SET{image, #URL_DOCUMENT})]
+})]
+<figure class='spip_document_#ID_DOCUMENT spip_documents spip_document_image[ spip_documents_(#ENV{align}|sinon{center})][ (#ENV{class})] spip_lien_ok xx'>
+[<a href="(#ENV{lien})"[ class="(#ENV{lien_class})"]>]
+[(#ENV{lien}|non|et{#GET{autolien}})<a href="#URL_DOCUMENT" class="mediabox" type="#MIME_TYPE">]
+    [<img src="(#GET{image})" alt="" />]
+[(#ENV{lien}|ou{#GET{autolien}}|?{</a>})]
+[(#TITRE|trim|sinon{#DESCRIPTIF|trim}|sinon{#CREDITS|trim}|oui)
+<figcaption class='spip_doc_legende'>
+	[<div class='spip_doc_titre #EDIT{titre}'><strong>(#TITRE|propre|ptobr)</strong></div>]
+	[<div class='spip_doc_descriptif #EDIT{descriptif}'>(#DESCRIPTIF|propre|PtoBR)[(#NOTES|PtoBR)]</div>]
+	[<div class='spip_doc_credits  #EDIT{credits}'>(#CREDITS|propre|PtoBR)</div>]
+</figcaption>
+]
+</figure>
+</BOUCLE_image>
+<INCLURE{fond=modeles/file,env} />
+<//B_image>

@@ -20,3 +20,7 @@ if (!isset($GLOBALS['z_blocs'])) {
 if (!defined('_SELECTEUR_GENERIQUE_ACTIVER_PUBLIC')) {
 	define('_SELECTEUR_GENERIQUE_ACTIVER_PUBLIC', true);
 }
+
+// intertitres
+$GLOBALS['debut_intertitre'] = '<h2 class="spip">';
+$GLOBALS['fin_intertitre'] = '</h2>';
