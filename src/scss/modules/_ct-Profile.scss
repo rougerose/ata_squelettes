@@ -230,6 +230,7 @@
 
     &::after {
         content: "\00203A";
+        font-weight: bold;
         margin-left: $spacing-unit-tiny;
     }
 
