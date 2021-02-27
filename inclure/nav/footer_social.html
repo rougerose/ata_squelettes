@@ -3,7 +3,7 @@
     <BOUCLE_contact(ARTICLES){page=contact}>
         <li class="st-Footer_NavSocialItem"><a href="[(#URL_PAGE_UNIQUE{contact})]" class="st-Footer_NavSocialItem"><span class="name">[(#TITRE)]</span></a></li>
     </BOUCLE_contact>
-    <BOUCLE_rezos(DATA){source tableau,#GET{rezo}}>
+    <BOUCLE_rezos(DATA){source tableau,#GET{rezo}}{par valeur}>
         [(#CONFIG{sociaux/#CLE}|oui)
             <li><a href="[(#CLE|=={mail}|oui)mailto:][(#CLE|=={skype}|oui)callto:]#CONFIG{sociaux/#CLE}" class="st-Footer_NavSocialList">#VALEUR</a></li>
         ]
