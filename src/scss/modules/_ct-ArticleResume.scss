@@ -9,7 +9,7 @@
         height: 1px;
         grid-column: 1 / span 1;
         margin-top: $spacing-unit;
-        background-color: rgba($color-black, 0.9);
+        background-color: $color-purple-800;
     }
 
     @include mq(m) {
