@@ -91,12 +91,39 @@
         }
     }
 
-    // Images
+    // Documents insérés dans le texte
+    .spip_documents {
+        margin: ($spacing-unit-large + $spacing-unit) 0;
+    }
+
+    figcaption {
+        margin-top: $spacing-unit-tiny;
+    }
+
+    // Illustrations
     .spip_document_image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         img {
             max-width: 100%;
             height: 100%;
         }
+    }
+
+
+    .spip_doc_legende {
+        margin-top: $spacing-unit-tiny;
+        flex: 1;
+        width: 100%;
+    }
+
+    .spip_doc_titre,
+    .spip_doc_descriptif,
+    .spip_doc_credits {
+        @include font-size(14px, $modifier: -1);
+        color: $color-gray-700;
     }
 
     /*
@@ -191,6 +218,12 @@
         &:hover {
             color: $color-ternary;
         }
+    }
+
+    // Illustrations
+    .spip_document {
+        display: flex;
+        justify-content: center;
     }
 }
 
