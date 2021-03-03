@@ -18,7 +18,8 @@
 			<div class="st-NavOverlay_Body">
                 [(#INCLURE{fond=inclure/menu, env, identifiant=navigation_overlay})]
 				[(#PLUGIN{sociaux}|oui)
-					#INCLURE{fond=inclure/nav/overlay_social, i_total=1}]
+					[(#INCLURE{fond=inclure/nav/overlay_social, i_total=1})]
+                ]
 			</div>
 		</nav>
 	</div>

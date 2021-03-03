@@ -124,3 +124,10 @@
 			transition: all 1s ease 1s;
 		}
 	}
+
+    .st-NavOverlay_SocialItem {
+        &-legal {
+            margin-top: $spacing-unit-small;
+            @include font-size(13px);
+        }
+    }
