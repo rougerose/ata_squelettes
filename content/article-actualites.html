@@ -21,9 +21,19 @@
 
                         [(#INCLURE{fond=inclure/liste/article-documents,id_article,id_rubrique='',env})]
 
-                        [<div class="ct-Article_Notes">
+                        [<div class="ct-Article_Annexes ct-Article_Notes">
                             (#NOTES)
                         </div>]
+
+                        <B_article_mots>
+                            <div class="ct-Article_Annexes">
+                                <div class="ct-Article_MotsCles">
+                                    <BOUCLE_article_mots(MOTS){id_article}{par titre}>
+                                        <a href="#URL_MOT" class="ct-Article_MotCle">#TITRE</a>
+                                    </BOUCLE_article_mots>
+                                </div>
+                            </div>
+                        </B_article_mots>
                     </div>
                 </div>
             </article>

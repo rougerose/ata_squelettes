@@ -227,7 +227,25 @@
     }
 }
 
-.ct-Article_Notes {
+
+// Notes
+.spip_note_ref {
+    color: $color-ternary;
+}
+
+.spip_note {
+    padding: 0 3px;
+    color: $color-black;
+    border-bottom: 2px solid $color-ternary;
+    transition: color .3s ease;
+
+    &:hover {
+        color: $color-ternary;
+    }
+}
+
+// Annexes (conteneur documents liés, notes, mots-clés)
+.ct-Article_Annexes {
     margin-top: $spacing-unit-large + $spacing-unit;
 
     &::before {
@@ -243,9 +261,32 @@
             $color-white 100%
         );
     }
+}
 
+.ct-Article_Notes {
     p {
-        @include font-size(15px, $modifier: -0.5);
+        @include font-size(14px, $modifier: -0.5);
+    }
+}
+
+.ct-Article_MotsCles {
+    display: flex;
+    flex-wrap: wrap;
+    @include font-size(14px);
+}
+
+.ct-Article_MotCle {
+    white-space: nowrap;
+    margin-right: $spacing-unit-tiny;
+    margin-bottom: $spacing-unit-small;
+    padding: ($spacing-unit-tiny / 2) $spacing-unit-tiny;
+    border-radius: 0.5em;
+    border: 1px solid $color-keyword-bg;
+    color: $color-black;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $color-keyword-bg;
     }
 }
 

@@ -1,22 +1,6 @@
 $mq-document: 480px;
 
-.ct-Document {
-    margin-top: $spacing-unit-large + $spacing-unit;
-
-    &::before {
-        display: block;
-        margin-bottom: $spacing-unit-large;
-        content: "";
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(
-            90deg,
-            $color-white 0%,
-            $color-purple-700 50%,
-            $color-white 100%
-        );
-    }
-}
+// .ct-Document {}
 
 .ct-Document_Intertitre {
     font-weight: normal;
