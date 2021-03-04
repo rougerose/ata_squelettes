@@ -8,21 +8,7 @@
                     </header>
                 </div>
                 <div class="ct-Rubrique_Body">
-                    <B_articles_actualites>
-                        <ul class="ct-Rubrique_Articles">
-                            <BOUCLE_articles_actualites(ARTICLES){id_rubrique}{!par date}>
-                                <li class="ct-Rubrique_Article ct-ArticleResume">
-                                    <div class="ct-ArticleResume_Layout ct-ArticleResume_Layout-date">
-                                        <p class="ct-ArticleResume_Date"><a class="ct-ArticleResume_Link" href="#URL_ARTICLE">[(#DATE|affdate{d.m.Y})]</a></p>
-                                    </div>
-                                    <div class="ct-ArticleResume_Layout ct-ArticleResume_Layout-body">
-                                        <h2 class="ct-ArticleResume_Titre"><a href="#URL_ARTICLE" class="ct-ArticleResume_Link ct-ArticleResume_Link-body">#TITRE</a></h2>
-                                        <div class="ct-ArticleResume_Desc">#INTRODUCTION{300}</div>
-                                    </div>
-                                </li>
-                            </BOUCLE_articles_actualites>
-                        </ul>
-                    </B_articles_actualites>
+                    <INCLURE{fond=inclure/liste/rubrique-articles, env, ajax} />
                 </div>
             </article>
         </div>

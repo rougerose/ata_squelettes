@@ -1,8 +1,6 @@
 // Grille
 
-.ct-Rubrique {
-    padding-bottom: $spacing-unit-large;
-}
+// .ct-Rubrique {}
 
 .ct-Rubrique_Grid {
     display: grid;
@@ -24,7 +22,6 @@
 }
 
 
-
 // Contenu
 
 .ct-Rubrique_Titre {
@@ -43,6 +40,7 @@
 .ct-Rubrique_Articles {
     list-style: none;
     margin: 0;
+    padding-bottom: $spacing-unit-large;
 }
 
 // .ct-Rubrique_Article {}

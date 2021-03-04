@@ -29,3 +29,19 @@
     font-weight: bold;
     font-style: italic;
 }
+
+// Light
+@font-face {
+    font-family: "Triangle";
+    src: url("../webfonts/EuclidTriangle-Light-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-Light-WebS.woff") format("woff");
+    font-weight: 300;
+    font-style: normal;
+}
+
+// LightItalic
+@font-face {
+    font-family: "Triangle";
+    src: url("../webfonts/EuclidTriangle-LightItalic-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-LightItalic-WebS.woff") format("woff");
+    font-weight: 300;
+    font-style: italic;
+}

@@ -1,8 +1,6 @@
 // Grille
 
-.ct-Mot {
-    padding-bottom: $spacing-unit-large;
-}
+// .ct-Mot {}
 
 .ct-Mot_Grid {
     display: grid;
@@ -23,8 +21,6 @@
     }
 }
 
-
-
 // Contenu
 
 .ct-Mot_Titre {
@@ -38,11 +34,12 @@
     }
 }
 
-// .ct-Rubrique_Body {}
+// .ct-Mot_Body {}
 
 .ct-Mot_Articles {
     list-style: none;
     margin: 0;
+    padding-bottom: $spacing-unit-large;
 }
 
 // .ct-Rubrique_Article {}
