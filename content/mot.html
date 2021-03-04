@@ -1,0 +1,32 @@
+<BOUCLE_motcle(MOTS){id_mot}>
+    <div class="o-wrapper">
+        <div class="ct-Main">
+            <article class="ct-Mot">
+                <div class="ct-Mot_Grid">
+                    <header class="ct-Mot_Header">
+                        <h1 class="ct-Mot_Titre">#TITRE</h1>
+                    </header>
+                </div>
+                <div class="ct-Mot_Body">
+                    <B_mot_articles>
+                        <ul class="ct-Mot_Articles">
+                            <BOUCLE_mot_articles(ARTICLES){id_mot}{!par date}>
+                                <li class="ct-Mot_Article ct-ArticleResume">
+                                    <div class="ct-ArticleResume_Layout ct-ArticleResume_Layout-date">
+                                        <p class="ct-ArticleResume_Date"><a class="ct-ArticleResume_Link"
+                                                href="#URL_ARTICLE">[(#DATE|affdate{d.m.Y})]</a></p>
+                                    </div>
+                                    <div class="ct-ArticleResume_Layout ct-ArticleResume_Layout-body">
+                                        <h2 class="ct-ArticleResume_Titre"><a href="#URL_ARTICLE"
+                                                class="ct-ArticleResume_Link ct-ArticleResume_Link-body">#TITRE</a></h2>
+                                        <div class="ct-ArticleResume_Desc">#INTRODUCTION{300}</div>
+                                    </div>
+                                </li>
+                            </BOUCLE_mot_articles>
+                        </ul>
+                    </B_mot_articles>
+                </div>
+            </article>
+        </div>
+    </div>
+</BOUCLE_motcle>
