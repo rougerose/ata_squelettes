@@ -33,6 +33,7 @@
     border-top: 1px solid $color-purple-800;
     padding-top: $spacing-unit-large;
     display: grid;
+    @include font-size(15px);
 
     @include mq(m) {
         grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -100,7 +101,7 @@
 .st-Footer_Credits {
     grid-row: 3;
     justify-self: end;
-    @include font-size(14px);
+    @include font-size(13px);
 
     @include mq(m) {
         grid-column-end: span 6;
@@ -114,7 +115,7 @@
 
 // Contenu
 .st-Footer_SiteName {
-    @include font-size(18px);
+    @include font-size(17px);
     margin-bottom: 0;
 }
 
