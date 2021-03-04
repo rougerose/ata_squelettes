@@ -5,12 +5,15 @@
     padding-bottom: $spacing-unit;
 
     &-bottom {
-        // padding-top: $spacing-unit-large;
-        padding-bottom: 0;
+        padding-bottom: $spacing-unit-large;
     }
 
     @include mq(m) {
         grid-template-columns: repeat(12, minmax(0, 1fr));
+
+        &-bottom {
+            padding-bottom: 0;
+        }
     }
 }
 

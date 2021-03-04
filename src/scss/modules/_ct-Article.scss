@@ -48,6 +48,14 @@
     margin-bottom: $spacing-unit-large;
 }
 
+.ct-Article_Body {
+    padding-bottom: $spacing-unit-large;
+
+    @include mq(m) {
+        padding-bottom: 0;
+    }
+}
+
 .ct-Article_Titre {
     margin-bottom: 0;
     font-weight: normal;
