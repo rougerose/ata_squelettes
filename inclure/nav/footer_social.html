@@ -1,7 +1,7 @@
 [(#SET{rezo,[(#PIPELINE{sociaux_lister,#ARRAY{args,#ARRAY{skel,#SQUELETTE,date,#ENV**{date}},data,#ARRAY}})]})]
 <ul class="st-Footer_NavSocialList">
     <BOUCLE_contact(ARTICLES){page=contact}>
-        <li class="st-Footer_NavSocialItem"><a href="[(#URL_PAGE_UNIQUE{contact})]" class="st-Footer_NavSocialItem"><span class="name">[(#TITRE)]</span></a></li>
+        <li class="st-Footer_NavSocialItem"><a href="[(#URL_PAGE{contact})]" class="st-Footer_NavSocialItem"><span class="name">[(#TITRE)]</span></a></li>
     </BOUCLE_contact>
     <BOUCLE_rezos(DATA){source tableau,#GET{rezo}}{par valeur}>
         [(#CONFIG{sociaux/#CLE}|oui)
