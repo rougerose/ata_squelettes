@@ -20,6 +20,15 @@
     @include mq(l) {
         grid-column: 4 / span 7;
     }
+
+    &-404 {
+        grid-column: span 4;
+        justify-self: center;
+
+        @include mq(m) {
+            grid-column: 4 / span 6;
+        }
+    }
 }
 
 .ct-Article_LayoutNews {
@@ -44,12 +53,27 @@
 
 // Contenu
 
+.ct-Article_Logo {
+    img {
+        margin: 0 auto;
+    }
+}
+
 .ct-Article_Header {
     margin-bottom: $spacing-unit-large;
+
+    &-404 {
+        margin-bottom: 0;
+        text-align: center;
+    }
 }
 
 .ct-Article_Body {
     padding-bottom: $spacing-unit-large;
+
+    &-404 {
+        text-align: center;
+    }
 
     @include mq(m) {
         padding-bottom: 0;
