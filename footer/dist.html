@@ -5,7 +5,7 @@
                 <h1 class="st-Footer_SiteName">#NOM_SITE_SPIP <span> / #SLOGAN_SITE_SPIP</span></h1>
             </div>
             <div class="st-Footer_About st-Footer_About-desc">
-                <p class="st-Footer_SiteDesc">#SLOGAN_SITE_SPIP est… Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem minus provident ab laboriosam ipsum? Quo voluptatem tenetur dolore vitae dignissimos iste iusto tempore adipisci modi velit, quaerat placeat hic blanditiis?</p>
+                [<div class="st-Footer_SiteDesc">(#DESCRIPTIF_SITE_SPIP)</div>]
             </div>
             <div class="st-Footer_Nav">
                 [(#INCLURE{fond=inclure/menu, env, identifiant=navigation_footer})]
@@ -15,7 +15,7 @@
                 #INCLURE{fond=inclure/nav/footer_social}]
             </div>
             <div class="st-Footer_Credits">
-                <BOUCLE_legal(ARTICLES){page=legal}><a href="[(#URL_PAGE_UNIQUE{legal})]">[(#TITRE)]</a></BOUCLE_legal>
+                <BOUCLE_legal(ARTICLES){page=legal}><a href="[(#URL_PAGE{legal})]">[(#TITRE)]</a></BOUCLE_legal>
             </div>
         </div>
     </div>
