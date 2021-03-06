@@ -1,0 +1,191 @@
+@media print {
+    /* Règles générales reprises de https://github.com/vladocar/Hartija---CSS-Print-Framework/blob/master/print.css
+    */
+    body {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 14pt;
+        line-height: 1.45;
+        color: $color-black;
+        background: none;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after:avoid;
+        color: $color-black;
+    }
+
+    h1 {
+        font-size:19pt;
+    }
+
+    h2 {
+        font-size:17pt;
+    }
+
+    h3 {
+        font-size:15pt;
+    }
+
+    h4, h5, h6 {
+        font-size:14pt;
+    }
+
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    blockquote {
+        margin: 1.2em;
+        padding: 1em;
+        font-size: 12pt;
+    }
+
+    hr {
+        background-color: #ccc;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    /* Links */
+    a:link,
+    a:visited {
+        background: transparent;
+        font-weight: 700;
+        text-decoration: underline;
+        color:#333;
+    }
+
+    a:link[href^="http://"]:after,
+    a[href^="http://"]:visited:after {
+        content: " (" attr(href) ") ";
+        font-size: 90%;
+    }
+
+    /* Don't show linked images  */
+    a[href^="http://"] {
+        color:#000;
+    }
+    a[href$=".jpg"]:after,
+    a[href$=".jpeg"]:after,
+    a[href$=".gif"]:after,
+    a[href$=".png"]:after {
+        content: " (" attr(href) ") ";
+        display:none;
+    }
+
+    /* Don't show links that are fragment identifiers, or use the `javascript:` pseudo protocol .. taken from html5boilerplate */
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    /* Eléments surchargés */
+
+    // Header
+    .st-Header {
+        position: static;
+        box-shadow: none;
+    }
+
+    .st-Nav {
+        flex-direction: column;
+    }
+
+    .st-Nav_Slogan {
+        order: 2;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    .st-Nav_SiteLink-logo {
+        order: 1;
+        &::after {
+            display: none;
+        }
+    }
+
+    // Article
+    .ct-Article {
+        display: block;
+    }
+
+    .ct-Rubrique_Titre,
+    .ct-Article_Titre,
+    .spip_note_ref {
+        color: unset;
+    }
+
+    .spip_note,
+    .ct-Link {
+        border: none;
+    }
+
+    .ct-Article_Texte {
+        h2, h3, h4, h5, h6 {
+            color: unset;
+        }
+
+        a {
+            border: none;
+            transition: none;
+        }
+
+        hr {
+            background: $color-black;
+        }
+
+        // Illustrations et document
+        .spip_document_image {
+            align-items: flex-start;
+        }
+        .spip_document {
+            display: flex;
+            justify-content: center;
+        }
+
+        // Listes
+        li {
+            &::marker {
+                color: unset;
+            }
+        }
+
+        // Tableaux
+        caption {
+            color: unset;
+        }
+
+        blockquote {
+            border-left-color: unset;
+        }
+    }
+
+    .ct-Article_MotCle {
+        border-color: $color-black;
+    }
+
+    .ct-Article_Annexes {
+        &::before {
+            background: $color-black;
+        }
+    }
+
+    /* Eléments à masquer */
+    #spip-admin,
+    .st-Nav_List,
+    .st-Footer,
+    .st-Overlay,
+    .mp-SearchBox {
+        display: none;
+    }
+
+}
