@@ -7,6 +7,9 @@
         [(#CONFIG{sociaux/#CLE}|oui)
         <a href="[(#CLE|=={mail}|oui)mailto:][(#CLE|=={skype}|oui)callto:]#CONFIG{sociaux/#CLE}" class="st-NavOverlay_SocialItem #CLE[(#CLE|in_array{#LISTE{rss,mail,whatsapp,skype}}|non)spip_out external]">[(#CONFIG{sociaux/css}|oui)<span class="socicon socicon-#CLE"></span>]<span class="name">[(#VALEUR)]</span></a>]
     </BOUCLE_rezos>
+    <span class="st-NavOverlay_SocialItem st-NavOverlay_SocialItem-legal">
+        <:ata_squelettes:ata_initiative_fraap{nom=#NOM_SITE_SPIP / #SLOGAN_SITE_SPIP}:>
+    </span>
     <BOUCLE_legal(ARTICLES){page=legal}>
         <a href="[(#URL_PAGE{legal})]" class="st-NavOverlay_SocialItem st-NavOverlay_SocialItem-legal">[(#TITRE)]</a>
     </BOUCLE_legal>

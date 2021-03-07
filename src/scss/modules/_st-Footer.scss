@@ -4,14 +4,14 @@
     color: $color-black;
     transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
 
-    a {
-        border-bottom: 2px solid transparent;
-	    transition: border .3s ease;
+    // a {
+    //     border-bottom: 2px solid transparent;
+	//     transition: border .3s ease;
 
-        &:hover {
-            border-color: $color-ternary !important;
-        }
-    }
+    //     &:hover {
+    //         border-color: $color-ternary !important;
+    //     }
+    // }
 
 	.js & {
 		transform: translateY(20%);
@@ -74,6 +74,7 @@
 
 .st-Footer_Nav {
     grid-row: 2;
+    justify-self: end;
 
     @include mq(m) {
         grid-column: 5;
@@ -81,12 +82,12 @@
 
     @include mq(l) {
         grid-column: 7;
-        justify-self: end;
     }
 }
 
 .st-Footer_NavSocial {
     grid-row: 2;
+    justify-self: end;
 
     @include mq(m) {
         grid-column: 6;
@@ -94,14 +95,18 @@
 
     @include mq(l) {
         grid-column: 8;
-        justify-self: end;
     }
 }
 
 .st-Footer_Credits {
     grid-row: 3;
-    justify-self: end;
+    display: flex;
+    justify-content: space-between;
     @include font-size(13px);
+
+    > p {
+        margin-bottom: 0;
+    }
 
     @include mq(m) {
         grid-column-end: span 6;
@@ -109,7 +114,7 @@
 
 
     @include mq(l) {
-        grid-column-end: span 8;
+        grid-column: span 8;
     }
 }
 

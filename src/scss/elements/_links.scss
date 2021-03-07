@@ -3,13 +3,17 @@ a {
 	text-decoration: none;
 }
 
-a[target="_blank"]:not(.ct-Profile_Social)::after {
-    content: "";
-    background-image: url("../../images/icons/icon-open-window-24.svg");
-    background-size: contain;
-    width: 14px;
-    height: 14px;
-    display: inline-block;
-    margin-bottom: -2px;
-    margin-left: 3px;
+a[target="_blank"] {
+    &:not(.ct-Link-noIcon) {
+        &::after {
+            content: "";
+            background-image: url("../../images/icons/icon-open-window-24.svg");
+            background-size: contain;
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            margin-bottom: -2px;
+            margin-left: 3px;
+        }
+    }
 }
