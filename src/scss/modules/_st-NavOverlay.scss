@@ -94,7 +94,7 @@
             transition: border .3s ease;
 
             &:hover {
-                border-color: $color-black;
+                border-color: $color-ternary;
             }
         }
 
@@ -129,5 +129,9 @@
         &-legal {
             margin-top: $spacing-unit-small;
             @include font-size(13px);
+
+            span {
+                display: block;
+            }
         }
     }
