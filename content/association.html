@@ -7,14 +7,6 @@
     [(#SET{logoAsso,
     [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{160, 160}|image_reduire{160, 160})]})]
     [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
-    ][(#MEMBRE_FRAAP|=={0}|oui)
-    [(#SET{logoMembre,
-    [(#CHEMIN{images/icons/ata-membreFraap-off@2x.png}|balise_img|image_passe_partout{64,64})]})]
-    [(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
-    ][(#MEMBRE_FRAAP|=={1}|oui)
-    [(#SET{logoMembre,
-    [(#CHEMIN{images/icons/ata-membreFraap-on@2x.png}|balise_img|image_passe_partout{64,64})]})]
-    [(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
     ]<div class="o-wrapper o-wrapper--content">
         <div class="ct-Main">
             <article class="ct-Profile">
@@ -68,7 +60,7 @@
                     </section>
                     [<section class="ct-Profile_Member">
                         <figure class="ct-Profile_MemberLogo">
-                            <img class="ct-Profile_MemberLogoImg" src="(#GET{srcMembre})" alt="">
+                            (#CHEMIN{images/icons/Fraap@2x.png}|balise_img{Fraap, ct-Profile_MemberLogoImg}|image_passe_partout{64,64})
                             <figcaption class="ct-Profile_MemberLogoCaption">[(#MEMBRE_FRAAP|=={1}|?{<:ata_squelettes:caption_membre_fraap_oui{nom=#NOM}:>, <:ata_squelettes:caption_membre_fraap_non{nom=#NOM}:>})]</figcaption>
                         </figure>
                     </section>]

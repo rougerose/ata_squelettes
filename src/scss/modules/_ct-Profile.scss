@@ -116,9 +116,9 @@
     }
 }
 
-// .ct-Profile_WebLink {
-//     display: inline-flex;
-// }
+.ct-Profile_WebLink {
+    display: inline-block;
+}
 
 .ct-Profile_Social {
 	background-image: url("../../images/icons/icon-facebook-k-24.svg");
@@ -181,6 +181,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 0;
+    margin-right: $spacing-unit;
 }
 
 // .ct-Profile_MemberLogoImg {}
