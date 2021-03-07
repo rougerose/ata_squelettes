@@ -61,12 +61,12 @@
                                 [(#URL_SITE|ou{#GET{facebook}}|ou{#GET{twitter}}|ou{#GET{instagram}})
                                 <h2>En ligne</h2>
                                 ][
-                                    <p class="mp-Profile_Online"><a class="mp-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)" title="Ouvrir le site dans une nouvelle fenêtre" target="_blank">[(#URL_SITE|url_absolue)]</a></p>
+                                    <p class="mp-Profile_Online"><a class="mp-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)" title="<:ata_squelettes:texte_ouvrir_nouvelle_fenetre:>" target="_blank">[(#URL_SITE|url_absolue)]</a></p>
                                 ][(#GET{facebook}|ou{#GET{twitter}}|ou{#GET{instagram}})
-                                    <p class="ct-Profile_Online ct-Profile_Online-social">
-                                        [<a class="ct-Profile_Social ct-Profile_Social-facebook ct-Profile_Social-on" href="(#GET{facebook})" target="_blank" title="[(#GET{asso}|textebrut)] sur Facebook (nouvelle fenêtre)"> </a>]
-                                        [<a class="ct-Profile_Social ct-Profile_Social-twitter ct-Profile_Social-on" href="(#GET{twitter})" target="_blank" title="[(#GET{asso}|textebrut)] sur Twitter (nouvelle fenêtre)"> </a>]
-                                        [<a class="ct-Profile_Social ct-Profile_Social-instagram ct-Profile_Social-on" href="(#GET{instagram})" target="_blank" title="[(#GET{asso}|textebrut)] sur Instagram (nouvelle fenêtre)"> </a>]
+                                    <p class="mp-Profile_Online mp-Profile_Online-social">
+                                        [<a class="mp-Profile_Social mp-Profile_Social-facebook ct-Link-noIcon" href="(#GET{facebook})" target="_blank" title="[(#GET{asso}|textebrut)] sur Facebook (nouvelle fenêtre)"> </a>]
+                                        [<a class="mp-Profile_Social mp-Profile_Social-twitter ct-Link-noIcon" href="(#GET{twitter})" target="_blank" title="[(#GET{asso}|textebrut)] sur Twitter (nouvelle fenêtre)"> </a>]
+                                        [<a class="mp-Profile_Social mp-Profile_Social-instagram ct-Link-noIcon" href="(#GET{instagram})" target="_blank" title="[(#GET{asso}|textebrut)] sur Instagram (nouvelle fenêtre)"> </a>]
                                     </p>
                                 ]
                             </section>

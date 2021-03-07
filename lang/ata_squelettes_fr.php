@@ -9,10 +9,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// A
     'ata_squelettes_titre' => 'ATA Squelettes',
+	'ata_initiative_fraap' => '@nom@ est une initiative de la <a href="https://fraap.org" target="_blank" title="Ouvrir le lien dans une nouvelle fenêtre" class="ct-Link ct-Link-noIcon">FRAAP</a>.',
 
     // C
-    'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" target="_blank" class="ct-Link">FRAAP</a>.',
-    'caption_membre_fraap_non' => '@nom@ n&rsquo;est pas membre de la <a href="https://fraap.org" target="_blank" class="ct-Link">FRAAP</a>.',
+    'caption_membre_fraap_oui' => '@nom@ est membre de la <a href="https://fraap.org" target="_blank" title="Ouvrir le lien dans une nouvelle fenêtre" class="ct-Link">FRAAP</a>.',
+    'caption_membre_fraap_non' => '@nom@ n&rsquo;est pas membre de la <a href="https://fraap.org" title="Ouvrir le lien dans une nouvelle fenêtre" target="_blank" class="ct-Link">FRAAP</a>.',
 
 	// D
 	'documents_article_titre_singulier' => "Document associé",
@@ -38,4 +39,5 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
     'texte_resultats_total_pluriel' => '@nb@ résultats',
     'texte_bouton_afficher_resultats' => 'Afficher les résultats',
     'texte_bouton_afficher_carte' => 'Afficher la carte',
+	'texte_ouvrir_nouvelle_fenetre' => 'Ouvrir le lien dans une nouvelle fenêtre',
 );
