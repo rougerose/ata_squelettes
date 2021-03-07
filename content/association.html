@@ -48,19 +48,23 @@
                                 </BOUCLE_activites>
                             </ul>
                         </B_activites>
-                        <h2>En ligne</h2>
-                        [<p class="ct-Profile_Online"><a class="ct-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)">[(#URL_SITE|url_absolue)]</a></p>]
-                        <B_rezos>
+                        #SET{facebook, ''} #SET{twitter, ''} #SET{instagram, ''}
+
+                        <BOUCLE_fb(REZOSOCIOS){type_rezo=facebook}{id_association}>#SET{facebook, #NOM_COMPTE}</BOUCLE_fb>
+                        <BOUCLE_tw(REZOSOCIOS){type_rezo=twitter}{id_association}>#SET{twitter, #NOM_COMPTE}</BOUCLE_tw>
+                        <BOUCLE_ig(REZOSOCIOS){type_rezo=instagram}{id_association}>#SET{instagram, #NOM_COMPTE}</BOUCLE_ig>
+
+                        [(#URL_SITE|ou{#GET{facebook}}|ou{#GET{twitter}}|ou{#GET{instagram}})
+                            <h2>En ligne</h2>
+                        ][
+                            <p class="mp-Profile_Online"><a class="mp-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)" title="Ouvrir le site dans une nouvelle fenêtre" target="_blank">[(#URL_SITE|url_absolue)]</a></p>
+                        ][(#GET{facebook}|ou{#GET{twitter}}|ou{#GET{instagram}})
                             <p class="ct-Profile_Online ct-Profile_Online-social">
-                                <BOUCLE_rezos(DATA){liste facebook, twitter, instagram}>
-                                    <BOUCLE_rezo(REZOSOCIOS){type_rezo=#VALEUR}{id_association}>
-                                        <a class="ct-Profile_Social ct-Profile_Social-#VALEUR ct-Profile_Social-on" href="[(#VALEUR|rezosocios_url{#NOM_COMPTE})]" title="[(#GET{asso}|textebrut)] sur [(#VALEUR)]"> </a>
-                                    </BOUCLE_rezo>
-                                        <span class="ct-Profile_Social ct-Profile_Social-off ct-Profile_Social-#VALEUR"> </span>
-                                    <//B_rezo>
-                                </BOUCLE_rezos>
+                                [<a class="ct-Profile_Social ct-Profile_Social-facebook ct-Profile_Social-on" href="(#GET{facebook})" target="_blank" title="[(#GET{asso}|textebrut)] sur Facebook (nouvelle fenêtre)"> </a>]
+                                [<a class="ct-Profile_Social ct-Profile_Social-twitter ct-Profile_Social-on" href="(#GET{twitter})" target="_blank" title="[(#GET{asso}|textebrut)] sur Twitter (nouvelle fenêtre)"> </a>]
+                                [<a class="ct-Profile_Social ct-Profile_Social-instagram ct-Profile_Social-on" href="(#GET{instagram})" target="_blank" title="[(#GET{asso}|textebrut)] sur Instagram (nouvelle fenêtre)"> </a>]
                             </p>
-                        </B_rezos>
+                        ]
                     </section>
                     [<section class="ct-Profile_Member">
                         <figure class="ct-Profile_MemberLogo">
