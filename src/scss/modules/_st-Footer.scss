@@ -118,6 +118,8 @@
         margin-bottom: 0;
     }
 
+
+
     @include mq(m) {
         grid-column-end: span 6;
     }
@@ -143,15 +145,10 @@
     margin: 0;
 }
 
-.st-Footer_NavItem {
-    &::before {
-        margin-right: ($spacing-unit-tiny / 2);
-        content: "/";
-        color: $color-ternary;
-    }
-}
+// .st-Footer_NavItem {}
 
-.st-Footer_NavLink {
+.st-Footer_NavLink,
+.st-Footer_Link {
     border-bottom: 2px solid transparent;
 	transition: border .3s ease;
 
