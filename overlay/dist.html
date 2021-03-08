@@ -1,0 +1,26 @@
+<div class="st-Overlay">
+	<div class="o-wrapper">
+		<nav class="st-NavOverlay">
+			<div class="st-NavOverlay_Head">
+				<div>
+					[(#SET{logo_ATA, #LOGO_SITE_SPIP|extraire_attribut{src}})]
+					<a href="#URL_SITE_SPIP" class="st-NavOverlay_SiteLink st-NavOverlay_SiteLink-logo">
+						<img src="#GET{logo_ATA}" alt="#NOM_SITE_SPIP" class="st-NavOverlay_Logo">
+					</a>
+					<div class="st-Nav_Trigger">
+						<button class="hamburger hamburger--squeeze" type="button">
+							<span class="hamburger-box"><span class="hamburger-inner"></span></span>
+						</button>
+					</div>
+				</div>
+				<a href="#URL_SITE_SPIP" class="st-NavOverlay_SiteLink st-NavOverlay_Slogan">#SLOGAN_SITE_SPIP</a>
+			</div>
+			<div class="st-NavOverlay_Body">
+                [(#INCLURE{fond=inclure/menu, env, identifiant=navigation_overlay})]
+				[(#PLUGIN{sociaux}|oui)
+					[(#INCLURE{fond=inclure/nav/overlay_social, i_total=1})]
+                ]
+			</div>
+		</nav>
+	</div>
+</div>

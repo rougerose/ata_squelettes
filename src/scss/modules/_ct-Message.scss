@@ -1,0 +1,19 @@
+.ct-Message {
+    padding: $spacing-unit-tiny $spacing-unit-small;
+    border-radius: 5px;
+
+    &-warning {
+        background-color: rgba($color-orange-500, 1);
+        color: $color-black;
+        border: 1px solid $color-orange-600;
+    }
+
+    &-modal {
+        margin: 0 $spacing-unit-small;
+    }
+
+    > p {
+        margin-bottom: 0;
+        @include font-size(14px, $modifier:-1);
+    }
+}

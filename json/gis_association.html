@@ -1,0 +1,31 @@
+<BOUCLE_asso(ASSOCIATIONS){gis}{id_association ?}{id_mot ?}{recherche ?}{0, 1}{","}>
+[(#LOGO_ASSOCIATION|oui)
+	[(#SET{logoAsso, [(#LOGO_ASSOCIATION|image_passe_partout{75,75}|image_reduire{75,75})] })]
+	[(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+][(#LOGO_ASSOCIATION|non)
+	[(#SET{logoAsso, [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{75,75}|image_reduire{75,75})]})]
+	[(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+][(#MEMBRE_FRAAP|=={0}|oui)
+	[(#SET{logoMembre, [(#CHEMIN{images/icons/ata-membreFraap-off@2x.png}|balise_img|image_passe_partout{65,65}|image_reduire{65,65})]})]
+	[(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
+][(#MEMBRE_FRAAP|=={1}|oui)
+	[(#SET{logoMembre, [(#CHEMIN{images/icons/ata-membreFraap-on@2x.png}|balise_img|image_passe_partout{65,65}|image_reduire{65,65})]})]
+	[(#SET{srcMembre, [(#GET{logoMembre}|extraire_attribut{src})]})]
+]
+{"type": "Feature",
+["geometry": (#GEOMETRY|appliquer_filtre{wkt_to_json}|sinon{{"type": "Point", "coordinates": \[#LON, #LAT\]}}),]
+"id":"#ID_GIS",
+"properties": {
+	"id_association":"#ID_ASSOCIATION",
+	"nom":[(#NOM*|json_encode)],
+	"membre_fraap":[(#MEMBRE_FRAAP|json_encode)][,
+	"membre_fraap_logo":(#GET{srcMembre}|url_absolue|json_encode)],
+	"url_site":[(#URL_SITE|json_encode)][,
+	"logo":(#GET{srcAsso}|url_absolue|json_encode)][,
+	(#INCLURE{fond=json/inc_association_rezos, id_association})][,
+	(#INCLURE{fond=json/inc_association_adresse, id_association})][,
+	(#INCLURE{fond=json/inc_association_activites, id_association})][
+	(#LOGO_GIS|gis_icon_properties)][,
+	"styles": (#GEOMETRY_STYLES|appliquer_filtre{geometry_styles_to_json})]
+}}</BOUCLE_asso>
+#FILTRE{trim}

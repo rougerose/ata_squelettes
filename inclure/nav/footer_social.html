@@ -1,0 +1,8 @@
+[(#SET{rezo,[(#PIPELINE{sociaux_lister,#ARRAY{args,#ARRAY{skel,#SQUELETTE,date,#ENV**{date}},data,#ARRAY}})]})]
+<ul class="st-Footer_NavList">
+    <BOUCLE_rezos(DATA){source tableau,#GET{rezo}}{par valeur}>
+        [(#CONFIG{sociaux/#CLE}|oui)
+            <li class="st-Footer_NavItem"><a href="[(#CLE|=={mail}|oui)mailto:][(#CLE|=={skype}|oui)callto:]#CONFIG{sociaux/#CLE}" class="st-Footer_NavLink">#VALEUR</a></li>
+        ]
+    </BOUCLE_rezos>
+</ul>

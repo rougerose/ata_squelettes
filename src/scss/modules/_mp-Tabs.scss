@@ -1,0 +1,67 @@
+// .mp-Tabs {}
+
+.mp-Tabs_Header {
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+.mp-Tabs_Tab {
+    position: relative;
+    padding: $spacing-unit-tiny;
+    color: $color-form-label;
+    @include font-size(12px);
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &::after {
+        position: absolute;
+        left: 0;
+        display: flex;
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: $color-form-searchBox-bg;
+        transition: width 0.15s ease, background-color 0.3s ease;
+    }
+
+    &[aria-selected="true"] {
+        color: $color-black;
+
+        &::after {
+            width: 100%;
+            background-color: $color-ternary;
+        }
+    }
+
+    &:hover,
+    &:focus {
+        color: $color-black;
+        outline: currentColor;
+    }
+}
+
+.mp-Tab_Panel {
+    // padding-bottom: $spacing-unit-tiny;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-name: toggleTabs;
+
+    &[aria-hidden="true"] {
+        display: none;
+    }
+}
+
+@keyframes toggleTabs {
+    from {
+        opacity: 0;
+        transform: translateY(5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}

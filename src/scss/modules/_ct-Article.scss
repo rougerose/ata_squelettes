@@ -1,0 +1,325 @@
+// Grille
+
+.ct-Article {
+    display: grid;
+    grid-gap: $spacing-unit-small;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    @include mq(m) {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+}
+
+.ct-Article_Layout {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: 3 / span 8;
+    }
+
+    @include mq(l) {
+        grid-column: 4 / span 7;
+    }
+
+    &-404 {
+        grid-column: span 4;
+        justify-self: center;
+
+        @include mq(m) {
+            grid-column: 4 / span 6;
+        }
+    }
+}
+
+.ct-Article_LayoutNews {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: 4 / 13;
+    }
+
+    @include mq(l) {
+        grid-column: 4 / span 7;
+    }
+}
+
+.ct-Article_LayoutNews-date {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: span 3;
+    }
+}
+
+// Contenu
+
+.ct-Article_Logo {
+    img {
+        margin: 0 auto;
+    }
+}
+
+.ct-Article_Header {
+    margin-bottom: $spacing-unit-large;
+
+    &-404 {
+        margin-bottom: 0;
+        text-align: center;
+    }
+}
+
+.ct-Article_Body {
+    padding-bottom: $spacing-unit-large;
+
+    &-404 {
+        text-align: center;
+    }
+
+    @include mq(m) {
+        padding-bottom: 0;
+    }
+}
+
+.ct-Article_Titre {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: $color-purple-700;
+    @include font-size(28px);
+
+    @include mq(m) {
+        @include font-size(34px);
+    }
+}
+
+.ct-Article_Soustitre {
+    margin: $spacing-unit-small 0 0;
+    @include font-size(18px);
+    color: $color-purple-700;
+
+    @include mq(m) {
+        @include font-size(20px);
+    }
+}
+
+.ct-Article_Date {
+    @include font-size(15px, $line-height: 1.6);
+    color: $color-purple-800;
+
+    @include mq(m) {
+        padding-top: $spacing-unit-small;
+    }
+}
+
+.ct-Article_Texte {
+    @include font-size(16px, $modifier: 0.5);
+
+    // Variante Chapeau
+    &-chapo {
+        margin-bottom: $spacing-unit-large;
+        @include font-size(18px, $modifier: 0.5);
+
+        @include mq(m) {
+            @include font-size(20px, $modifier: 0.5);
+        }
+    }
+
+    // Documents insérés dans le texte
+    .spip_documents {
+        margin: ($spacing-unit-large + $spacing-unit) 0;
+    }
+
+    figcaption {
+        margin-top: $spacing-unit-tiny;
+    }
+
+    // Illustrations
+    .spip_document_image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            max-width: 100%;
+            height: 100%;
+        }
+    }
+
+
+    .spip_doc_legende {
+        margin-top: $spacing-unit-tiny;
+        flex: 1;
+        width: 100%;
+    }
+
+    .spip_doc_titre,
+    .spip_doc_descriptif,
+    .spip_doc_credits {
+        @include font-size(14px, $modifier: -1);
+        color: $color-gray-700;
+    }
+
+    /*
+        Styles du contenu issu de Spip (#TEXTE, #CHAPO, #NOTES, etc.)
+    */
+
+    // Intertitres
+    h2, h3, h4, h5, h6 {
+        margin-top: $spacing-unit;
+        font-weight: normal;
+        color: $color-purple-700;
+    }
+
+    h2 {
+        @include font-size(28px);
+        margin-top: $spacing-unit-large;
+    }
+
+    // Paragraphes
+    p {
+        margin-top: $spacing-unit;
+        margin-bottom: $spacing-unit-small;
+    }
+
+    // Listes
+    li {
+        &::marker {
+            color: $color-purple-700;
+        }
+    }
+
+    // Tableaux
+    table {
+        width: 100%;
+        @include font-size(15px);
+    }
+
+    caption {
+        color: $color-purple-700;
+        font-weight: bold;
+        border-bottom: 1px solid $color-gray-400;
+    }
+
+    th,
+    td {
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    tr {
+        border-bottom: 1px solid $color-gray-400;
+
+        &:last-child {
+            border-width: 2px;
+        }
+    }
+
+    thead {
+        tr {
+            border-bottom: 2px solid $color-gray-400;
+            text-align: left;
+        }
+    }
+
+    // Blockquote
+    blockquote {
+        border-left: 1px solid $color-orange-600;
+        margin-left: 1em;
+        padding-left: 1em;
+        @include font-size(15px);
+
+        @include mq(m) {
+            margin-left: 2em;
+            padding-left: 2em;
+        }
+    }
+
+    // <hr>
+    hr {
+        margin: $spacing-unit-large 0;
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, $color-white 0%, $color-purple-700 50%, $color-white 100%);
+    }
+
+    // Liens
+    a {
+        color: $color-black;
+        border-bottom: 2px solid $color-ternary;
+        transition: color .3s ease;
+
+        &:hover {
+            color: $color-ternary;
+        }
+    }
+
+    // Illustrations
+    .spip_document {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+// Notes
+.spip_note_ref {
+    color: $color-ternary;
+}
+
+.spip_note {
+    padding: 0 3px;
+    color: $color-black;
+    border-bottom: 2px solid $color-ternary;
+    transition: color .3s ease;
+
+    &:hover {
+        color: $color-ternary;
+    }
+}
+
+// Annexes (conteneur documents liés, notes, mots-clés)
+.ct-Article_Annexes {
+    margin-top: $spacing-unit-large + $spacing-unit;
+
+    &::before {
+        display: block;
+        margin-bottom: $spacing-unit-large;
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            $color-white 0%,
+            $color-purple-700 50%,
+            $color-white 100%
+        );
+    }
+}
+
+.ct-Article_Notes {
+    p {
+        @include font-size(14px, $modifier: -0.5);
+    }
+}
+
+.ct-Article_MotsCles {
+    display: flex;
+    flex-wrap: wrap;
+    @include font-size(14px);
+}
+
+.ct-Article_MotCle {
+    white-space: nowrap;
+    margin-right: $spacing-unit-tiny;
+    margin-bottom: $spacing-unit-small;
+    padding: ($spacing-unit-tiny / 2) $spacing-unit-tiny;
+    border-radius: 0.5em;
+    border: 1px solid $color-keyword-bg;
+    color: $color-black;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: $color-keyword-bg;
+    }
+}
+
+// .ct-Article_Formulaire {}

@@ -1,0 +1,158 @@
+.st-Footer {
+    display: none;
+    padding: 0 0 $spacing-unit;
+    color: $color-black;
+    transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+
+    // a {
+    //     border-bottom: 2px solid transparent;
+	//     transition: border .3s ease;
+
+    //     &:hover {
+    //         border-color: $color-ternary !important;
+    //     }
+    // }
+
+	.js & {
+		transform: translateY(20%);
+		opacity: 0;
+
+		&.is-visible {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+    @include mq(m) {
+        display: block;
+    }
+}
+
+// Grille
+.st-Footer_Content {
+    border-top: 1px solid $color-purple-800;
+    padding-top: $spacing-unit-large;
+    display: grid;
+    @include font-size(15px);
+
+    @include mq(m) {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-gap: $spacing-unit-small;
+    }
+
+    @include mq(l) {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+        grid-gap: $spacing-unit-small;
+    }
+}
+
+.st-Footer_About {
+    &-name {
+        grid-row: 1;
+
+        @include mq(m) {
+            grid-column: span 3;
+        }
+
+        @include mq(l) {
+            grid-column: span 4;
+        }
+    }
+
+    &-desc {
+        grid-row: 2;
+
+        @include mq(m) {
+            grid-column: span 3;
+        }
+
+        @include mq(l) {
+            grid-column: span 4;
+        }
+    }
+}
+
+.st-Footer_Nav {
+    grid-row: 2;
+    justify-self: end;
+
+    @include mq(m) {
+        grid-column: 5;
+    }
+
+    @include mq(l) {
+        grid-column: 7;
+    }
+
+    &-social {
+        @include mq(m) {
+            grid-column: 6;
+        }
+
+        @include mq(l) {
+            grid-column: 8;
+        }
+    }
+}
+
+// .st-Footer_NavSocial {
+//     grid-row: 2;
+//     justify-self: end;
+
+//     @include mq(m) {
+//         grid-column: 6;
+//     }
+
+//     @include mq(l) {
+//         grid-column: 8;
+//     }
+// }
+
+.st-Footer_Credits {
+    grid-row: 3;
+    display: flex;
+    justify-content: space-between;
+    @include font-size(13px);
+
+    > p {
+        margin-bottom: 0;
+    }
+
+
+
+    @include mq(m) {
+        grid-column-end: span 6;
+    }
+
+
+    @include mq(l) {
+        grid-column: span 8;
+    }
+}
+
+// Contenu
+.st-Footer_SiteName {
+    @include font-size(17px);
+    margin-bottom: 0;
+}
+
+.st-Footer_SiteDesc {
+    margin-bottom: $spacing-unit-small;
+}
+
+.st-Footer_NavList {
+    list-style: none;
+    margin: 0;
+}
+
+// .st-Footer_NavItem {}
+
+.st-Footer_NavLink,
+.st-Footer_Link {
+    border-bottom: 2px solid transparent;
+	transition: border .3s ease;
+
+    &:hover {
+        border-color: $color-ternary;
+    }
+}

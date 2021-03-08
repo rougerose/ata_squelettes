@@ -1,0 +1,243 @@
+.ct-Profile {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-gap: $spacing-unit-small;
+
+    @include mq(m) {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+}
+
+.ct-Profile_Logo {
+    grid-column: 4/4;
+    grid-row: 1;
+    align-self: center;
+
+    @include mq(m) {
+        grid-column: span 2;
+        justify-self: end;
+    }
+}
+
+.ct-Profile_Header {
+    grid-column: 1/4;
+    grid-row: 1;
+    margin-bottom: $spacing-unit;
+
+    @include mq(m) {
+        grid-column: span 6;
+        align-self: center;
+    }
+}
+
+.ct-Profile_Body {
+    grid-column-end: span 4;
+
+    @include mq(m) {
+        grid-column-end: span 6;
+        grid-column-start: 3;
+    }
+}
+
+
+.ct-Profile_Logo {
+    margin-bottom: $spacing-unit;
+}
+
+.ct-Profile_Name {
+    margin-bottom: 0;
+    margin-left: 1.33rem;
+    color: $color-purple-700;
+    @include font-size(28px, $modifier: -0.5);
+    font-weight: normal;
+}
+
+.ct-Profile_Informations {
+    overflow: hidden;
+
+    h2 {
+        margin: $spacing-unit-small 0 $spacing-unit-tiny;
+        @include font-size(16px, $modifier:-1);
+        text-transform: uppercase;
+        color: $color-purple-700;
+
+		&::before {
+			content: "\002014";
+			margin-right: 0.33rem;
+			font-size: 1rem;
+		}
+	}
+
+	p {
+        margin-left: 1.33rem;
+        margin-bottom: $spacing-unit;
+	}
+}
+
+.ct-Profile_List {
+    list-style: none;
+	margin: 0 0 $spacing-unit;
+}
+
+.ct-Profile_ListItem {
+	position: relative;
+    padding: ($spacing-unit-tiny / 2) 0 ($spacing-unit-tiny) 1.33rem;
+    margin-left: 1rem;
+
+	&::before {
+		position: absolute;
+		left: 0;
+		top: 4px;
+		content: "";
+		width: 18px;
+		height: 18px;
+		background-image: url("../../images/icons/autocomplete-marker@2x.png");
+		background-repeat: no-repeat;
+		background-position: -36px 0;
+	}
+}
+
+.ct-Profile_Address {
+    > span {
+        display: block;
+    }
+}
+
+.ct-Profile_Online {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &-social {
+        display: flex;
+
+        a {
+            border: none;
+        }
+    }
+}
+
+.ct-Profile_WebLink {
+    display: inline-block;
+}
+
+.ct-Profile_Social {
+	background-image: url("../../images/icons/icon-facebook-k-24.svg");
+	background-repeat: no-repeat;
+	display: block;
+	width: 24px;
+	height: 24px;
+	margin-right: $spacing-unit-tiny;
+
+	&-facebook {
+		background-image: url("../../images/icons/icon-facebook-k-24.svg");
+
+		&.ct-Profile_Social-off {
+			background-image: url("../../images/icons/icon-facebook-g-24.svg");
+		}
+	}
+
+	&-twitter {
+		background-image: url("../../images/icons/icon-twitter-k-24.svg");
+
+		&.ct-Profile_Social-off {
+			background-image: url("../../images/icons/icon-twitter-g-24.svg");
+		}
+	}
+
+	&-instagram {
+		background-image: url("../../images/icons/icon-instagram-k-24.svg");
+
+		&.ct-Profile_Social-off {
+			background-image: url("../../images/icons/icon-instagram-g-24.svg");
+		}
+	}
+}
+
+.ct-Profile_Member {
+    margin: $spacing-unit-small 0;
+    padding: $spacing-unit-small 0;
+    position: relative;
+
+
+    &::before,
+    &::after {
+        content: "";
+        height: 1px;
+        background: linear-gradient(90deg, $color-white 0%, $color-gray-300 50%, $color-white 100%);
+        width: 100%;
+        position: absolute;
+    }
+
+    &::before {
+        top: 0;
+    }
+
+    &::after {
+        bottom: 0;
+    }
+}
+
+.ct-Profile_MemberLogo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    margin-right: $spacing-unit;
+}
+
+// .ct-Profile_MemberLogoImg {}
+
+.ct-Profile_MemberLogoCaption {
+    padding-left: $spacing-unit-small;
+}
+
+.ct-Profile_Atlas {
+    display: flex;
+    flex-direction: column;
+    margin: ($spacing-unit + $spacing-unit-small) 0;
+    background-color: rgba($color-gray-300, 0.5);
+    padding: $spacing-unit $spacing-unit-small;
+    border-radius: 4px;
+
+    @include font-size(17px);
+
+    > p {
+        padding-left: 72px;
+        position: relative;
+        color: $color-gray-800;
+
+        &::before {
+            position: absolute;
+            top: -12px;
+            // left: 0;
+            left: $spacing-unit-small * -1;
+            content: "";
+            display: block;
+            width: 70px;
+            height: 60px;
+            background-image: url("../../images/icons/icon-marker-association.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    }
+}
+
+.ct-Profile_AtlasLink {
+    align-self: flex-end;
+    padding: $spacing-unit-tiny;
+    border-radius: 4px;
+    background-color: $color-yellow-500;
+    @include font-size(16px);
+    transition: color 0.3s ease, box-shadow 0.15s ease;
+
+    &::after {
+        content: "\00203A";
+        font-weight: bold;
+        margin-left: $spacing-unit-tiny;
+    }
+
+    &:hover {
+        // color: $color-yellow-100;
+        box-shadow: 0 3px 3px -2px rgba($color-black, 0.2), 0 3px 4px 0 rgba($color-black, 0.12), 0 1px 8px 0 rgba($color-black, 0.12);
+
+    }
+}

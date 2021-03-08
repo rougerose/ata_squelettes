@@ -1,0 +1,77 @@
+<BOUCLE_association(ASSOCIATIONS){id_association}>
+    [(#SET{asso, #NOM})]
+    [(#LOGO_ASSOCIATION|oui)
+    [(#SET{logoAsso, [(#LOGO_ASSOCIATION|image_passe_partout{160, 160}|image_reduire{160, 160})] })]
+    [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+    ][(#LOGO_ASSOCIATION|non)
+    [(#SET{logoAsso,
+    [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{160, 160}|image_reduire{160, 160})]})]
+    [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+    ]<div class="o-wrapper o-wrapper--content">
+        <div class="ct-Main">
+            <article class="ct-Profile">
+                <figure class="ct-Profile_Logo">
+                    [<img class="ct-Profile_LogoImg" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
+                </figure>
+                <header class="ct-Profile_Header">
+                    <h1 class="ct-Profile_Name">#NOM</h1>
+                </header>
+                <div class="ct-Profile_Body">
+                    <section class="ct-Profile_Informations">
+                        <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
+                            <h2>Adresse</h2>
+                                <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#_adresse:ID_ASSOCIATION}>
+                                    [(#CATEGORIE|match{_region}|oui) #SET{region, #ISO_TITRE}][
+                                    (#CATEGORIE|match{_territorial_collectivity}|oui) #SET{region, #ISO_TITRE}][
+                                    (#CATEGORIE|match{_department}|oui) #SET{departement, #ISO_TITRE}]
+                                </BOUCLE_territoires>
+                                <p class="ct-Profile_Address">
+                                    [<span>(#VOIE)</span>]
+                                    [<span>(#COMPLEMENT)</span>]
+                                    [<span>[(#CODE_POSTAL) ](#VILLE)</span>]
+                                    <span>[(#GET{departement}) &#8226; ][(#GET{region})]</span>
+                                </p>
+                        </BOUCLE_adresse>
+                        <B_activites>
+                            <h2>Activités</h2>
+                            <ul class="ct-Profile_List">
+                                <BOUCLE_activites(MOTS){id_association}{id_groupe_racine=1}{par titre}>
+                                    <li class="ct-Profile_ListItem">[(#TITRE)][ (#DESCRIPTIF|textebrut)]</li>
+                                </BOUCLE_activites>
+                            </ul>
+                        </B_activites>
+                        #SET{facebook, ''} #SET{twitter, ''} #SET{instagram, ''}
+
+                        <BOUCLE_fb(REZOSOCIOS){type_rezo=facebook}{id_association}>#SET{facebook, #NOM_COMPTE}</BOUCLE_fb>
+                        <BOUCLE_tw(REZOSOCIOS){type_rezo=twitter}{id_association}>#SET{twitter, #NOM_COMPTE}</BOUCLE_tw>
+                        <BOUCLE_ig(REZOSOCIOS){type_rezo=instagram}{id_association}>#SET{instagram, #NOM_COMPTE}</BOUCLE_ig>
+
+                        [(#URL_SITE|ou{#GET{facebook}}|ou{#GET{twitter}}|ou{#GET{instagram}})
+                            <h2>En ligne</h2>
+                        ][
+                            <p class="mp-Profile_Online"><a class="mp-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)" title="<:ata_squelettes:texte_ouvrir_nouvelle_fenetre:>" target="_blank">[(#URL_SITE|url_absolue)]</a></p>
+                        ][(#GET{facebook}|ou{#GET{twitter}}|ou{#GET{instagram}})
+                            <p class="ct-Profile_Online ct-Profile_Online-social">
+                                [<a class="ct-Profile_Social ct-Profile_Social-facebook ct-Link-noIcon" href="(#GET{facebook})" target="_blank" title="[(#GET{asso}|textebrut)] sur Facebook (nouvelle fenêtre)"> </a>]
+                                [<a class="ct-Profile_Social ct-Profile_Social-twitter ct-Link-noIcon" href="(#GET{twitter})" target="_blank" title="[(#GET{asso}|textebrut)] sur Twitter (nouvelle fenêtre)"> </a>]
+                                [<a class="ct-Profile_Social ct-Profile_Social-instagram ct-Link-noIcon" href="(#GET{instagram})" target="_blank" title="[(#GET{asso}|textebrut)] sur Instagram (nouvelle fenêtre)"> </a>]
+                            </p>
+                        ]
+                    </section>
+                    [<section class="ct-Profile_Member">
+                        <figure class="ct-Profile_MemberLogo">
+                            (#CHEMIN{images/icons/Fraap@2x.png}|balise_img{Fraap, ct-Profile_MemberLogoImg}|image_passe_partout{64,64})
+                            <figcaption class="ct-Profile_MemberLogoCaption">[(#MEMBRE_FRAAP|=={1}|?{<:ata_squelettes:caption_membre_fraap_oui{nom=#NOM}:>, <:ata_squelettes:caption_membre_fraap_non{nom=#NOM}:>})]</figcaption>
+                        </figure>
+                    </section>]
+                    <div class="ct-Profile_Atlas">
+                        <BOUCLE_total(ASSOCIATIONS){gis}>[(#SET{id, #ID_GIS})] </BOUCLE_total>[(#SET{total, #TOTAL_BOUCLE})]</B_total>
+                        <p>#NOM est <a class="ct-Link" href="[(#URL_RUBRIQUE{1}|parametre_url{id_gis, #GET{id}})]">présent&middot;e</a> dans l&rsquo;Atlas des autres territoires de l&rsquo;art.<br/>Il rassemble à ce jour [(#GET{total}) ]lieux et associations.</p>
+                        <a href="#URL_RUBRIQUE{1}" class="o-btn ct-Profile_AtlasLink">Consulter l&rsquo;Atlas</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</BOUCLE_association>
+#FILTRE{trim}

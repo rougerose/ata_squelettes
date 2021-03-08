@@ -1,0 +1,42 @@
+<BOUCLE_article(ARTICLES){id_article}>
+    <div class="o-wrapper">
+        <div class="ct-Main">
+            <article class="ct-Article">
+                <div class="ct-Article_LayoutNews ct-Article_LayoutNews-date">
+                    <p class="ct-Article_Date">[(#DATE|affdate{d.m.Y})]</p>
+                </div>
+                <div class="ct-Article_LayoutNews">
+                    <header class="ct-Article_Header">
+                        [<p class="ct-Article_Surtitre">(#SURTITRE)</p>]
+                        <h1 class="ct-Article_Titre">#TITRE</h1>
+                        [<p class="ct-Article_Soustitre">(#SOUSTITRE)</p>]
+                    </header>
+                    <div class="ct-Article_Body">
+                        [<div class="ct-Article_Texte ct-Article_Texte-chapo">
+                            (#CHAPO)
+                        </div>]
+                        [<div class="ct-Article_Texte">
+                            (#TEXTE)
+                        </div>]
+
+                        [(#INCLURE{fond=inclure/liste/article-documents,id_article,id_rubrique='',env})]
+
+                        [<div class="ct-Article_Annexes ct-Article_Notes">
+                            (#NOTES)
+                        </div>]
+
+                        <B_article_mots>
+                            <div class="ct-Article_Annexes">
+                                <div class="ct-Article_MotsCles">
+                                    <BOUCLE_article_mots(MOTS){id_article}{par titre}>
+                                        <a href="#URL_MOT" class="ct-Article_MotCle">#TITRE</a>
+                                    </BOUCLE_article_mots>
+                                </div>
+                            </div>
+                        </B_article_mots>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</BOUCLE_article>

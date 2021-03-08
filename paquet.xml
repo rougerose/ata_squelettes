@@ -1,0 +1,32 @@
+<paquet
+	prefix="ata_squelettes"
+	categorie="squelette"
+	version="1.0.0"
+	etat="stable"
+	compatibilite="[3.3.0-dev;3.3.*]"
+	logo="prive/themes/spip/images/ata_squelettes-64.png"
+	documentation=""
+>
+	<nom>ATA Squelettes</nom>
+	<auteur lien='https://rouge-rose.net'>christophe le drean</auteur>
+	<licence>GNU/GPL v3</licence>
+	<necessite nom="zcore" compatibilite="[2.8.7;]" />
+	<necessite nom="ata_associations" compatibilite="[1.0.0;]" />
+	<necessite nom="compositions" compatibilite="[3.8.1;]" />
+	<necessite nom="selecteurgenerique" compatibilite="[1.1.14;]" />
+	<necessite nom="menus" compatibilite="[1.7.26;]" />
+	<necessite nom="pages" compatibilite="[1.5.3;]" />
+
+	<utilise nom="sociaux" compatibilite="[2.2.0;]" />
+	<utilise nom="gis" compatibilite="[4.49.2;]" />
+	<utilise nom="saisies" />
+	<utilise nom="bellespuces" />
+	<utilise nom="contact" />
+
+    <pipeline nom="recuperer_fond" inclure="ata_squelettes_pipelines.php" />
+
+	<spip compatibilite="[3.3.0-dev;3.3.*]">
+		<script type="public" source="dist/js/ata.min.js" />
+		<script type="public" source="dist/js/ata_init.min.js" />
+	</spip>
+</paquet>

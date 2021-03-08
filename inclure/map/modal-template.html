@@ -1,0 +1,78 @@
+<div id="Modal" class="mp-Modal" data-visibility-status="">
+    <div class="mp-Modal_Inner">
+        <div class="mp-Modal_Scroll">
+            <div class="mp-Modal_Content">
+                <div class="mp-Modal_Btns">
+                    <button id="ModalToggle" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-toggle">
+                        [(#INCLURE{fond=images/icons/icon-modal-caret-48.svg, class=mp-Modal_BtnBg})]
+                    </button>
+                    <button id="ModalClose" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-close">
+                        [(#INCLURE{fond=images/icons/icon-modal-close-48.svg, class=mp-Modal_BtnBg})]
+                    </button>
+                </div>
+                <article class="mp-Profile">
+                    <header class="mp-Profile_Header">
+                        <figure class="mp-Profile_Logo">
+                            [(#SET{logo,
+                            #LOGO_SITE_SPIP|image_passe_partout{75,75}|image_reduire{75,0}})][(#SET{src,
+                            #GET{logo}|extraire_attribut{src}})]
+                            <img class="mp-Profile_LogoImg" src="#GET{src}" alt="">
+                        </figure>
+                        <h1 class="mp-Profile_Name">Nom de l'association un peu long</h1>
+                    </header>
+                    <div class="mp-Profile_Body">
+                        <section class="mp-Profile_Informations">
+                            <h2>Adresse</h2>
+                            <p class="mp-Profile_Address">
+                                <span>92 rue de l'Ourcq</span>
+                                <span>75019 Paris</span>
+                            </p>
+                            <h2>Activités</h2>
+                            <ul class="mp-Profile_List">
+                                <li class="mp-Profile_ListItem">Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit.
+                                    Amet, laudantium at.</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                                <li class="mp-Profile_ListItem">Titre activité</li>
+                            </ul>
+                            <h2>En ligne</h2>
+                            <p class="mp-Profile_Online"><a class="mp-Profile_WebLink"
+                                    href="#">http://www.domainedomainedomainedomainedomaine.com</a>
+                            </p>
+                            <p class="mp-Profile_Online mp-Profile_Online-social">
+                                <a class="mp-Profile_Social mp-Profile_Social-facebook mp-Profile_Social-on" href="#"> </a>
+                                <span class="mp-Profile_Social mp-Profile_Social-off mp-Profile_Social-twitter">
+                                </span> <span class="mp-Profile_Social mp-Profile_Social-off mp-Profile_Social-instagram">
+                                </span>
+                            </p>
+                        </section>
+                        <section class="mp-Profile_Member">
+                            <figure class="mp-Profile_MemberLogo">
+                                <img class="mp-Profile_MemberLogoImg"
+                                    src="[(#CHEMIN{images/icons/ata-membreFraap-on@2x.png}|balise_img|image_passe_partout{77,77}|extraire_attribut{src})]"
+                                    alt="">
+                                <figcaption class="mp-Profile_MemberLogoCaption">Cette association est membre de la <a
+                                        href="">Fraap</a></figcaption>
+                            </figure>
+                        </section>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

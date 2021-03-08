@@ -1,0 +1,16 @@
+<BOUCLE_rubrique_actualites(RUBRIQUES){id_rubrique}>
+    <div class="o-wrapper">
+        <div class="ct-Main">
+            <article class="ct-Rubrique">
+                <div class="ct-Rubrique_Grid">
+                    <header class="ct-Rubrique_Header">
+                        <h1 class="ct-Rubrique_Titre">#TITRE</h1>
+                    </header>
+                </div>
+                <div class="ct-Rubrique_Body">
+                    <INCLURE{fond=inclure/liste/rubrique-articles, env, ajax} />
+                </div>
+            </article>
+        </div>
+    </div>
+</BOUCLE_rubrique_actualites>

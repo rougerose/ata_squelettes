@@ -1,0 +1,23 @@
+<footer data-section class="st-Footer">
+    <div class="o-wrapper">
+        <div class="st-Footer_Content">
+            <div class="st-Footer_About st-Footer_About-name">
+                <h1 class="st-Footer_SiteName">#NOM_SITE_SPIP <span> / #SLOGAN_SITE_SPIP</span></h1>
+            </div>
+            <div class="st-Footer_About st-Footer_About-desc">
+                [<div class="st-Footer_SiteDesc">(#DESCRIPTIF_SITE_SPIP)</div>]
+            </div>
+            <div class="st-Footer_Nav">
+                [(#INCLURE{fond=inclure/menu, env, identifiant=navigation_footer})]
+            </div>
+            <div class="st-Footer_Nav st-Footer_Nav-social">
+                [(#PLUGIN{sociaux}|oui)
+                #INCLURE{fond=inclure/nav/footer_social}]
+            </div>
+            <div class="st-Footer_Credits">
+                <p><:ata_squelettes:ata_initiative_fraap{nom=#NOM_SITE_SPIP / #SLOGAN_SITE_SPIP}:></p>
+                <p><BOUCLE_legal(ARTICLES){page=legal}><a class="st-Footer_Link" href="[(#URL_PAGE{legal})]">[(#TITRE)]</a></BOUCLE_legal></p>
+            </div>
+        </div>
+    </div>
+</footer>

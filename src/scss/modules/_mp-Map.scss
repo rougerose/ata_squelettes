@@ -1,0 +1,73 @@
+// ========================================
+// mp-Map
+// ========================================
+
+.mp-Map {
+	position: relative;
+	overflow: hidden;
+
+	.leaflet-container {
+		font: inherit;
+
+		a {
+			color: currentColor;
+		}
+	}
+
+	// Surcharger le z-index défini par les css de leaflet
+	.leaflet-pane,
+	.leaflet-top,
+	.leaflet-bottom {
+		z-index: $zindex-map;
+	}
+
+	// Désactiver will-change (en nombre trop important selon Firefox)
+	.leaflet-fade-anim .leaflet-tile,
+	.leaflet-zoom-anim .leaflet-zoom-animated {
+		will-change: auto !important;
+    }
+
+    // Surcharge des popup
+    .leaflet-popup-content {
+        text-align: center;
+        @include font-size(14px, $modifier: -1);
+
+        .title {
+            display: block;
+            color: $color-purple-700;
+        }
+    }
+
+	// Ajouter une transition sur les 4 div enfants de leaflet-control-container
+	// pour les déplacements de ces éléments en fonction de la position
+	// de la fenêtre modale et du formulaire de recherche.
+	.leaflet-control-container {
+		div {
+			transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+	}
+
+    .leaflet-bar {
+        border: 1px solid $color-gray-500;
+    }
+
+	// la classe de la carte générée par le plugin GIS n'est pas modifiable
+	.carte_gis {
+		width: 100%;
+		height: calc(100vh - #{$headerHeight-mobile});
+
+		@include mq(m) {
+			height: calc(100vh - #{$headerHeight-desktop});
+		}
+
+		//réduire la hauteur pour les terminaux mobiles en orientation paysage
+		@media (max-height: $maxHeight) and (orientation: landscape) {
+			height: calc(100vh - #{$headerHeight-mobile});
+		}
+	}
+
+    // easy-button
+    .easy-button-button {
+        padding: 4px;
+    }
+}

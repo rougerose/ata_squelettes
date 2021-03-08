@@ -1,0 +1,19 @@
+.mp-Modal_Bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: $zindex-modal-desktop - 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-white;
+    padding: $spacing-unit-small;
+    box-shadow: 0 -1px 4px rgba($color-black, 0.25);
+}
+
+.mp-Modal_SearchResultsInfos {
+    margin-bottom: 0;
+    @include font-size(15px, $modifier: -1);
+    font-weight: bold;
+}

@@ -1,0 +1,72 @@
+
+.mp-MarkerCluster {
+	background-clip: padding-box;
+	border-radius: 50%;
+	background-color: $color-orange-500;
+
+	& > div {
+		display: flex;
+		align-items: center;
+		width: calc(100% - 6px);
+		height: calc(100% - 6px);
+		margin-left: 3px;
+		margin-top: 3px;
+		background-color: $color-purple-500;
+		border-radius: 50%;
+		@include font-size(12px, $line-height: false);
+
+		span {
+			margin: auto;
+			color: $color-white;
+		}
+	}
+
+	&-xs {
+		width: 19px;
+        height: 19px;
+        & > div {
+            background-color: $color-purple-500;
+        }
+	}
+
+	&-s {
+		width: 25px;
+        height: 25px;
+        & > div {
+            background-color: $color-purple-600;
+        }
+	}
+
+	&-m {
+		width: 29px;
+        height: 29px;
+        & > div {
+            background-color: $color-purple-700;
+        }
+	}
+
+	&-l {
+		width: 34px;
+        height: 34px;
+        & > div {
+            background-color: $color-purple-600;
+        }
+	}
+
+	&-xl {
+		width: 39px;
+        height: 39px;
+        & > div {
+            background-color: $color-purple-500;
+        }
+	}
+
+	&-xxl {
+		width: 44px;
+        height: 44px;
+
+        & > div {
+            background-color: $color-purple-600;
+        }
+	}
+}

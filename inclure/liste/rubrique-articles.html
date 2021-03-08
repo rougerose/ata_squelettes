@@ -1,0 +1,23 @@
+<B_articles_actualites>
+    #ANCRE_PAGINATION
+    <ul class="ct-Rubrique_Articles">
+        <BOUCLE_articles_actualites(ARTICLES){id_rubrique}{!par date}{pagination 20}>
+            <li class="ct-Rubrique_Article ct-ArticleResume">
+                <div class="ct-ArticleResume_Layout ct-ArticleResume_Layout-date">
+                    <p class="ct-ArticleResume_Date"><a class="ct-ArticleResume_Link"
+                            href="#URL_ARTICLE">[(#DATE|affdate{d.m.Y})]</a></p>
+                </div>
+                <div class="ct-ArticleResume_Layout ct-ArticleResume_Layout-body">
+                    <h2 class="ct-ArticleResume_Titre"><a href="#URL_ARTICLE"
+                            class="ct-ArticleResume_Link ct-ArticleResume_Link-body">#TITRE</a></h2>
+                    <div class="ct-ArticleResume_Desc">#INTRODUCTION{300}</div>
+                </div>
+            </li>
+        </BOUCLE_articles_actualites>
+    </ul>
+    [<div class="ct-Pagination ct-Pagination-bottom">
+        <nav class="ct-Pagination_Nav pagination">
+            (#PAGINATION{page, label='page'})
+        </nav>
+    </div>]
+</B_articles_actualites>

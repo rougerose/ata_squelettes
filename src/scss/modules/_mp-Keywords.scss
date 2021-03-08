@@ -1,0 +1,170 @@
+.mp-Keywords {
+    position: relative;
+    display: flex;
+    @include font-size(13px, $modifier: -1);
+
+    /*
+        Variante toSelect/Selected
+        - toSelect : les mots-clés disponibles à la sélection depuis le panneau Activités.
+        - selected : les mots-clés sélectionnés par l'utilisateur.
+    */
+
+    // &-toSelect {}
+
+    &-selected {
+        padding-left: $searchbox-padding-left;
+
+        &::after {
+            position: absolute;
+            width: $spacing-unit-tiny;
+            // z-index: $zindex-searchbox + 1;
+            flex: 0 0 auto;
+            content: "";
+            background-color: $color-white;
+            top: 0;
+            bottom: 0;
+        }
+
+        &::before {
+            left: 0;
+        }
+
+        &::after {
+            right: 0;
+        }
+    }
+}
+
+.mp-Keywords_List {
+	list-style: none;
+	margin: 0;
+	padding: $spacing-unit-tiny 0 8px;
+	display: flex;
+	flex-wrap: nowrap;
+    overflow: auto;
+
+	&::after {
+		content: "";
+		width: $spacing-unit-tiny;
+		flex: 0 0 auto;
+    }
+
+    .mp-Keywords-selected & {
+        padding-top: 0;
+    }
+}
+
+.mp-Keywords_Item {
+    position: relative;
+	display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    margin-right: $spacing-unit-tiny;
+    padding: ($spacing-unit-tiny / 2);
+	border-radius: 0.5em;
+    color: $color-black;
+    transition: background-color 0.3s ease;
+    cursor:pointer;
+    animation: keywords-slidein 350ms backwards;
+
+
+    &[aria-selected="true"],
+    &.is-focused {
+        background-color: $color-keyword-bg;
+    }
+
+    &::before {
+        margin-right: ($spacing-unit-tiny / 2);
+        content: "";
+		width: 16px;
+		height: 16px;
+		background-image: url("../../images/icons/autocomplete-marker@2x.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 0 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    /*
+        Variante toSelect/Selected
+        - toSelect : les mots-clés disponibles à la sélection depuis le panneau Activités.
+        - selected : les mots-clés sélectionnés par l'utilisateur.
+    */
+
+    &-toSelect {
+        border: 1px solid $color-keyword-bg;
+
+        &:hover {
+            background-color: $color-keyword-bg;
+        }
+    }
+
+    &-selected {
+        background-color: $color-keyword-bg;
+    }
+
+    /*
+        Variante city/activity/org
+        permet d'afficher l'icone correspondant à la catégorie parente du mot-clé
+    */
+
+    &-city {
+		&::before {
+			background-position: -16px 0;
+		}
+	}
+
+	&-activity {
+		&::before {
+		  background-position: -32px 0;
+		}
+	}
+
+	&-org {
+		&::before {
+			background-position: 0 0;
+		}
+    }
+}
+
+@keyframes keywords-slidein {
+ 0% {
+  opacity:0
+ }
+ 1% {
+  transform:translateX(260px)
+ }
+ 100% {
+  opacity:1;
+  transform:translateX(0)
+ }
+}
+
+.mp-Keywords_BtnDelete {
+    display: flex;
+    padding: 10px;
+    border-radius: 100%;
+    background-color: $color-keyword-delete-bg;
+    margin-left: $spacing-unit-tiny;
+    background-size: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 0 0 rgba($color-yellow-500, 0);
+
+}
+
+.mp-Keywords_BtnDelete {
+	background-image: url("../../images/icons/icon-delete-32.svg");
+    box-shadow: 0 0 0 0 rgba($color-yellow-500, 0);
+    transform-origin: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+
+	&:hover {
+        background-color: $color-yellow-200;
+        box-shadow: -1px -2px 3px 2px rgba($color-yellow-600, 1);
+        transform: rotate(-180deg);
+	}
+}

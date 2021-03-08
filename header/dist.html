@@ -1,0 +1,17 @@
+<div class="st-Header_Nav">
+	<div class="o-wrapper">
+		<nav class="st-Nav">
+			[(#SET{logo_ATA, #LOGO_SITE_SPIP|extraire_attribut{src}})]
+			<a href="#URL_SITE_SPIP" class="st-Nav_SiteLink st-Nav_Slogan">#SLOGAN_SITE_SPIP</a>
+			<a href="#URL_SITE_SPIP" class="st-Nav_SiteLink st-Nav_SiteLink-logo">
+				<img src="#GET{logo_ATA}" alt="#NOM_SITE_SPIP" class="st-Nav_Logo">
+			</a>
+            [(#INCLURE{fond=inclure/menu, env, identifiant=navigation_principale})]
+			<div class="st-Nav_Trigger">
+				<button class="hamburger hamburger--squeeze" type="button">
+					<span class="hamburger-box"><span class="hamburger-inner"></span></span>
+				</button>
+			</div>
+		</nav>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+<B_activities>
+    <div id="Keyword" class="mp-Keywords mp-Keywords-toSelect">
+        <ul id="listBox" class="mp-Keywords_List" role="listbox" aria-multiselectable="true" tabindex="0" aria-labelledby="activities">
+            <BOUCLE_activities(MOTS spip_associations){mots_liens.objet=association}{par titre}{id_groupe_racine=1}>
+                <li id="[listOption_(#COMPTEUR_BOUCLE)]" role="option" aria-selected="false" class="mp-Keywords_Item mp-Keywords_Item-toSelect mp-Keywords_Item-activity" data-value="[id_mot:(#ID_MOT)]" data-label="[(#TITRE|textebrut)]">[(#TITRE)]</li>
+            </BOUCLE_activities>
+        </ul>
+    </div>
+</B_activities>

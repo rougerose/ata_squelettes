@@ -1,0 +1,55 @@
+.ct-Pagination {
+    display: grid;
+    grid-gap: $spacing-unit-small;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-bottom: $spacing-unit;
+
+    &-bottom {
+        padding-bottom: $spacing-unit-large;
+    }
+
+    @include mq(m) {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+
+        &-bottom {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.ct-Pagination_Nav {
+    grid-column: span 4;
+
+    @include mq(m) {
+        grid-column: 4 / span 9;
+    }
+
+    .label {
+        padding-right: $spacing-unit-small;
+        font-weight: 300;
+        color: $color-purple-900;
+    }
+
+    .sep {
+        color: $color-purple-900;
+        margin: 0 ($spacing-unit-tiny / 2);
+        font-weight: 300;
+    }
+
+    .on {
+        background-color: $color-ternary;
+        padding: 0 ($spacing-unit-tiny / 2);
+    }
+
+    .lien_pagination {
+        color: $color-black;
+        font-weight: bold;
+	    border-bottom: 2px solid $color-ternary;
+        padding: 0 ($spacing-unit-tiny / 2);
+	    transition: color .3s ease;
+
+        &:hover {
+            color: $color-ternary !important;
+        }
+    }
+}

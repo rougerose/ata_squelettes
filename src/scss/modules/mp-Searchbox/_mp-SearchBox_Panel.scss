@@ -1,0 +1,14 @@
+.mp-SearchBox_Panels {
+    padding: $spacing-unit-tiny / 2 $spacing-unit-tiny $spacing-unit-tiny / 2 $searchbox-padding-left;
+}
+
+.mp-SearchBox_Panel {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-name: toggleTabs;
+
+    &[aria-hidden="true"] {
+        display: none;
+    }
+}

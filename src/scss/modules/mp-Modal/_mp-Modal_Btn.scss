@@ -1,0 +1,97 @@
+$btnWidth: 28px;
+$btnHeight: 28px;
+
+.mp-Modal_Btns {
+    display: flex;
+    position: absolute;
+    right: $spacing-unit-small;
+}
+
+.mp-Modal_BtnAction {
+	display: flex;
+	flex-shrink: 0;
+	width: $btnWidth;
+    height: $btnHeight;
+    margin-left: $spacing-unit-small;
+	border-radius: 50%;
+	background-color: $color-white;
+    transition: background-color 0.3s ease;
+
+	&:hover {
+        background-color: $color-ternary;
+        circle {
+            stroke: $color-ternary;
+        }
+    }
+
+    &-toggle {
+
+        path {
+            transform-origin: center;
+            transition: transform 0.1s;
+        }
+
+        &.is-toggle-up {
+            path {
+                transform: rotate(180deg);
+            }
+        }
+
+        &.is-toggle-down {
+            path {
+                transform: rotate(0);
+            }
+        }
+
+        @include mq(m) {
+            visibility: hidden;
+        }
+    }
+
+	// classe ajouté par js, après transitionend
+	&.is-ready-to-animate {
+		circle {
+			stroke-dashoffset: 0;
+			transition-delay: 0.3s;
+			animation: 0.3s ease 0.5s 1 color_change;
+		}
+	}
+}
+
+.mp-Modal_BtnBg {
+	width: $btnWidth;
+    height: $btnHeight;
+    pointer-events: none;
+
+	circle {
+		stroke-width: 2.5;
+		stroke: $color-black;
+		transition: stroke-dashoffset 0.3s 0s;
+	}
+}
+
+.mp-Modal_BtnViewToggle {
+    border: 2px solid $color-ternary;
+    border-radius: 0.5em;
+    padding: $spacing-unit-tiny;
+    background-color: $color-white;
+    @include font-size(14px, $modifier: -1);
+    transition: background 0.3s ease;
+
+    @include mq(m) {
+        display: none;
+    }
+
+    &:hover {
+        background-color: $color-ternary;
+    }
+}
+
+@keyframes color_change {
+	from {
+		stroke: $color-black;
+	}
+	to {
+		stroke: $color-gray-200;
+	}
+}

@@ -1,0 +1,14 @@
+<form method="post" onsubmit="return false;">
+    [(#SET{params, #ARRAY{limite, 10}|json_encode|attribut_html})]
+    [(#SET{dataid, #VAL{1}|uniqid})]
+    [(#SET{attributs, value="" data-id="[(#GET{dataid})]" data-selecteur="atlas_towns" data-select-php="oui" data-select-callback="autocomplete_callback" data-select-params="[(#GET{params})]"})]
+    <div class="editer-groupe mp-SearchBox_GroupFulltext">
+        [(#SAISIE{input, villes, label=<:ata_squelettes:label_recherche_ville:>, class=mp-SearchBox_InputFulltext, attributs=#GET{attributs}})]
+        [<div class="o-btn mp-SearchBox_BtnSearch">
+            (#INCLURE{fond=images/icons/icon-search-32.svg, class=mp-SearchBox_IconSearch})
+        </div>]
+        [<button type="reset" data-rel-id="[(#GET{dataid})]" aria-label="<:ata_squelettes:label_effacer:>" class="o-btn mp-SearchBox_BtnCancel">
+            (#INCLURE{fond=images/icons/icon-cancel-32.svg, class=mp-SearchBox_IconCancel})
+        </button>]
+    </div>
+</form>

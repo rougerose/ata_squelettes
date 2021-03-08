@@ -1,0 +1,45 @@
+// ========================================
+// mp-SearchBox (map search box)
+// ========================================
+.mp-SearchBox {
+    position: absolute;
+    z-index: $zindex-searchbox-mobile;
+	width: calc(100% - #{$spacing-unit});
+	top: 0;
+	left: $spacing-unit-small;
+
+	// Annuler le z-index de jquery-ui
+	&.ui-front {
+		z-index: $zindex-searchbox-mobile;
+	}
+
+	@include mq(m) {
+        width: calc(40% - #{$spacing-unit});
+        max-width: $ui-width-large - $spacing-unit;
+        // width: ($ui-width-large - ($spacing-unit));
+        z-index: $zindex-searchbox-desktop;
+
+        &.ui-front {
+		    z-index: $zindex-searchbox-desktop;
+	    }
+	}
+}
+
+.mp-SearchBox_Module {
+	position: relative;
+	z-index: $zindex-searchbox-mobile + 1;
+	margin-top: $spacing-unit-tiny;
+	@include font-size(15px, $modifier: -1);
+	background-color: $color-form-searchBox-bg;
+    box-shadow: 0 4px 4px rgba($color-purple-900, 0.25);
+
+    @include mq(m) {
+        z-index: $zindex-searchbox-desktop + 1;
+    }
+}
+
+@import "mp-SearchBox_Fulltext";
+@import "mp-SearchBox_Panel";
+@import "mp-SearchBox_Form";
+@import "mp-SearchBox_Btn";
+@import "mp-SearchBox_Icon";

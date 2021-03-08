@@ -1,0 +1,86 @@
+<div class="mp-Modal_Inner">
+    <div class="mp-Modal_Scroll">
+        <div class="mp-Modal_Content">
+            <div class="mp-Modal_Btns">
+                <button id="ModalToggle" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-toggle" data-modal-action="toggle">
+                    [(#INCLURE{fond=images/icons/icon-modal-caret-48.svg, class=mp-Modal_BtnBg})]
+                </button>
+                <button id="ModalClose" class="o-btn mp-Modal_BtnAction mp-Modal_BtnAction-close" data-modal-action="close">
+                    [(#INCLURE{fond=images/icons/icon-modal-close-48.svg, class=mp-Modal_BtnBg})]
+                </button>
+            </div>
+            <BOUCLE_gis(spip_gis_liens){id_gis}{objet=association}>
+                <BOUCLE_modal_association(ASSOCIATIONS){id_gis}{id_association=#ID_OBJET}>
+                    [(#SET{asso, #NOM})]
+                    [(#LOGO_ASSOCIATION|oui)
+                        [(#SET{logoAsso, [(#LOGO_ASSOCIATION|image_passe_partout{75,75}|image_reduire{75,75})] })]
+                        [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+                    ][(#LOGO_ASSOCIATION|non)
+                        [(#SET{logoAsso,
+                        [(#CHEMIN{images/icons/ata-org-logo-remplacement@2x.png}|balise_img|image_passe_partout{75,75}|image_reduire{75,75})]})]
+                        [(#SET{srcAsso, #GET{logoAsso}|extraire_attribut{src}})]
+                    ]<article class="mp-Profile">
+                        <header class="mp-Profile_Header">
+                            <figure class="mp-Profile_Logo">
+                                [<img class="mp-Profile_LogoImg" src="(#GET{srcAsso})" alt="[(#NOM|textebrut)]">]
+                            </figure>
+                            <h1 class="mp-Profile_Name">#NOM</h1>
+                        </header>
+                        <div class="mp-Profile_Body">
+                            <section class="mp-Profile_Informations">
+                                <BOUCLE_adresse(ADRESSES){id_association}{type=work}>
+                                    <h2>Adresse</h2>
+                                    <BOUCLE_pays(PAYS){code=#PAYS}>[(#SET{pays,#NOM})]</BOUCLE_pays>
+                                    <BOUCLE_territoires(TERRITOIRES spip_territoires_liens){objet=association}{id_objet=#_adresse:ID_ASSOCIATION}>
+                                        [(#CATEGORIE|match{_region}|oui) #SET{region, #ISO_TITRE}][
+                                        (#CATEGORIE|match{_territorial_collectivity}|oui) #SET{region, #ISO_TITRE}][
+                                        (#CATEGORIE|match{_department}|oui) #SET{departement, #ISO_TITRE}]
+                                    </BOUCLE_territoires>
+                                    <p class="mp-Profile_Address">
+                                        [<span>(#VOIE)</span>]
+                                        [<span>(#COMPLEMENT)</span>]
+                                        [<span>[(#CODE_POSTAL) ](#VILLE)</span>]
+                                        <span>[(#GET{departement}) &#8226; ][(#GET{region})]</span>
+                                    </p>
+                                </BOUCLE_adresse>
+                                <B_activites>
+                                    <h2>Activités</h2>
+                                    <ul class="mp-Profile_List">
+                                        <BOUCLE_activites(MOTS){id_association}{id_groupe_racine=1}{par titre}>
+                                            <li class="mp-Profile_ListItem">[(#TITRE)][ (#DESCRIPTIF|textebrut)]</li>
+                                        </BOUCLE_activites>
+                                    </ul>
+                                </B_activites>
+
+                                #SET{facebook, ''} #SET{twitter, ''} #SET{instagram, ''}
+
+                                <BOUCLE_fb(REZOSOCIOS){type_rezo=facebook}{id_association}>#SET{facebook, #NOM_COMPTE}</BOUCLE_fb>
+                                <BOUCLE_tw(REZOSOCIOS){type_rezo=twitter}{id_association}>#SET{twitter, #NOM_COMPTE}</BOUCLE_tw>
+                                <BOUCLE_ig(REZOSOCIOS){type_rezo=instagram}{id_association}>#SET{instagram, #NOM_COMPTE}</BOUCLE_ig>
+
+                                [(#URL_SITE|ou{#GET{facebook}}|ou{#GET{twitter}}|ou{#GET{instagram}})
+                                <h2>En ligne</h2>
+                                ][
+                                    <p class="mp-Profile_Online"><a class="mp-Profile_WebLink ct-Link" href="(#URL_SITE|url_absolue)" title="<:ata_squelettes:texte_ouvrir_nouvelle_fenetre:>" target="_blank">[(#URL_SITE|url_absolue)]</a></p>
+                                ][(#GET{facebook}|ou{#GET{twitter}}|ou{#GET{instagram}})
+                                    <p class="mp-Profile_Online mp-Profile_Online-social">
+                                        [<a class="mp-Profile_Social mp-Profile_Social-facebook ct-Link-noIcon" href="(#GET{facebook})" target="_blank" title="[(#GET{asso}|textebrut)] sur Facebook (nouvelle fenêtre)"> </a>]
+                                        [<a class="mp-Profile_Social mp-Profile_Social-twitter ct-Link-noIcon" href="(#GET{twitter})" target="_blank" title="[(#GET{asso}|textebrut)] sur Twitter (nouvelle fenêtre)"> </a>]
+                                        [<a class="mp-Profile_Social mp-Profile_Social-instagram ct-Link-noIcon" href="(#GET{instagram})" target="_blank" title="[(#GET{asso}|textebrut)] sur Instagram (nouvelle fenêtre)"> </a>]
+                                    </p>
+                                ]
+                            </section>
+                            [<section class="mp-Profile_Member">
+                                <figure class="mp-Profile_MemberLogo">
+                                    (#CHEMIN{images/icons/Fraap@2x.png}|balise_img{Fraap, mp-Profile_MemberLogoImg}|image_passe_partout{64,64})
+                                    <figcaption class="mp-Profile_MemberLogoCaption">[(#MEMBRE_FRAAP|=={1}|?{<:ata_squelettes:caption_membre_fraap_oui{nom=#NOM}:>, <:ata_squelettes:caption_membre_fraap_non{nom=#NOM}:>})]</figcaption>
+                                </figure>
+                            </section>]
+                        </div>
+                    </article>
+                </BOUCLE_modal_association>
+            </BOUCLE_gis>
+        </div>
+    </div>
+</div>
+#FILTRE{trim}
