@@ -42,9 +42,9 @@
                         </B_activites>
                         #SET{facebook, ''} #SET{twitter, ''} #SET{instagram, ''}
 
-                        <BOUCLE_fb(REZOSOCIOS){type_rezo=facebook}{id_association}>#SET{facebook, #NOM_COMPTE}</BOUCLE_fb>
-                        <BOUCLE_tw(REZOSOCIOS){type_rezo=twitter}{id_association}>#SET{twitter, #NOM_COMPTE}</BOUCLE_tw>
-                        <BOUCLE_ig(REZOSOCIOS){type_rezo=instagram}{id_association}>#SET{instagram, #NOM_COMPTE}</BOUCLE_ig>
+                        <BOUCLE_fb(REZOSOCIOS){type_rezo=facebook}{id_association}>#SET{facebook, #TYPE_REZO*|rezosocios_url{#NOM_COMPTE}}</BOUCLE_fb>
+                        <BOUCLE_tw(REZOSOCIOS){type_rezo=twitter}{id_association}>#SET{twitter, #TYPE_REZO*|rezosocios_url{#NOM_COMPTE}}</BOUCLE_tw>
+                        <BOUCLE_ig(REZOSOCIOS){type_rezo=instagram}{id_association}>#SET{instagram, #TYPE_REZO*|rezosocios_url{#NOM_COMPTE}}</BOUCLE_ig>
 
                         [(#URL_SITE|ou{#GET{facebook}}|ou{#GET{twitter}}|ou{#GET{instagram}})
                             <h2>En ligne</h2>
