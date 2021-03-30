@@ -1,7 +1,7 @@
 // Regular
 @font-face {
     font-family: "Triangle";
-    src: url("../webfonts/EuclidTriangle-Regular-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-Regular-WebS.woff") format("woff");
+    src: url("#{$path}/squelettes/webfonts/EuclidTriangle-Regular-WebS.woff2") format("woff2"), url("#{$path}/squelettes/webfonts/EuclidTriangle-Regular-WebS.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
@@ -9,7 +9,7 @@
 // Italic
 @font-face {
     font-family: "Triangle";
-    src: url("../webfonts/EuclidTriangle-RegularItalic-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-RegularItalic-WebS.woff") format("woff");
+    src: url("#{$path}/squelettes/webfonts/EuclidTriangle-RegularItalic-WebS.woff2") format("woff2"), url("#{$path}/squelettes/webfonts/EuclidTriangle-RegularItalic-WebS.woff") format("woff");
     font-weight: normal;
     font-style: italic;
 }
@@ -17,7 +17,7 @@
 // Bold
 @font-face {
     font-family: "Triangle";
-    src: url("../webfonts/EuclidTriangle-Bold-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-Bold-WebS.woff") format("woff");
+    src: url("#{$path}/squelettes/webfonts/EuclidTriangle-Bold-WebS.woff2") format("woff2"), url("#{$path}/squelettes/webfonts/EuclidTriangle-Bold-WebS.woff") format("woff");
     font-weight: bold;
     font-style: normal;
 }
@@ -25,7 +25,7 @@
 // BoldItalic
 @font-face {
     font-family: "Triangle";
-    src: url("../webfonts/EuclidTriangle-BoldItalic-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-BoldItalic-WebS.woff") format("woff");
+    src: url("#{$path}/squelettes/webfonts/EuclidTriangle-BoldItalic-WebS.woff2") format("woff2"), url("#{$path}/squelettes/webfonts/EuclidTriangle-BoldItalic-WebS.woff") format("woff");
     font-weight: bold;
     font-style: italic;
 }
@@ -33,7 +33,7 @@
 // Light
 @font-face {
     font-family: "Triangle";
-    src: url("../webfonts/EuclidTriangle-Light-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-Light-WebS.woff") format("woff");
+    src: url("#{$path}/squelettes/webfonts/EuclidTriangle-Light-WebS.woff2") format("woff2"), url("#{$path}/squelettes/webfonts/EuclidTriangle-Light-WebS.woff") format("woff");
     font-weight: 300;
     font-style: normal;
 }
@@ -41,7 +41,7 @@
 // LightItalic
 @font-face {
     font-family: "Triangle";
-    src: url("../webfonts/EuclidTriangle-LightItalic-WebS.woff2") format("woff2"), url("../webfonts/EuclidTriangle-LightItalic-WebS.woff") format("woff");
+    src: url("#{$path}/squelettes/webfonts/EuclidTriangle-LightItalic-WebS.woff2") format("woff2"), url("#{$path}/squelettes/webfonts/EuclidTriangle-LightItalic-WebS.woff") format("woff");
     font-weight: 300;
     font-style: italic;
 }
