@@ -9,7 +9,7 @@
 >
 	<nom>ATA Squelettes</nom>
 	<auteur lien='https://rouge-rose.net'>christophe le drean</auteur>
-	<licence>GNU/GPL v3</licence>
+	<licence>CC-BY-NC-ND-4.0</licence>
 	<necessite nom="zcore" compatibilite="[2.8.7;]" />
 	<necessite nom="ata_associations" compatibilite="[1.0.0;]" />
 	<necessite nom="compositions" compatibilite="[3.8.1;]" />
