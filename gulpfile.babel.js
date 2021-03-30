@@ -15,6 +15,7 @@ import nodeResolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import gulpTerser from "gulp-terser-js";
 import gulpif from "gulp-if";
+import sassVar from "gulp-sass-variables";
 
 const options = {
 	paths: {
@@ -53,7 +54,8 @@ export const clean = (cb) => {
 
 // SCSS Task
 export const scss = () => {
-	return src(options.paths.scss.src)
+    return src(options.paths.scss.src)
+        .pipe(sassVar({ $env: process.env.NODE_ENV }))
 		.pipe(sass(options.scss).on("error", sass.logError))
 		.pipe(postcss([autoprefixer()]))
 		.pipe(rename({ suffix: ".min" }))

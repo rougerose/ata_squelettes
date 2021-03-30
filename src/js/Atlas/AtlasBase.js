@@ -48,10 +48,11 @@ export class AtlasBase {
             position: "bottomright",
             states: [
                 {
+                    stateName: 'add-association',
                     icon: '<span class="mp-ControlAddBtn"> </span>',
                     onClick: function () {
                         location.href =
-                            "https://docs.google.com/forms/d/e/1FAIpQLSeqPAskYeF53O0XjDHMQ-FkKlYDGyg6VfXn_mZNgYRvhm1E3w/formResponse";
+                            "https://docs.google.com/forms/d/e/1FAIpQLSdSSlbwy710Qu9XRhUwpzyZ2BjKXnzZV8S4Z62CjaKaEYwWYw/viewform";
                     },
                 },
             ],

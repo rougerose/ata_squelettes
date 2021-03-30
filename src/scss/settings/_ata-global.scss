@@ -11,10 +11,6 @@
 		"mobileLandscape": 667px
 	);
 
-	//* fonts
-	$font-ata: "Triangle", sans-serif;
-	$font-monospace: monospace;
-
 	//* logo sizes
 	$logo-width-mobile: 85px;
 	$logo-width-desktop: 117px;
@@ -30,6 +26,16 @@
 	$maxHeight: mq-px2em(map.get($mq-breakpoints, mobileLandscape)); // [2]
 	// [1] @use map déclaration obligatoire pour sass dart
 	// [2] mq-px2em : fonction de conversion px -> em de sass-mq
+
+    //* fonts
+	$font-ata: "Triangle", sans-serif;
+	$font-monospace: monospace;
+
+    $env: "development" !default;
+    $path: "http://localhost:3000/ata.dev" !default;
+    @if($env == "production") {
+        $path: "https://atlas-ata.fr";
+    }
 
 	//* nav
 	$nav-line-height: 49px;
