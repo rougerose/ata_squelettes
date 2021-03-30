@@ -1,3 +1,20 @@
+// ========================================
+// Bouton Ajouter une association
+// ========================================
+
+// class du bouton (via Leaflet.EasyButton)
+.leaflet-bar {
+    & button.add-association-active {
+        background-color: $color-ternary;
+        padding: 0;
+
+        & > span {
+            padding: 4px;
+        }
+    }
+}
+
+
 .mp-ControlAddBtn {
     background: url(../../images/icons/icon-geo-add-24.svg) center;
     width: 100%;
