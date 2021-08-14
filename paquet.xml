@@ -3,7 +3,7 @@
 	categorie="squelette"
 	version="1.0.7"
 	etat="stable"
-	compatibilite="[3.3.0-dev;3.3.*]"
+	compatibilite="[4.0.0;4.*.*]"
 	logo="prive/themes/spip/images/ata_squelettes-64.png"
 	documentation=""
 >
@@ -25,7 +25,7 @@
 
     <pipeline nom="recuperer_fond" inclure="ata_squelettes_pipelines.php" />
 
-	<spip compatibilite="[3.3.0-dev;3.3.*]">
+	<spip compatibilite="[4.0.0;4.*.*]">
 		<script type="public" source="dist/js/ata.min.js" />
 		<script type="public" source="dist/js/ata_init.min.js" />
 	</spip>
