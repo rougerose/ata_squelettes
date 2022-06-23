@@ -3,7 +3,7 @@
 	categorie="squelette"
 	version="1.0.9"
 	etat="stable"
-	compatibilite="[4.0.0;4.99.*]"
+	compatibilite="[4.0.0;4.1.*]"
 	logo="prive/themes/spip/images/ata_squelettes-64.png"
 	documentation=""
 >
