@@ -1,1 +1,95 @@
-var Ata=function(e){"use strict";const s={sectionsHook:"[data-section]",sectionsStateClass:"is-visible"},t={navTriggerHook:".hamburger",navTriggerStateClass:"is-active",navStateClass:"nav-is-open",navOverlay:"nav.st-NavOverlay",navOverlayItemsClass:"st-NavOverlay_Item"},a=()=>{const e=document.body,s=t.navStateClass;let a;return e.classList.contains(s)?(e.classList.remove(s),a=!1):(e.classList.add(s),a=!0),a};return e.init=()=>{(e=>{let s=e.length;for(let l=0;l<s;l++){const n=e[l],r=t.navTriggerStateClass;let o=(l+1)%s;n.addEventListener("click",(()=>{a()?(n.classList.add(r),e[o].classList.add(r)):(n.classList.remove(r),e[o].classList.remove(r))}),!1)}})(document.querySelectorAll(t.navTriggerHook));document.querySelector(t.navOverlay).querySelectorAll("."+t.navOverlayItemsClass).forEach(((e,s)=>{e.style.transitionDelay=(s+2)/10+"s"}));const e=document.querySelectorAll(s.sectionsHook),l=s.sectionsStateClass;setTimeout((()=>{for(let s=0;s<e.length;s++){e[s].classList.add(l)}}),500)},Object.defineProperty(e,"__esModule",{value:!0}),e}({});
+var Ata = (function (exports) {
+    'use strict';
+
+    const config = {
+        sections: {
+            sectionsHook: "[data-section]",
+            sectionsStateClass: "is-visible",
+        },
+        header: {
+            navTriggerHook: ".hamburger",
+            navTriggerStateClass: "is-active",
+            navStateClass: "nav-is-open",
+            navOverlay: "nav.st-NavOverlay",
+            navOverlayItemsClass: "st-NavOverlay_Item",
+        },
+    };
+
+    // Nav_Trigger : click event
+    // ==================================
+    const handleClickNav = (nodeList) => {
+    	let total = nodeList.length;
+    	for (let i = 0; i < total; i++) {
+    		const trigger = nodeList[i];
+    		const triggerStateClass = config.header.navTriggerStateClass;
+    		// Identifier l'autre bouton (sur un total de 2)
+    		// afin de gérer son état également lors du clic
+    		let i_alt = (i + 1) % total;
+    		trigger.addEventListener(
+    			"click",
+    			() => {
+    				let open = navState();
+    				if (open) {
+    					trigger.classList.add(triggerStateClass);
+    					nodeList[i_alt].classList.add(triggerStateClass);
+    				} else {
+    					trigger.classList.remove(triggerStateClass);
+    					nodeList[i_alt].classList.remove(triggerStateClass);
+    				}
+    			},
+    			false
+    		);
+    	}
+    };
+
+    const navState = () => {
+    	const body = document.body;
+    	const navStateClass = config.header.navStateClass;
+    	let state;
+
+    	if (body.classList.contains(navStateClass)) {
+    		body.classList.remove(navStateClass);
+    		state = false;
+    	} else {
+    		body.classList.add(navStateClass);
+    		state = true;
+    	}
+
+    	return state;
+    };
+
+    // Initialiser les scripts relatifs au site
+    const init = () => {
+        // Nav events
+        const navTriggers = document.querySelectorAll(config.header.navTriggerHook);
+        handleClickNav(navTriggers);
+
+        // NavOverlay : animation des élements de liste à l'ouverture
+        const navOverlay = document.querySelector(config.header.navOverlay);
+        const navOverlayItems = navOverlay.querySelectorAll(
+            "." + config.header.navOverlayItemsClass
+        );
+        navOverlayItems.forEach((item, index) => {
+            item.style.transitionDelay = (index + 2) / 10 + "s";
+        });
+
+        // Animation des sections principales lors du chargement de la page
+        const pageSections = document.querySelectorAll(
+            config.sections.sectionsHook
+        );
+        const sectionClass = config.sections.sectionsStateClass;
+        setTimeout(() => {
+            for (let i = 0; i < pageSections.length; i++) {
+                let section = pageSections[i];
+                section.classList.add(sectionClass);
+            }
+        }, 500);
+    };
+
+    exports.init = init;
+
+    Object.defineProperty(exports, '__esModule', { value: true });
+
+    return exports;
+
+})({});
