@@ -10,9 +10,7 @@ const terserOptions = {
 	mangle: true,
 	nameCache: {},
 };
-const outputPlugins = () => [
-	process.env.NODE_ENV === "production" && terser(terserOptions),
-];
+const outputPlugins = () => [process.env.NODE_ENV === "production" && terser()];
 
 function build(src, dist, name, format) {
 	return {
