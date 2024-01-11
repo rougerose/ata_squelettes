@@ -1,3 +1,1 @@
-document.addEventListener("DOMContentLoaded", function () {
-	Ata.init();
-});
+document.addEventListener("DOMContentLoaded",(function(){Ata.init()}));
