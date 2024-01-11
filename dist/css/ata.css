@@ -79,11 +79,13 @@
  * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
  */
 html {
-  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
 }
 
 *, *:before, *:after {
-  box-sizing: inherit;
+  -moz-box-sizing: inherit;
+       box-sizing: inherit;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -132,7 +134,8 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+       box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -169,7 +172,8 @@ abbr[title] {
   /* 1 */
   text-decoration: underline;
   /* 2 */
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
   /* 2 */
 }
 
@@ -316,7 +320,8 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -350,7 +355,8 @@ textarea {
  */
 [type=checkbox],
 [type=radio] {
-  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */
@@ -665,15 +671,19 @@ img[height] {
   z-index: 10;
   background-color: #fff;
   box-shadow: 0 0.125rem 0.3125rem rgba(51, 0, 77, 0.3);
+  -moz-transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
   transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+  transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
 }
 .js .st-Header {
-  transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+       transform: translateY(-100%);
   opacity: 0;
 }
 .js .st-Header.is-visible {
   opacity: 1;
-  transform: none;
+  -moz-transform: none;
+       transform: none;
 }
 
 .st-Header_NavOverlay {
@@ -687,30 +697,38 @@ img[height] {
 
 .st-Main {
   position: relative;
+  -moz-transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
   transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+  transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
 }
 .js .st-Main {
-  transform: translateY(20%);
+  -moz-transform: translateY(20%);
+       transform: translateY(20%);
   opacity: 0;
 }
 .js .st-Main.is-visible {
   opacity: 1;
-  transform: none;
+  -moz-transform: none;
+       transform: none;
 }
 
 .st-Footer {
   display: none;
   padding: 0 0 24px;
   color: #000;
+  -moz-transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
   transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s;
+  transition: transform 0.5s ease 0.5s, opacity 0.5s ease 0.5s, -moz-transform 0.5s ease 0.5s;
 }
 .js .st-Footer {
-  transform: translateY(20%);
+  -moz-transform: translateY(20%);
+       transform: translateY(20%);
   opacity: 0;
 }
 .js .st-Footer.is-visible {
   opacity: 1;
-  transform: none;
+  -moz-transform: none;
+       transform: none;
 }
 @media (min-width: 48em) {
   .st-Footer {
@@ -793,8 +811,10 @@ img[height] {
 
 .st-Footer_Credits {
   grid-row: 3;
+  display: -moz-box;
   display: flex;
-  justify-content: space-between;
+  -moz-box-pack: justify;
+       justify-content: space-between;
   font-size: 13px;
   font-size: 0.8125rem;
   line-height: 1.8461538462;
@@ -832,6 +852,7 @@ img[height] {
 .st-Footer_NavLink,
 .st-Footer_Link {
   border-bottom: 2px solid transparent;
+  -moz-transition: border 0.3s ease;
   transition: border 0.3s ease;
 }
 .st-Footer_NavLink:hover,
@@ -849,6 +870,7 @@ img[height] {
   width: 100%;
   background-color: #fff;
   overflow: hidden;
+  -moz-transition: max-height 1s cubic-bezier(0.26, 0.02, 0, 0.99);
   transition: max-height 1s cubic-bezier(0.26, 0.02, 0, 0.99);
 }
 .nav-is-open .st-Overlay {
@@ -856,14 +878,17 @@ img[height] {
 }
 
 .st-Nav {
+  display: -moz-box;
   display: flex;
-  align-items: center;
+  -moz-box-align: center;
+       align-items: center;
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
 .st-Nav_Slogan {
-  flex: 1;
+  -moz-box-flex: 1;
+       flex: 1;
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -908,9 +933,12 @@ img[height] {
 }
 
 .st-Nav_List {
+  display: -moz-box;
   display: flex;
-  justify-content: flex-end;
-  flex: 1;
+  -moz-box-pack: end;
+       justify-content: flex-end;
+  -moz-box-flex: 1;
+       flex: 1;
   list-style: none;
   margin: 0;
   font-size: 16px;
@@ -935,6 +963,7 @@ img[height] {
 }
 .st-Nav_Item a {
   border-bottom: 2px solid transparent;
+  -moz-transition: border 0.3s ease;
   transition: border 0.3s ease;
 }
 .st-Nav_Item a:hover {
@@ -945,8 +974,11 @@ img[height] {
 }
 
 .st-Nav_Trigger {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
   align-self: center;
 }
 @media (min-width: 64em) {
@@ -956,12 +988,16 @@ img[height] {
 }
 
 .st-NavOverlay_Head {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
   padding-top: 6px;
   padding-bottom: 48px;
 }
 .st-NavOverlay_Head > div {
+  display: -moz-box;
   display: flex;
   margin-bottom: 6px;
 }
@@ -995,12 +1031,16 @@ img[height] {
 }
 .js .st-NavOverlay_Slogan {
   opacity: 0;
-  transform: translateX(100px);
+  -moz-transform: translateX(100px);
+       transform: translateX(100px);
+  -moz-transition: all 0.1s linear;
   transition: all 0.1s linear;
 }
 .nav-is-open .st-NavOverlay_Slogan {
-  transform: none;
+  -moz-transform: none;
+       transform: none;
   opacity: 1;
+  -moz-transition: all 1s ease;
   transition: all 1s ease;
 }
 
@@ -1019,16 +1059,21 @@ img[height] {
 
 .js .st-NavOverlay_Item {
   opacity: 0;
-  transform: translateX(-100px);
+  -moz-transform: translateX(-100px);
+       transform: translateX(-100px);
+  -moz-transition: all 0.1s linear 1s;
   transition: all 0.1s linear 1s;
 }
 .nav-is-open .st-NavOverlay_Item {
-  transform: none;
+  -moz-transform: none;
+       transform: none;
   opacity: 1;
+  -moz-transition: all 1s ease 1s;
   transition: all 1s ease 1s;
 }
 .st-NavOverlay_Item a {
   border-bottom: 2px solid transparent;
+  -moz-transition: border 0.3s ease;
   transition: border 0.3s ease;
 }
 .st-NavOverlay_Item a:hover {
@@ -1039,17 +1084,24 @@ img[height] {
 }
 
 .st-NavOverlay_SocialList {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
 }
 .js .st-NavOverlay_SocialList {
   opacity: 0;
-  transform: translateY(100%);
+  -moz-transform: translateY(100%);
+       transform: translateY(100%);
+  -moz-transition: all 0.1s linear 1s;
   transition: all 0.1s linear 1s;
 }
 .nav-is-open .st-NavOverlay_SocialList {
   opacity: 1;
-  transform: none;
+  -moz-transform: none;
+       transform: none;
+  -moz-transition: all 1s ease 1s;
   transition: all 1s ease 1s;
 }
 
@@ -1093,22 +1145,27 @@ img[height] {
   color: #5c08a1;
 }
 .mp-Map .leaflet-control-container div {
+  -moz-transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), -moz-transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), -moz-transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .mp-Map .leaflet-bar {
   border: 1px solid #adbdcd;
 }
 .mp-Map .carte_gis {
   width: 100%;
+  height: -moz-calc(100vh - 48px);
   height: calc(100vh - 48px);
 }
 @media (min-width: 48em) {
   .mp-Map .carte_gis {
+    height: -moz-calc(100vh - 60px);
     height: calc(100vh - 60px);
   }
 }
 @media (max-height: mq-px2em(667px)) and (orientation: landscape) {
   .mp-Map .carte_gis {
+    height: -moz-calc(100vh - 48px);
     height: calc(100vh - 48px);
   }
 }
@@ -1116,6 +1173,7 @@ img[height] {
 .mp-SearchBox {
   position: absolute;
   z-index: 6;
+  width: -moz-calc(100% - 24px);
   width: calc(100% - 24px);
   top: 0;
   left: 12px;
@@ -1125,6 +1183,7 @@ img[height] {
 }
 @media (min-width: 48em) {
   .mp-SearchBox {
+    width: -moz-calc(40% - 24px);
     width: calc(40% - 24px);
     max-width: 356px;
     z-index: 9;
@@ -1151,6 +1210,7 @@ img[height] {
 }
 
 .mp-SearchBox_Fulltext {
+  -moz-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 .mp-SearchBox_Fulltext[aria-hidden=true] {
@@ -1165,11 +1225,15 @@ img[height] {
 }
 
 .mp-SearchBox_GroupFulltext {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
   position: relative;
   border: 1px solid #adbdcd;
   padding: 0 6px;
+  -moz-transition: border-color 0.3s ease;
   transition: border-color 0.3s ease;
 }
 .mp-SearchBox_GroupFulltext label {
@@ -1177,8 +1241,11 @@ img[height] {
   top: 50%;
   z-index: 5;
   color: #919eb1;
+  -moz-transition: transform 0.3s ease, font-size 0.3s, color 0.3s, -moz-transform 0.3s ease;
   transition: transform 0.3s ease, font-size 0.3s, color 0.3s;
-  transform: translateY(-50%);
+  transition: transform 0.3s ease, font-size 0.3s, color 0.3s, -moz-transform 0.3s ease;
+  -moz-transform: translateY(-50%);
+       transform: translateY(-50%);
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1;
@@ -1189,7 +1256,8 @@ img[height] {
 }
 .mp-SearchBox_GroupFulltext.is-focused label {
   color: #ffc70f;
-  transform: translateY(-120%);
+  -moz-transform: translateY(-120%);
+       transform: translateY(-120%);
   font-size: 11px;
   font-size: 0.6875rem;
 }
@@ -1210,10 +1278,14 @@ img[height] {
 }
 
 .mp-SearchBox_Panel {
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: 1;
-  animation-name: toggleTabs;
+  -moz-animation-duration: 0.3s;
+       animation-duration: 0.3s;
+  -moz-animation-timing-function: ease-in-out;
+       animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: 1;
+       animation-iteration-count: 1;
+  -moz-animation-name: toggleTabs;
+       animation-name: toggleTabs;
 }
 .mp-SearchBox_Panel[aria-hidden=true] {
   display: none;
@@ -1238,13 +1310,17 @@ img[height] {
 
 .mp-SearchBox_BtnSearch,
 .mp-SearchBox_BtnCancel {
+  display: -moz-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -moz-box-pack: center;
+       justify-content: center;
+  -moz-box-align: center;
+       align-items: center;
   position: absolute;
   right: 6px;
   top: 50%;
-  transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+       transform: translateY(-50%);
   height: 24px;
   width: 24px;
   visibility: visible;
@@ -1254,6 +1330,7 @@ img[height] {
   cursor: pointer;
   visibility: hidden;
   border-radius: 50%;
+  -moz-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 .is-focused .mp-SearchBox_BtnCancel {
@@ -1277,12 +1354,14 @@ img[height] {
 
 .mp-SearchBox_IconAdvanced {
   stroke: #919eb1;
+  -moz-transition: stroke 0.3s ease;
   transition: stroke 0.3s ease;
 }
 
 .mp-SearchBox_IconSearch,
 .mp-SearchBox_IconCancel {
   stroke: #adbdcd;
+  -moz-transition: stroke 0.3s ease;
   transition: stroke 0.3s ease;
   width: 16px;
   height: 16px;
@@ -1291,14 +1370,18 @@ img[height] {
 .mp-SearchResultsList {
   list-style: none;
   margin: 0;
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
 }
 
 .mp-SearchResultsList_Item {
   padding: 12px;
   border-bottom: 1px solid #e0e6eb;
   cursor: pointer;
+  -moz-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 .mp-SearchResultsList_Item:hover {
@@ -1306,6 +1389,7 @@ img[height] {
 }
 
 .mp-Tabs_Header {
+  display: -moz-box;
   display: flex;
   list-style: none;
   margin: 0;
@@ -1321,16 +1405,19 @@ img[height] {
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
+  -moz-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 .mp-Tabs_Tab::after {
   position: absolute;
   left: 0;
+  display: -moz-box;
   display: flex;
   content: "";
   width: 100%;
   height: 2px;
   background-color: #fff;
+  -moz-transition: width 0.15s ease, background-color 0.3s ease;
   transition: width 0.15s ease, background-color 0.3s ease;
 }
 .mp-Tabs_Tab[aria-selected=true] {
@@ -1346,23 +1433,42 @@ img[height] {
 }
 
 .mp-Tab_Panel {
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: 1;
-  animation-name: toggleTabs;
+  -moz-animation-duration: 0.3s;
+       animation-duration: 0.3s;
+  -moz-animation-timing-function: ease-in-out;
+       animation-timing-function: ease-in-out;
+  -moz-animation-iteration-count: 1;
+       animation-iteration-count: 1;
+  -moz-animation-name: toggleTabs;
+       animation-name: toggleTabs;
 }
 .mp-Tab_Panel[aria-hidden=true] {
   display: none;
 }
 
-@keyframes toggleTabs {
+@-moz-keyframes toggleTabs {
   from {
     opacity: 0;
-    transform: translateY(5%);
+    -moz-transform: translateY(5%);
+         transform: translateY(5%);
   }
   to {
     opacity: 1;
-    transform: translateY(0%);
+    -moz-transform: translateY(0%);
+         transform: translateY(0%);
+  }
+}
+
+@keyframes toggleTabs {
+  from {
+    opacity: 0;
+    -moz-transform: translateY(5%);
+         transform: translateY(5%);
+  }
+  to {
+    opacity: 1;
+    -moz-transform: translateY(0%);
+         transform: translateY(0%);
   }
 }
 .mp-Autocomplete_List.ui-widget.ui-widget-content {
@@ -1405,6 +1511,7 @@ img[height] {
 }
 
 .ui-menu .mp-Autocomplete_Link.ui-menu-item-wrapper {
+  display: -moz-box;
   display: flex;
   padding-top: 0;
 }
@@ -1415,6 +1522,7 @@ img[height] {
 
 .mp-Keywords {
   position: relative;
+  display: -moz-box;
   display: flex;
   font-size: 13px;
   font-size: 0.8125rem;
@@ -1431,7 +1539,8 @@ img[height] {
 .mp-Keywords-selected::after {
   position: absolute;
   width: 6px;
-  flex: 0 0 auto;
+  -moz-box-flex: 0;
+       flex: 0 0 auto;
   content: "";
   background-color: #fff;
   top: 0;
@@ -1448,6 +1557,7 @@ img[height] {
   list-style: none;
   margin: 0;
   padding: 6px 0 8px;
+  display: -moz-box;
   display: flex;
   flex-wrap: nowrap;
   overflow: auto;
@@ -1455,7 +1565,8 @@ img[height] {
 .mp-Keywords_List::after {
   content: "";
   width: 6px;
-  flex: 0 0 auto;
+  -moz-box-flex: 0;
+       flex: 0 0 auto;
 }
 .mp-Keywords-selected .mp-Keywords_List {
   padding-top: 0;
@@ -1463,16 +1574,21 @@ img[height] {
 
 .mp-Keywords_Item {
   position: relative;
+  display: -moz-box;
   display: flex;
-  flex: 0 0 auto;
-  align-items: center;
+  -moz-box-flex: 0;
+       flex: 0 0 auto;
+  -moz-box-align: center;
+       align-items: center;
   margin-right: 6px;
   padding: 3px;
   border-radius: 0.5em;
   color: #000;
+  -moz-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
   cursor: pointer;
-  animation: keywords-slidein 350ms backwards;
+  -moz-animation: keywords-slidein 350ms backwards;
+       animation: keywords-slidein 350ms backwards;
   /*
       Variante toSelect/Selected
       - toSelect : les mots-clés disponibles à la sélection depuis le panneau Activités.
@@ -1518,19 +1634,37 @@ img[height] {
   background-position: 0 0;
 }
 
+@-moz-keyframes keywords-slidein {
+  0% {
+    opacity: 0;
+  }
+  1% {
+    -moz-transform: translateX(260px);
+         transform: translateX(260px);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translateX(0);
+         transform: translateX(0);
+  }
+}
+
 @keyframes keywords-slidein {
   0% {
     opacity: 0;
   }
   1% {
-    transform: translateX(260px);
+    -moz-transform: translateX(260px);
+         transform: translateX(260px);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    -moz-transform: translateX(0);
+         transform: translateX(0);
   }
 }
 .mp-Keywords_BtnDelete {
+  display: -moz-box;
   display: flex;
   padding: 10px;
   border-radius: 100%;
@@ -1545,13 +1679,17 @@ img[height] {
 .mp-Keywords_BtnDelete {
   background-image: url("../../images/icons/icon-delete-32.svg");
   box-shadow: 0 0 0 0 rgba(255, 199, 15, 0);
-  transform-origin: center;
+  -moz-transform-origin: center;
+       transform-origin: center;
+  -moz-transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, -moz-transform 0.3s ease;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, -moz-transform 0.3s ease;
 }
 .mp-Keywords_BtnDelete:hover {
   background-color: #ffe285;
   box-shadow: -1px -2px 3px 2px #d5a60b;
-  transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+       transform: rotate(-180deg);
 }
 
 .mp-MarkerCluster {
@@ -1560,9 +1698,13 @@ img[height] {
   background-color: #f26e26;
 }
 .mp-MarkerCluster > div {
+  display: -moz-box;
   display: flex;
-  align-items: center;
+  -moz-box-align: center;
+       align-items: center;
+  width: -moz-calc(100% - 6px);
   width: calc(100% - 6px);
+  height: -moz-calc(100% - 6px);
   height: calc(100% - 6px);
   margin-left: 3px;
   margin-top: 3px;
@@ -1625,7 +1767,9 @@ img[height] {
   height: 100%;
   z-index: 8;
   bottom: -100%;
+  -moz-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, -moz-transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, -moz-transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .mp-Modal-association {
   z-index: 10;
@@ -1649,7 +1793,8 @@ img[height] {
     z-index: 7;
     width: 40%;
     max-width: 380px;
-    transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+         transform: translateX(-100%);
   }
   .mp-Modal-association {
     z-index: 7;
@@ -1667,7 +1812,9 @@ img[height] {
   height: 100%;
   background-color: #fff;
   box-shadow: 0 0 8px 1px rgba(51, 0, 77, 0.3);
+  -moz-transition: padding-top 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), -moz-transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transition: padding-top 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: padding-top 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), -moz-transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .mp-Modal-recherche .mp-Modal_Inner {
   padding-bottom: 48px;
@@ -1688,17 +1835,22 @@ img[height] {
 
 .mp-Modal_Content {
   position: relative;
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
 }
 
 .mp-Modal_Btns {
+  display: -moz-box;
   display: flex;
   position: absolute;
   right: 12px;
 }
 
 .mp-Modal_BtnAction {
+  display: -moz-box;
   display: flex;
   flex-shrink: 0;
   width: 28px;
@@ -1706,6 +1858,7 @@ img[height] {
   margin-left: 12px;
   border-radius: 50%;
   background-color: #fff;
+  -moz-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 .mp-Modal_BtnAction:hover {
@@ -1715,14 +1868,19 @@ img[height] {
   stroke: #ffc70f;
 }
 .mp-Modal_BtnAction-toggle path {
-  transform-origin: center;
+  -moz-transform-origin: center;
+       transform-origin: center;
+  -moz-transition: transform 0.1s, -moz-transform 0.1s;
   transition: transform 0.1s;
+  transition: transform 0.1s, -moz-transform 0.1s;
 }
 .mp-Modal_BtnAction-toggle.is-toggle-up path {
-  transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+       transform: rotate(180deg);
 }
 .mp-Modal_BtnAction-toggle.is-toggle-down path {
-  transform: rotate(0);
+  -moz-transform: rotate(0);
+       transform: rotate(0);
 }
 @media (min-width: 48em) {
   .mp-Modal_BtnAction-toggle {
@@ -1731,8 +1889,10 @@ img[height] {
 }
 .mp-Modal_BtnAction.is-ready-to-animate circle {
   stroke-dashoffset: 0;
-  transition-delay: 0.3s;
-  animation: 0.3s ease 0.5s 1 color_change;
+  -moz-transition-delay: 0.3s;
+       transition-delay: 0.3s;
+  -moz-animation: 0.3s ease 0.5s 1 color_change;
+       animation: 0.3s ease 0.5s 1 color_change;
 }
 
 .mp-Modal_BtnBg {
@@ -1743,6 +1903,7 @@ img[height] {
 .mp-Modal_BtnBg circle {
   stroke-width: 2.5;
   stroke: #000;
+  -moz-transition: stroke-dashoffset 0.3s 0s;
   transition: stroke-dashoffset 0.3s 0s;
 }
 
@@ -1754,6 +1915,7 @@ img[height] {
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.2857142857;
+  -moz-transition: background 0.3s ease;
   transition: background 0.3s ease;
 }
 @media (min-width: 48em) {
@@ -1763,6 +1925,15 @@ img[height] {
 }
 .mp-Modal_BtnViewToggle:hover {
   background-color: #ffc70f;
+}
+
+@-moz-keyframes color_change {
+  from {
+    stroke: #000;
+  }
+  to {
+    stroke: #e0e6eb;
+  }
 }
 
 @keyframes color_change {
@@ -1779,9 +1950,12 @@ img[height] {
   left: 0;
   right: 0;
   z-index: 6;
+  display: -moz-box;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -moz-box-pack: justify;
+       justify-content: space-between;
+  -moz-box-align: center;
+       align-items: center;
   background-color: #fff;
   padding: 12px;
   box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.25);
@@ -1800,8 +1974,10 @@ img[height] {
 }
 
 .mp-Profile_Header {
+  display: -moz-box;
   display: flex;
-  align-items: center;
+  -moz-box-align: center;
+       align-items: center;
   padding-right: 80px;
   margin-bottom: 12px;
 }
@@ -1809,7 +1985,8 @@ img[height] {
 .mp-Profile_Logo {
   margin-right: 12px;
   margin-bottom: 0;
-  flex: 0 0 60px;
+  -moz-box-flex: 0;
+       flex: 0 0 60px;
 }
 
 .mp-Profile_Name {
@@ -1878,6 +2055,7 @@ img[height] {
   text-overflow: ellipsis;
 }
 .mp-Profile_Online-social {
+  display: -moz-box;
   display: flex;
 }
 .mp-Profile_Online-social a {
@@ -1914,6 +2092,7 @@ img[height] {
 .mp-Profile_Member::before, .mp-Profile_Member::after {
   content: "";
   height: 1px;
+  background: -moz-linear-gradient(left, #fff 0%, #d6dee6 50%, #fff 100%);
   background: linear-gradient(90deg, #fff 0%, #d6dee6 50%, #fff 100%);
   width: 100%;
   position: absolute;
@@ -1926,8 +2105,10 @@ img[height] {
 }
 
 .mp-Profile_MemberLogo {
+  display: -moz-box;
   display: flex;
-  align-items: center;
+  -moz-box-align: center;
+       align-items: center;
   margin-bottom: 0;
   margin-right: 24px;
 }
@@ -1939,16 +2120,20 @@ img[height] {
 }
 
 .mp-ProfileResume {
+  display: -moz-box;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -moz-box-pack: justify;
+       justify-content: space-between;
+  -moz-box-align: center;
+       align-items: center;
   font-size: 14px;
   font-size: 0.875rem;
   line-height: 1.2857142857;
 }
 
 .mp-ProfileResume_Informations {
-  flex: 1;
+  -moz-box-flex: 1;
+       flex: 1;
   margin-right: 12px;
 }
 
@@ -1968,7 +2153,8 @@ img[height] {
 
 .mp-ProfileResume_Logo {
   margin-bottom: 0;
-  flex: 0 0 60px;
+  -moz-box-flex: 0;
+       flex: 0 0 60px;
 }
 
 .leaflet-bar button.add-association-active {
@@ -1999,6 +2185,7 @@ img[height] {
 .ct-Link {
   color: #000;
   border-bottom: 2px solid #ffc70f;
+  -moz-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 .ct-Link:hover {
@@ -2135,6 +2322,7 @@ img[height] {
   text-overflow: ellipsis;
 }
 .ct-Profile_Online-social {
+  display: -moz-box;
   display: flex;
 }
 .ct-Profile_Online-social a {
@@ -2180,6 +2368,7 @@ img[height] {
 .ct-Profile_Member::before, .ct-Profile_Member::after {
   content: "";
   height: 1px;
+  background: -moz-linear-gradient(left, #fff 0%, #d6dee6 50%, #fff 100%);
   background: linear-gradient(90deg, #fff 0%, #d6dee6 50%, #fff 100%);
   width: 100%;
   position: absolute;
@@ -2192,8 +2381,10 @@ img[height] {
 }
 
 .ct-Profile_MemberLogo {
+  display: -moz-box;
   display: flex;
-  align-items: center;
+  -moz-box-align: center;
+       align-items: center;
   margin-bottom: 0;
   margin-right: 24px;
 }
@@ -2205,8 +2396,11 @@ img[height] {
 }
 
 .ct-Profile_Atlas {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
   margin: 36px 0;
   background-color: rgba(214, 222, 230, 0.5);
   padding: 24px 12px;
@@ -2241,6 +2435,7 @@ img[height] {
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
+  -moz-transition: color 0.3s ease, box-shadow 0.15s ease;
   transition: color 0.3s ease, box-shadow 0.15s ease;
 }
 .ct-Profile_AtlasLink::after {
@@ -2404,9 +2599,13 @@ img[height] {
   margin-top: 6px;
 }
 .ct-Article_Texte .spip_document_image {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
+  -moz-box-align: center;
+       align-items: center;
 }
 .ct-Article_Texte .spip_document_image img {
   max-width: 100%;
@@ -2414,7 +2613,8 @@ img[height] {
 }
 .ct-Article_Texte .spip_doc_legende {
   margin-top: 6px;
-  flex: 1;
+  -moz-box-flex: 1;
+       flex: 1;
   width: 100%;
 }
 .ct-Article_Texte .spip_doc_titre,
@@ -2487,19 +2687,23 @@ img[height] {
   margin: 48px 0;
   border: none;
   height: 2px;
+  background: -moz-linear-gradient(left, #fff 0%, #5c08a1 50%, #fff 100%);
   background: linear-gradient(90deg, #fff 0%, #5c08a1 50%, #fff 100%);
 }
 .ct-Article_Texte a {
   color: #000;
   border-bottom: 2px solid #ffc70f;
+  -moz-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 .ct-Article_Texte a:hover {
   color: #ffc70f;
 }
 .ct-Article_Texte .spip_document {
+  display: -moz-box;
   display: flex;
-  justify-content: center;
+  -moz-box-pack: center;
+       justify-content: center;
 }
 
 .spip_note_ref {
@@ -2510,6 +2714,7 @@ img[height] {
   padding: 0 3px;
   color: #000;
   border-bottom: 2px solid #ffc70f;
+  -moz-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 .spip_note:hover {
@@ -2525,6 +2730,7 @@ img[height] {
   content: "";
   width: 100%;
   height: 1px;
+  background: -moz-linear-gradient(left, #fff 0%, #5c08a1 50%, #fff 100%);
   background: linear-gradient(90deg, #fff 0%, #5c08a1 50%, #fff 100%);
 }
 
@@ -2535,6 +2741,7 @@ img[height] {
 }
 
 .ct-Article_MotsCles {
+  display: -moz-box;
   display: flex;
   flex-wrap: wrap;
   font-size: 14px;
@@ -2550,6 +2757,7 @@ img[height] {
   border-radius: 0.5em;
   border: 1px solid #ffc70f;
   color: #000;
+  -moz-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 .ct-Article_MotCle:hover {
@@ -2633,6 +2841,7 @@ img[height] {
   color: #750acd;
   border-bottom: 2px solid transparent;
   padding-bottom: 2px;
+  -moz-transition: color 0.3s ease, border-color 0.3s ease;
   transition: color 0.3s ease, border-color 0.3s ease;
 }
 .ct-ArticleResume_Link-body::before {
@@ -2661,12 +2870,17 @@ img[height] {
 }
 
 .ct-Document_Lien {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
+  -moz-box-align: center;
+       align-items: center;
   border: 1px solid #ccd4db;
   border-radius: 4px;
   padding: 12px;
+  -moz-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
 .ct-Document_Lien:hover {
@@ -2681,17 +2895,23 @@ img[height] {
 }
 @media (min-width: 30em) {
   .ct-Document_Lien {
-    flex-direction: row;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+         flex-direction: row;
   }
 }
 
 .ct-Document_Icon {
+  display: -moz-box;
   display: flex;
-  justify-content: center;
+  -moz-box-pack: center;
+       justify-content: center;
   margin: 0 0 12px;
+  -moz-transition: border-color 0.5s ease;
   transition: border-color 0.5s ease;
 }
 .ct-Document_Icon img {
+  -moz-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
 @media (min-width: 30em) {
@@ -2704,7 +2924,8 @@ img[height] {
 }
 
 .ct-Document_Infos {
-  flex: 1 1 0;
+  -moz-box-flex: 1;
+       flex: 1 1 0;
   text-align: center;
   color: #1f2732;
 }
@@ -2825,6 +3046,7 @@ img[height] {
   font-size: 1rem;
   line-height: 1.5;
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  -moz-transition: box-shadow 0.15s ease;
   transition: box-shadow 0.15s ease;
 }
 .ct-Formulaire input[type=submit]:hover {
@@ -2935,6 +3157,7 @@ img[height] {
   font-weight: bold;
   border-bottom: 2px solid #ffc70f;
   padding: 0 3px;
+  -moz-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 .ct-Pagination_Nav .lien_pagination:hover {
@@ -2952,9 +3175,12 @@ img[height] {
   padding: 0 0;
   display: inline-block;
   cursor: pointer;
+  -moz-transition-property: opacity, filter;
   transition-property: opacity, filter;
-  transition-duration: 0.15s;
-  transition-timing-function: linear;
+  -moz-transition-duration: 0.15s;
+       transition-duration: 0.15s;
+  -moz-transition-timing-function: linear;
+       transition-timing-function: linear;
   font: inherit;
   color: inherit;
   text-transform: none;
@@ -2993,9 +3219,13 @@ img[height] {
   background-color: #000;
   border-radius: 4px;
   position: absolute;
+  -moz-transition-property: transform, -moz-transform;
   transition-property: transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease;
+  transition-property: transform, -moz-transform;
+  -moz-transition-duration: 0.15s;
+       transition-duration: 0.15s;
+  -moz-transition-timing-function: ease;
+       transition-timing-function: ease;
 }
 .hamburger-inner::before, .hamburger-inner::after {
   content: "";
@@ -3012,40 +3242,56 @@ img[height] {
  * Squeeze
  */
 .hamburger--squeeze .hamburger-inner {
-  transition-duration: 0.075s;
-  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  -moz-transition-duration: 0.075s;
+       transition-duration: 0.075s;
+  -moz-transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+       transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 .hamburger--squeeze .hamburger-inner::before {
+  -moz-transition: top 0.075s 0.12s ease, opacity 0.075s ease;
   transition: top 0.075s 0.12s ease, opacity 0.075s ease;
 }
 .hamburger--squeeze .hamburger-inner::after {
+  -moz-transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19), -moz-transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
   transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19), -moz-transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 .hamburger--squeeze.is-active .hamburger-inner {
-  transform: rotate(45deg);
-  transition-delay: 0.12s;
-  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  -moz-transform: rotate(45deg);
+       transform: rotate(45deg);
+  -moz-transition-delay: 0.12s;
+       transition-delay: 0.12s;
+  -moz-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+       transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 .hamburger--squeeze.is-active .hamburger-inner::before {
   top: 0;
   opacity: 0;
+  -moz-transition: top 0.075s ease, opacity 0.075s 0.12s ease;
   transition: top 0.075s ease, opacity 0.075s 0.12s ease;
 }
 .hamburger--squeeze.is-active .hamburger-inner::after {
   bottom: 0;
-  transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+       transform: rotate(-90deg);
+  -moz-transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1), -moz-transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
   transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1), -moz-transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .spip-admin-float {
+  display: -moz-box;
   display: flex;
-  flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+       flex-direction: column;
   top: 0 !important;
   right: auto !important;
   bottom: auto !important;
   left: 0 !important;
   z-index: 20 !important;
   width: 32px;
+  -moz-transition: width 0.3s ease;
   transition: width 0.3s ease;
   overflow: hidden;
 }
@@ -3172,18 +3418,22 @@ a[href^="javascript:"]:after {
   }
 
   .st-Nav {
-    flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+         flex-direction: column;
   }
 
   .st-Nav_Slogan {
-    order: 2;
+    -moz-box-ordinal-group: 3;
+         order: 2;
   }
   .st-Nav_Slogan::after {
     display: none;
   }
 
   .st-Nav_SiteLink-logo {
-    order: 1;
+    -moz-box-ordinal-group: 2;
+         order: 1;
   }
   .st-Nav_SiteLink-logo::after {
     display: none;
@@ -3209,17 +3459,21 @@ a[href^="javascript:"]:after {
   }
   .ct-Article_Texte a {
     border: none;
+    -moz-transition: none;
     transition: none;
   }
   .ct-Article_Texte hr {
     background: #000;
   }
   .ct-Article_Texte .spip_document_image {
-    align-items: flex-start;
+    -moz-box-align: start;
+         align-items: flex-start;
   }
   .ct-Article_Texte .spip_document {
+    display: -moz-box;
     display: flex;
-    justify-content: center;
+    -moz-box-pack: center;
+         justify-content: center;
   }
   .ct-Article_Texte li::marker {
     color: unset;

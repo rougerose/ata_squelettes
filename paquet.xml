@@ -28,7 +28,7 @@
     <pipeline nom="jqueryui_plugins" inclure="ata_squelettes_pipelines.php" />
 
 	<spip compatibilite="[4.0.0;4.2.*]">
-		<script type="public" source="dist/js/ata.min.js" />
-		<script type="public" source="dist/js/ata_init.min.js" />
+		<script type="public" source="dist/js/ata.js" />
+		<script type="public" source="dist/js/ata_init.js" />
 	</spip>
 </paquet>
