@@ -88,8 +88,6 @@ var Ata = (function (exports) {
 
     exports.init = init;
 
-    Object.defineProperty(exports, '__esModule', { value: true });
-
     return exports;
 
 })({});

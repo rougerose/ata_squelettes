@@ -31,7 +31,7 @@
         "build": "run-s clean && run-p build:* && run-s autoprefixer",
         "build:host": "node host.config",
         "build:scss": "sass --no-source-map --load-path=node_modules src/scss/ata.scss:dist/css/ata.css",
-        "build:js": "rollup -c",
+        "build:js": "rollup -c --bundleConfigAsCjs",
         "autoprefixer": "postcss -r dist/css/ata.css",
         "clean": "rimraf -g 'dist/{css/*,js/*}'",
         "server": "browser-sync start -p $npm_package_config_host_local -f \"dist/css/*.css, dist/js/*.js, **/*.html, !node_modules/\"",
@@ -58,7 +58,7 @@
         "postcss-cli": "^11.0.0",
         "postcss-csso": "^6.0.1",
         "rimraf": "^5.0.5",
-        "rollup": "^2.79.1",
+        "rollup": "^4.9.4",
         "sass": "^1.32.13"
     }
 }

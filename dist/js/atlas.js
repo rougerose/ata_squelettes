@@ -2418,8 +2418,6 @@ var atlas = (function (exports) {
     exports.addKeyword = addKeyword;
     exports.init = init;
 
-    Object.defineProperty(exports, '__esModule', { value: true });
-
     return exports;
 
 })({});
