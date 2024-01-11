@@ -657,7 +657,7 @@ img[height] {
     padding-top: 60px;
   }
 }
-@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+@media (max-height: 41.6875em) and (orientation: landscape) {
   .st-Doc {
     padding-top: 48px;
   }
@@ -926,7 +926,7 @@ img[height] {
     width: 117px;
   }
 }
-@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+@media (max-height: 41.6875em) and (orientation: landscape) {
   .st-Nav_Logo {
     width: 85px;
   }
@@ -1016,7 +1016,7 @@ img[height] {
     width: 117px;
   }
 }
-@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+@media (max-height: 41.6875em) and (orientation: landscape) {
   .st-NavOverlay_Logo {
     width: 85px;
   }
@@ -1163,7 +1163,7 @@ img[height] {
     height: calc(100vh - 60px);
   }
 }
-@media (max-height: mq-px2em(667px)) and (orientation: landscape) {
+@media (max-height: 41.6875em) and (orientation: landscape) {
   .mp-Map .carte_gis {
     height: -moz-calc(100vh - 48px);
     height: calc(100vh - 48px);

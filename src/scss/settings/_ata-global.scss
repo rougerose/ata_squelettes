@@ -1,5 +1,6 @@
 // Inuitcss
-
+@use "sass:map"; // [1]
+@use "sass-mq/mq" as mq;
 
 // ATA
 //* Mediaqueries
@@ -22,8 +23,7 @@ $headerHeight-desktop: 60px;
 // Variables pour définir une mediaquery
 /// qui accompagne la hauteur du logo, de la navigation
 // et de l'espace disponible pour la carte.
-@use "sass:map"; // [1]
-$maxHeight: mq-px2em(map.get($mq-breakpoints, mobileLandscape)); // [2]
+$maxHeight: mq.mq-px2em(map.get($mq-breakpoints, mobileLandscape)); // [2]
 // [1] @use map déclaration obligatoire pour sass dart
 // [2] mq-px2em : fonction de conversion px -> em de sass-mq
 
