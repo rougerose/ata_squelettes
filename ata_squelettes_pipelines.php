@@ -11,3 +11,8 @@ function ata_squelettes_recuperer_fond($flux) {
 	}
 	return $flux;
 }
+
+function ata_squelettes_jqueryui_plugins($scripts){
+   $scripts[] = "jquery.ui.autocomplete";
+   return $scripts;
+}

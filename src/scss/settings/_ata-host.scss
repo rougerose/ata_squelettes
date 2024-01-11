@@ -1,0 +1,5 @@
+// La variable $host est utilisée lors de la compilation
+// des webfonts pour tenir compte du contexte (local ou production)
+// et de l'emplacement des fichiers dans la mesure où ils ne sont pas indexés
+// dans le dépôt du projet.
+$host: "http://localhost:8888/ata.dev";

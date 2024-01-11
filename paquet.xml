@@ -1,7 +1,7 @@
 <paquet
 	prefix="ata_squelettes"
 	categorie="squelette"
-	version="1.0.11"
+	version="1.0.12"
 	etat="stable"
 	compatibilite="[4.0.0;4.2.*]"
 	logo="prive/themes/spip/images/ata_squelettes-64.png"
@@ -16,6 +16,7 @@
 	<necessite nom="selecteurgenerique" compatibilite="[1.1.14;]" />
 	<necessite nom="menus" compatibilite="[1.7.26;]" />
 	<necessite nom="pages" compatibilite="[1.5.3;]" />
+    <necessite nom="jqueryui"/>
 
 	<utilise nom="sociaux" compatibilite="[2.2.0;]" />
 	<utilise nom="gis" compatibilite="[4.49.2;]" />
@@ -24,9 +25,10 @@
 	<utilise nom="contact" />
 
     <pipeline nom="recuperer_fond" inclure="ata_squelettes_pipelines.php" />
+    <pipeline nom="jqueryui_plugins" inclure="ata_squelettes_pipelines.php" />
 
 	<spip compatibilite="[4.0.0;4.2.*]">
-		<script type="public" source="dist/js/ata.min.js" />
-		<script type="public" source="dist/js/ata_init.min.js" />
+		<script type="public" source="dist/js/ata.js" />
+		<script type="public" source="dist/js/ata_init.js" />
 	</spip>
 </paquet>
