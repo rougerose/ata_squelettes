@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('_ECRIRE_INC_VERSION')) {
-  return;
+	return;
 }
 
 function selecteurs_atlas_fulltext() {
@@ -9,11 +9,11 @@ function selecteurs_atlas_fulltext() {
 	include_spip('inc/texte');
 
 	$search = trim(_request('q'));
-	$resultats = array();
+	$resultats = [];
 	$limite = 5;
 
 	if (!$search) {
-		return $resultats;
+		return json_encode($resultats);
 	}
 
 	// Modifier le nombre de résultats
@@ -23,75 +23,63 @@ function selecteurs_atlas_fulltext() {
 
 	// Décrire dans un tableau les requêtes sql qui nécessitent des jointures.
 	// Les tables concernées sont associations, mots et adresses.
-	$requetes = array(
-		'associations' => array(
+	$requetes = [
+		'associations' => [
 			'cle_objet' => 'id_association',
 			'titre' => 'nom',
 			'complement' => '',
-			'select' => array('l1.id_association', 'l1.nom'),
-			'from' => array(
+			'select' => ['l1.id_association', 'l1.nom'],
+			'from' => [
 				'spip_associations AS l1',
 				'INNER JOIN spip_gis_liens AS l2 ON (l2.id_objet = l1.id_association AND l2.objet = "association")',
-				'INNER JOIN spip_gis AS l3 ON (l3.id_gis = l2.id_gis)'
-			),
-			'where_debut' => array(
-				'l1.nom LIKE '.sql_quote("${search}%"),
-				'l1.statut = "publie"'
-			),
-			'where_contient' => array(
-				'l1.nom LIKE '.sql_quote("%${search}%"),
-				'l1.statut = "publie"'
-			),
+				'INNER JOIN spip_gis AS l3 ON (l3.id_gis = l2.id_gis)',
+			],
+			'where_debut' => ['l1.nom LIKE ' . sql_quote("${search}%"), 'l1.statut = "publie"'],
+			'where_contient' => ['l1.nom LIKE ' . sql_quote("%${search}%"), 'l1.statut = "publie"'],
 			'groupby' => '',
-			'orderby' => array('l1.nom'),
-		),
-		'mots' => array(
+			'orderby' => ['l1.nom'],
+		],
+		'mots' => [
 			'cle_objet' => 'id_mot',
 			'titre' => 'titre',
 			'complement' => 'descriptif',
-			'select' => array('l1.id_mot', 'l1.titre', 'l1.descriptif'),
-			'from' => array(
+			'select' => ['l1.id_mot', 'l1.titre', 'l1.descriptif'],
+			'from' => [
 				'spip_mots AS l1',
 				'INNER JOIN spip_mots_liens AS l2 ON (l2.id_mot = l1.id_mot)',
 				'INNER JOIN spip_associations AS l3 ON (l3.id_association = l2.id_objet AND l2.objet="association")',
-				'INNER JOIN spip_gis_liens AS l4 ON (l3.id_association = l4.id_objet AND l4.objet="association")'
-			),
-			'where_debut' => array(
-				'l1.titre LIKE '.sql_quote("${search}%").' OR l1.descriptif LIKE '.sql_quote("${search}%"),
+				'INNER JOIN spip_gis_liens AS l4 ON (l3.id_association = l4.id_objet AND l4.objet="association")',
+			],
+			'where_debut' => [
+				'l1.titre LIKE ' . sql_quote("${search}%") . ' OR l1.descriptif LIKE ' . sql_quote("${search}%"),
 				'l3.statut = "publie"',
 				'l1.id_groupe_racine=1',
-			),
-			'where_contient' => array(
-				'l1.titre LIKE '.sql_quote("%${search}%").' OR l1.descriptif LIKE '.sql_quote("%${search}%"),
+			],
+			'where_contient' => [
+				'l1.titre LIKE ' . sql_quote("%${search}%") . ' OR l1.descriptif LIKE ' . sql_quote("%${search}%"),
 				'l3.statut = "publie"',
 				'l1.id_groupe_racine=1',
-			),
-			'groupby' => array('l1.id_mot'),
-			'orderby' => array('l1.titre'),
-		),
-		'villes' => array(
+			],
+			'groupby' => ['l1.id_mot'],
+			'orderby' => ['l1.titre'],
+		],
+		'villes' => [
 			'cle_objet' => 'id_adresse',
 			'titre' => 'ville',
 			'complement' => '',
-			'select' => array('l1.id_adresse, l1.ville'),
-			'from' => array(
+			'select' => ['l1.id_adresse, l1.ville'],
+			'from' => [
 				'spip_adresses AS l1',
 				'INNER JOIN spip_adresses_liens AS l2 ON (l2.id_adresse = l1.id_adresse)',
 				'INNER JOIN spip_associations AS l3 ON (l2.id_objet = l3.id_association AND l2.objet = "association")',
-				'INNER JOIN spip_gis_liens AS l4 ON (l4.objet = "association" AND l4.id_objet = l3.id_association)'
-			),
-			'where_debut' => array(
-				'l1.ville LIKE '.sql_quote("${search}%"),
-				'l3.statut = "publie"'
-			),
-			'where_contient' => array(
-				'l1.ville LIKE '.sql_quote("%${search}%"),
-				'l3.statut = "publie"'
-			),
-			'groupby' => array('l1.ville'),
-			'orderby' => array('l1.ville'),
-		),
-	);
+				'INNER JOIN spip_gis_liens AS l4 ON (l4.objet = "association" AND l4.id_objet = l3.id_association)',
+			],
+			'where_debut' => ['l1.ville LIKE ' . sql_quote("${search}%"), 'l3.statut = "publie"'],
+			'where_contient' => ['l1.ville LIKE ' . sql_quote("%${search}%"), 'l3.statut = "publie"'],
+			'groupby' => ['l1.ville'],
+			'orderby' => ['l1.ville'],
+		],
+	];
 
 	foreach ($requetes as $objet => $desc) {
 		$from = implode(' ', $desc['from']);
@@ -120,14 +108,15 @@ function selecteurs_atlas_fulltext() {
 			foreach ($rows as $res) {
 				$id_objet = $res[$desc['cle_objet']];
 				$label = filtrer_entites($res[$desc['titre']]);
-				if ($desc['complement']) {
+				if ($desc['complement'] && $desc['complement'] !== '') {
 					$label .= ' ' . filtrer_entites($res[$desc['complement']]);
 				}
-				$resultats[] = array(
+				$resultats[] = [
 					'label' => $label,
-					'value' => $desc['cle_objet'] . ':' . $res[$desc['cle_objet']]
-				);
+					'value' => $desc['cle_objet'] . ':' . $id_objet,
+				];
 			}
+
 		}
 	}
 	return json_encode($resultats);
