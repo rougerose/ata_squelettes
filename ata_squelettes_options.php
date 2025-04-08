@@ -17,3 +17,14 @@ if (!defined('_SELECTEUR_GENERIQUE_ACTIVER_PUBLIC')) {
 // intertitres
 $GLOBALS['debut_intertitre'] = '<h2 class="spip">';
 $GLOBALS['fin_intertitre'] = '</h2>';
+
+// error_reporting(E_ALL ^ E_NOTICE);
+// ini_set('display_errors', 'On');
+// define('SPIP_ERREUR_REPORT', E_ALL);
+// $GLOBALS['taille_des_logs'] = 50000;
+// define('_MAX_LOG', 500000);
+// define('_LOG_FILELINE', true);
+// define('_LOG_FILTRE_GRAVITE', 8);
+// define('_DEBUG_AUTORISER', true);
+// define('_DEBUG_SLOW_QUERIES', true);
+// define('_BOUCLE_PROFILER', 5000);
