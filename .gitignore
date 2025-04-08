@@ -1,7 +1,5 @@
 .DS_Store
 .vscode
+
 node_modules/
-.yarnrc
-yarn.*
-yarn-error.log
-*.diff
+vendor/

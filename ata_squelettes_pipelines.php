@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('_ECRIRE_INC_VERSION')) {
-  return;
+	return;
 }
 
 function ata_squelettes_recuperer_fond($flux) {
@@ -12,7 +12,7 @@ function ata_squelettes_recuperer_fond($flux) {
 	return $flux;
 }
 
-function ata_squelettes_jqueryui_plugins($scripts){
-   $scripts[] = "jquery.ui.autocomplete";
-   return $scripts;
+function ata_squelettes_jqueryui_plugins($scripts) {
+	$scripts[] = 'jquery.ui.autocomplete';
+	return $scripts;
 }
