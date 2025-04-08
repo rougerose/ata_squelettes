@@ -77,7 +77,6 @@
 // SETTINGS
 @import "../../node_modules/inuitcss/settings/settings.core";
 @import "settings/lib-hamburgers";
-@import "settings/ata-host";
 @import "settings/ata-global";
 @import "settings/ata-colors";
 
@@ -95,7 +94,6 @@
 @import "../../node_modules/inuitcss/generic/generic.reset";
 @import "../../node_modules/inuitcss/generic/generic.shared";
 
-
 // ELEMENTS
 @import "elements/webfonts";
 @import "../../node_modules/inuitcss/elements/elements.page";
@@ -104,7 +102,6 @@
 // @import "node_modules/inuitcss/elements/elements.headings";
 @import "../../node_modules/inuitcss/elements/elements.images";
 // @import "node_modules/inuitcss/elements/elements.tables";
-
 
 // OBJECTS
 // Uncomment and add to this section as necessary.
@@ -135,7 +132,7 @@
 
 // mp : map
 @import "modules/mp-Map";
-@import "modules/mp-SearchBox/mp-SearchBox";
+@import "modules/mp-Searchbox/mp-SearchBox";
 @import "modules/mp-SearchResultsList";
 @import "modules/mp-Tabs";
 @import "modules/mp-Autocomplete";
@@ -166,8 +163,6 @@
 @import "modules/cms_spip-admin";
 
 // COMPONENTS
-
-
 
 // UTILITIES
 @import "../../node_modules/inuitcss/utilities/utilities.clearfix";
