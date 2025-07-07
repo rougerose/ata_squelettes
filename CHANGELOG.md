@@ -15,3 +15,17 @@
 ### Changed
 
 - mise à jour de rollupjs
+
+## 1.0.17 - 2025-07-07
+
+### Changed
+
+- centrer la carte sur l'ensemble des points disponibles pour avoir une vue sur France + Outre-mer.
+
+### Fixed
+
+- supprimer fichier de compilation host.js
+
+### Added
+
+- ajout ecs et rector
