@@ -13,7 +13,7 @@
 	<necessite nom="zcore" compatibilite="[2.8.7;]" />
 	<necessite nom="ata_associations" compatibilite="[1.0.0;]" />
 	<necessite nom="compositions" compatibilite="[3.8.1;]" />
-	<necessite nom="selecteurgenerique" compatibilite="[1.1.14;]" />
+	<necessite nom="selecteurgenerique" compatibilite="[1.1.14;1.1.*]" />
 	<necessite nom="menus" compatibilite="[1.7.26;]" />
 	<necessite nom="pages" compatibilite="[1.5.3;]" />
     <necessite nom="jqueryui"/>
